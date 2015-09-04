@@ -1,0 +1,151 @@
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Les algorithmes}\label{section:1}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    \centering{
+      \includegraphics[width=7cm]{fig/Algorithm-sheldon.png}
+      \textit{``I believe I've isolated the algorithm for making friends.''}
+      \small{
+        \hfill Sheldon Cooper, 
+        \hfill in \textit{The Big Band Theory}, Season 2, Episode 13
+      }
+    }
+  \end{columns}
+  
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%% 
+
+\subsection{Introduction}
+\begin{frame}
+  \frametitle{Pourquoi faire appel à des algorithmes ?}
+  Pour automatiser des tâches
+  
+  Exemples :
+  \begin{itemize}
+  \item Métier à tisser\\
+  \item Méthode de calcul à la main d'une division\\
+  \item Recette de cuisine\\
+  \item ...\\
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%% 
+
+\begin{frame}
+  \frametitle{Qu'est-ce qu'un algorithme ?}
+  \begin{alertblock}{Définition}
+    Un algorithme est un ensemble 
+    ordonné d'instructions simples
+    permettant de résoudre un problème.
+  \end{alertblock}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%% 
+
+\begin{frame}
+\frametitle{Remarques}
+  \begin{block}{Un algorithme nécessite :}
+    \begin{itemize}
+    \item Des objets sur lesquels travailler,\\
+    \item Un langage non ambigu,\\
+    \item Des spécifications (description de l'algorithme).\\
+    \end{itemize}
+  \end{block}
+  
+  \begin{block}{}
+    Il n'existe généralement pas un unique algorithme pour traiter un problème.
+  \end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Historique}
+  \begin{description}
+\item[3ème siècle avant JC] \textit{Livre VII des Eléments d'Euclide}
+ \begin{columns}[T]
+    \column{8cm}
+Détermination du plus grand diviseur commun entre deux nombres :
+PGCD(12,8)=4\\
+
+ \column{4cm}
+    \centering{
+      \includegraphics[width=4cm]{fig/Euclide.jpg}
+}
+\end{columns}
+\item[8ème siècle après JC] \textbf{\textit{Al-Khawarizmi}} : Méthodes de résolution d'équations.
+Son nom est à l'origine du mot "algorithme".
+\end{description}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Construction d'un algorithme}
+
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections,currentsubsection]
+    \column{7cm}
+    \centering{
+      \includegraphics[width=7cm]{fig/lego.jpg}
+     % \textit{``I believe I've isolated the algorithm for making friends.''}
+     % \small{
+     %   \hfill Sheldon Cooper, 
+     %   \hfill in \textit{The Big Band Theory}, Season 2, Episode 13
+%     }
+    }
+  \end{columns}
+\end{frame}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Construction d'un algorithme}
+\begin{block}{Pour chaque problème, il vous est demandé de définir clairement :}
+\begin{itemize}
+\item Les éventuelles \red{données d'entrée du problème} en précisant leurs types et leur rôle,\\
+\item les éventuelles \red{données de sortie du problème} en précisant leurs types, \\
+\item les différentes \red{instructions} permettant d'obtenir les données de sorties à partir
+des données d'entrée.\\
+\end{itemize}
+\end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+\frametitle{Exemple}
+Algorithme qui détermine le prix d'entrée dans un musée (les mineurs payent moitié prix)
+\pause
+\begin{columns}[t]
+\column{6 cm}
+\begin{block}{Données}
+\begin{algorithmic}[1]
+\REQUIRE{age (entier)}\\
+\COMMENT{age du client}
+\ENSURE{tarif (décimal)}\\
+\COMMENT{prix de l'entrée}
+\end{algorithmic}
+\end{block}
+\column{5 cm}
+\pause
+
+\begin{block}{Instructions}
+\begin{algorithmic}[1]
+\IF{age < 18}
+\STATE tarif $\leftarrow$ 4
+\ELSE
+\STATE tarif $\leftarrow$ 8
+\ENDIF
+\RETURN{tarif}
+\end{algorithmic}
+\end{block}
+
+\end{columns}
+\end{frame}

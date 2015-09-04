@@ -8,6 +8,8 @@
 \usepackage{fancyvrb}
 \usepackage{tikz}
 \usepackage{framed}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \usetheme{Boadilla}
 \usecolortheme{dolphin}
 
@@ -16,6 +18,9 @@
     otherkeywords={printf,scan}}
 }
 {}
+\newcommand{\red}{\textcolor{red}}
+%\newcommand \emph
+%Default size : 12.8 cm * 9.6 cm
 
 \newenvironment<>{codeblock}[1]{%begin
   \setbeamercolor{block title}{fg=darkgray,bg=yellow}%
@@ -54,6 +59,10 @@
 \frametitle{Plan du cours n°\nb}
 \tableofcontents[hideallsubsections]
 \end{frame}
+
+%%%%%% SECTION 12
+\include{algorithmes}
+\end{document}
 
 %%%%%%%%%%%%%%%%%%%%% SECTION 1
 \section{Les algorithmes}\label{section:1}
