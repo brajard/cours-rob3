@@ -1,0 +1,142 @@
+\documentclass{beamer}
+
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{framed}
+\usetheme{Boadilla}
+\usecolortheme{dolphin}
+
+\lstnewenvironment{codeC}
+{ \lstset{language=C,
+    otherkeywords={printf,scan}}
+}
+{}
+
+\newenvironment<>{codeblock}[1]{%begin
+  \setbeamercolor{block title}{fg=darkgray,bg=yellow}%
+  \begin{block}{#1}}
+  % \begin{codeC}}
+  %  {\end{codeC}
+{  
+\end{block}}
+
+\newenvironment<>{termblock}[1]{
+    \setbeamercolor{block title}{fg=white,bg=lightgray}%
+    \begin{block}{#1}}
+%     \begin{Verbatim}}
+{%\end{Verbatim}
+\end{block}
+}
+%\newcommand{\output}[1]{
+
+%%% Paramètres du cours (à régler)
+%Numéro du cours
+\newcommand{\nb}{1}
+
+\title[Cours n°\nb]{Cours n°\nb - Algorithmes et premiers pas en C}
+\author[]{julien.brajard@upmc.fr}
+\institute[Polytech' UPMC]{Polytech' UPMC}
+\date{28 Septembre 2015}
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%% SLIDES DE TITRE
+\begin{frame}
+\titlepage
+\centering{
+\url{http://australe.upmc.fr} (onglet EPU-C5-IGE Info Gen)}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Plan du cours n°\nb}
+\tableofcontents[hideallsubsections]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Les algorithmes}\label{section:1}
+\begin{frame}
+\begin{columns}
+        \column{4.8cm}
+            \tableofcontents[currentsection]
+        \column{7cm}
+        \centering{
+            \includegraphics[width=7cm]{fig/Algorithm-sheldon.png}
+            
+                 \textit{ I believe I've isolateblblblblblblsblbslbslbsl
+            sblbslblsblsblblsblbs
+            lbslblbslsb d the algorithm for making friends.}
+     
+            
+            \small{
+            \hfill Sheldon Cooper, 
+            
+            \hfill in \textit{The Big Band Theory}, Season 2, Episode 13
+            }
+}
+
+    \end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+\subsection{Introduction}
+    \begin{frame}
+    \frametitle{Pourquoi faire appel à des algorithmes ?}
+    Pour automatiser des tâches
+    
+    Exemples :
+    \begin{itemize}
+    \item Métier à tisser\\
+    \item Méthode de calcul à la main d'une division\\
+    \item Recette de cuisine\\
+    \item ...\\
+    \end{itemize}
+    \end{frame}
+ 
+ %%%%%%%%%%%%%%%%%
+ 
+    \begin{frame}
+    \frametitle{Qu'est-ce qu'un algorithme ?}
+    \begin{block}{Définition}
+    Un algorithme est un ensemble 
+    ordonné d'instructions simples
+permettant de résoudre un problème.
+    \end{block}
+    \end{frame}
+    
+ %%%%%%%%%%%%%%%%%%
+ \subsection{Construction d'un algorithme}
+%%%%%%%%%%%%%%%%%%%    
+\section{La machine de Turing}
+%%%%%%%%%%%%%%%%%%%%
+ 
+  
+\begin{frame}[fragile]
+\frametitle{Un peu d'histoire...}
+\begin{codeblock}{Test}
+\begin{codeC}
+for (int i = 0 ; i < n ; i ++) {
+    //a comment
+    printf("%d",i);
+    }
+\end{codeC}
+\end{codeblock}
+
+\begin{termblock}{test 2}
+\lstset{escapeinside={§§}}
+\begin{lstlisting}
+§\textbf{>>}§./a.out
+§\color{darkgray}{\texttt{  Hello World}}§
+\end{lstlisting}
+\end{termblock}
+
+ \begin{block}{Bloc standard}
+blablabla
+\end{block}
+\end{frame}
+
+\end{document}
