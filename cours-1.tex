@@ -10,6 +10,12 @@
 \usepackage{framed}
 \usepackage{algorithm}
 \usepackage{algorithmic}
+
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes.arrows}
+\usetikzlibrary{arrows}
+\usepackage{array}
+
 \usetheme{Boadilla}
 \usecolortheme{dolphin}
 
@@ -59,6 +65,10 @@
 \frametitle{Plan du cours n°\nb}
 \tableofcontents[hideallsubsections]
 \end{frame}
+
+%%%%
+
+
 
 %%%%%% SECTION 12
 \include{algorithmes}
@@ -146,6 +156,59 @@ for (int i = 0 ; i < n ; i ++) {
  \begin{block}{Bloc standard}
 blablabla
 \end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{essai}
+\begin{columns}
+\column{6cm}
+\begin{block}
+
+\begin{figure}
+\begin{tikzpicture} [
+    auto,
+    decision/.style = { diamond, draw=blue, thick, fill=blue!20,
+                        text width=5em, text badly centered,
+                        inner sep=1pt, rounded corners },
+    block/.style    = { rectangle, draw=blue, thick, 
+                        fill=blue!20, text width=10em, text centered,
+                        rounded corners, minimum height=2em },
+    line/.style     = { draw, thick, ->, shorten >=2pt },
+  ]
+   \matrix [column sep=-10mm, row sep=10mm] {
+                    & \node [text centered] (x) {$\mathbf{X}$};            & \\
+                    & \node (null1) {};                                    & \\
+                    & \node [block] (doa) {\textsf{DoAE}($\mathbf{X}$)};   & \\
+  	               \node(null3){}; & \node [decision] (uiddes)
+                        {\textsf{UID}($\hat{\mathbf{X}}$)};
+                                  & \node[text centered](tra){$\mathbf{i}$}; \\
+                  & \node [block] (track) {\textsf{DoAT}($\mathbf{x}$)}; & \\
+                    & \node [block] (pesos)
+                        {\textsf{BF}(DoA$_{\mathrm{T}}$,DoAs)};            & \\
+                    & \node [block] (filtrado)
+                        {\textsf{SF}($\mathbf{w}$,$\mathbf{x}$)};          & \\
+                    & \node [text centered] (xf) {$\hat{x}(t)$ };          & \\
+  };
+  % connect all nodes defined above
+ \begin{scope} [every path/.style=line]
+    \path (x)        --    (doa);
+    \path (doa)      --    node [near start] {DoAs} (uiddes);
+    \path (tra)      --    (uiddes);
+    \path (uiddes)   --++  (-3,0) node [near start] {no} |- (null1);
+    \path (uiddes)   --    node [near start] {DoA} (track);
+    \path (track)    --    node [near start] {DoA$_{\mathrm{T}}$} (pesos);
+    \path (pesos)    --    node [near start] {\textbf{w}} (filtrado);
+    \path (filtrado) --    (xf);
+  
+  \end{scope}
+\end{tikzpicture}
+\end{figure}
+\end{block}
+\column{3cm}
+\begin{block}{bulbul}
+\end{block}
+\end{columns}
 \end{frame}
 
 \end{document}
