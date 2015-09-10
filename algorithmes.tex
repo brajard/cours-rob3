@@ -8,9 +8,11 @@
     \column{7cm}
     \centering{
       \includegraphics[width=7cm]{fig/Algorithm-sheldon.png}
-      \textit{``I believe I've isolated the algorithm for making friends.''}
+      
+      \textit{``I believe I've isolated the algorithm for making friends.''}\\
       \small{
         \hfill Sheldon Cooper, 
+        
         \hfill in \textit{The Big Band Theory}, Season 2, Episode 13
       }
     }
@@ -150,6 +152,41 @@ Algorithme qui détermine le prix d'entrée dans un musée (les mineurs payent moit
 \end{columns}
 \end{frame}
 
+%%%%%%%%%%%%%
+
+\subsection{Structures de base d'un algorithme}
+
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections,currentsubsection]
+    \column{7cm}
+    \centering{
+      \includegraphics[width=7cm]{fig/lego.jpg}
+     % \textit{``I believe I've isolated the algorithm for making friends.''}
+     % \small{
+     %   \hfill Sheldon Cooper, 
+     %   \hfill in \textit{The Big Band Theory}, Season 2, Episode 13
+%     }
+    }
+  \end{columns}
+\end{frame}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Instructions élémentaires}
+\begin{itemize}
+\item \textbf{Opérations arithmétiques de base ($+$, $-$, $\times$, $/$, mod, ...)}\\
+\item \textbf{Affectation de valeurs (ex : $x \leftarrow 2$)}\\
+\item \textbf{Afficher, lire}\\
+\item Structures conditionnelles\\
+\item Structures répétitives\\
+\end{itemize}
+
+
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]
 \frametitle{Structures conditionnelles 1/2}
@@ -170,7 +207,7 @@ Algorithme qui détermine le prix d'entrée dans un musée (les mineurs payent moit
     node distance=1.5cm,
   ]
   \node (rac) {} ;
-  \node (condition) [decision, below of=rac] {condition} ; 
+  \node (condition) [decision, below of=rac] {\red{condition}} ; 
   \node (center) [draw,circle,  thick, inner sep=2pt,minimum size= 0pt, radius = 2pt,below of =condition]{};
   \node (false) [block, left of=center,xshift=-3mm] {Action F};
   \node (true) [block, right of=center,xshift=3mm] {Action V};
@@ -211,10 +248,79 @@ Algorithme qui détermine le prix d'entrée dans un musée (les mineurs payent moit
 
 \begin{exampleblock}{Un exemple}
 \begin{algorithmic}[0]
-\IF{age < 18}
+\IF{\red{age < 18}}
 \STATE tarif $\leftarrow$ 4
 \ELSE
 \STATE tarif $\leftarrow$ 8
+\ENDIF
+\end{algorithmic}
+\end{exampleblock}
+
+\end{columns}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Structures conditionnelles 2/2}
+\begin{columns}[t]
+\column{6cm}
+%\begin{block}
+
+\begin{figure}
+\begin{tikzpicture} [
+    auto,
+    decision/.style = { diamond, draw=blue, thick, fill=blue!20,
+                        text width=1.5cm, text badly centered,
+                        rounded corners, aspect=2 },
+    block/.style    = { rectangle, draw=blue, thick, 
+                        fill=blue!20, text width=1.5cm, text centered,
+                        rounded corners, minimum height=2em },
+    line/.style     = { draw, thick, ->, shorten >=2pt },
+    node distance=1.5cm,
+  ]
+  \node (rac) {} ;
+  \node (condition) [decision, below of=rac] {\red{condition}} ; 
+  \node (center) [draw,circle,  thick, inner sep=2pt,minimum size= 0pt, radius = 2pt,below of =condition]{};
+  %\node (false) [block, left of=center,xshift=-3mm] {Action F};
+  \node (true) [block, right of=center,xshift=3mm] {Action V};
+   \node (end) [below of=center]{};
+  % Define nodes in a matrix
+  %\matrix [column sep=5mm, row sep=10mm] {
+  %& \node (rac) {}; & \\
+  %& \node [decision] (condition) {condition}; & \\
+  %\node [block] (true) {Action V}; & & \node [block] (true) {Action V} ; \\
+ % & \node (end) {}; \\
+  %};
+  
+  % connect nodes
+  \begin{scope}[every path/.style=line]
+  \path (rac) -- (condition);
+  \path (condition) -| node [near start, above] {vraie} (true);
+ % \path (condition) -| node [near start, above] {fausse} (false);
+  \path (center) -- (end) ;
+  %\path (false) -| (end);
+  \end{scope}
+  \draw[-, thick] (true) -- (center) ;
+  \draw[-, thick] (condition) -- node [near start, left] {fausse}  (center) ;
+
+\end{tikzpicture}
+\end{figure}
+%\end{block}
+\column{5cm}
+
+\begin{block}{}
+\begin{algorithmic}[0]
+\IF{\red{condition}}
+\STATE Action V
+\ENDIF
+\end{algorithmic}
+\end{block}
+
+\begin{exampleblock}{Un exemple}
+\begin{algorithmic}[0]
+\IF{\red{age < 18}}
+\PRINT "Réduction de 50\%"
 \ENDIF
 \end{algorithmic}
 \end{exampleblock}
