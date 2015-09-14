@@ -1,0 +1,315 @@
+\documentclass{beamer}
+
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{framed}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{array}
+\usepackage{rotating}
+\usepackage{color, colortbl}
+%\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{xcolor}
+
+%\usepackage{handoutWithNotes}
+%\pgfpagesuselayout{3 on 1 with notes}[a4paper,border shrink=5mm]
+
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes.arrows}
+\usetikzlibrary{arrows}
+\usepackage{array}
+\usetheme{Boadilla}
+\usecolortheme{dolphin}
+\definecolor{BlueGreen}{cmyk}{0.85,0,0.33,0}
+\definecolor{Gray}{rgb}{0.8,0.8,0.8}
+\newcommand{\free}{\cellcolor{Gray}}
+
+\lstnewenvironment{codeC}
+{ \lstset{language=C,
+    otherkeywords={printf,scan}}
+}
+{}
+\newcommand{\red}{\textcolor{red}}
+%\newcommand \emph
+%Default size : 12.8 cm * 9.6 cm
+
+\newenvironment<>{codeblock}[1]{%begin
+  \setbeamercolor{block title}{fg=darkgray,bg=yellow}%
+  \begin{block}{#1}}
+  % \begin{codeC}}
+  %  {\end{codeC}
+{  
+\end{block}}
+
+\newenvironment<>{termblock}[1]{
+    \setbeamercolor{block title}{fg=white,bg=lightgray}%
+    \begin{block}{#1}}
+%     \begin{Verbatim}}
+{%\end{Verbatim}
+\end{block}
+}
+%\newcommand{\output}[1]{
+
+%%% Paramètres du cours (à régler)
+%Numéro du cours
+\newcommand{\nb}{1}
+
+\title[Info. Gen.]{Cours d'informatique générale}
+\author[]{julien.brajard@upmc.fr}
+\institute[Polytech' UPMC]{Polytech' UPMC}
+\date{28 Septembre 2015}
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%% SLIDES DE TITRE
+\begin{frame}
+\titlepage
+\centering{
+\url{http://australe.upmc.fr} (onglet EPU-C5-IGE Info Gen)}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Objectif du cours}
+\begin{alertblock}{}
+Le cours d'informatique général a pour objectif de vous 
+initier à l'algorithmique et aux concepts de base de 
+la programmation à travers le langage C.
+\end{alertblock}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Déroulement du cours}
+
+\begin{itemize}
+\item 9 cours de 2h,\\
+\item 6 TD de 2h,\\
+\item 10 TP de 3H (dont 5 séances réservées au projet)\\
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Planning}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\rowcolor{BlueGreen}
+Semaine & Lundi & Mardi & Vendredi \\
+\hline
+S40 - 28/09 & CM1  & \free & TD1 \\
+\hline
+S41 - 05/10 & CM2  & TP1  & \free \\
+\hline
+S42 - 12/10 & CM3  & TP2  & TD2  \\
+\hline
+S43 - 19/10 & CM4  + \textbf{CC1} & TP3  & TD3  \\
+\hline
+S44 - 26/10 & \free & \free & \free \\
+\hline
+S45 - 02/11 & CM5  & TP4  & TD4  \\
+\hline
+S46 - 09/11 & CM6   & TP5   & \textbf{Soutenance en groupes} \\
+\hline
+S47 - 16/11 & CM7  & Projet 1 & TD6  \\
+\hline
+S48 - 23/11 & CM8 + \textbf{CC2} & Projet 2 & \free \\
+\hline
+S49 - 30/11 & CM9  & Projet 3 & \free \\
+\hline
+S50 - 07/12 & \free & Projet 4 & \free \\
+\hline
+S51 - 14/12 & \free & \textbf{Soutenance} & \free \\
+\hline
+S?? - ??/?? & \multicolumn{3}{|c|}{Test du projet (facultatif)} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Evaluation}
+\begin{itemize}
+
+\item QCM en ligne à la fin des cours.\\
+\begin{itemize}
+\item à remplir en ligne sur Sakai dans les deux semaines qui suivent le cours.\\
+\end{itemize}
+
+\item Contrôle continu sur papier\\
+\begin{itemize}
+\item Contrôle de 30 min le 19/10\\
+\item Contrôle d'une heure le 23/11\\
+\end{itemize}
+
+\item Travail "maison"\\
+\begin{itemize}
+\item Travail d'une durée de 1 heure à faire entre le 02/11 et le 13/11.\\
+\end{itemize}
+
+\item Soutenance en groupes\\
+\begin{itemize}
+\item Présenté en TD le 23/10\\
+\item Soutenance en TD le 13/11\\
+\end{itemize}
+
+\item Projet de fin de semestre\\
+\begin{itemize}
+\item Une soutenance orale obligatoire le 15/12\\
+\item Un test du projet avec les volontaires (date à déterminer)\\
+\end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+%%%%%% SECTION 12
+%\include{algorithmes}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Les algorithmes}\label{section:1}
+\begin{frame}
+\begin{columns}
+        \column{4.8cm}
+            \tableofcontents[currentsection]
+        \column{7cm}
+        \centering{
+            \includegraphics[width=7cm]{fig/Algorithm-sheldon.png}
+            
+                 \textit{ I believe I've isolateblblblblblblsblbslbslbsl
+            sblbslblsblsblblsblbs
+            lbslblbslsb d the algorithm for making friends.}
+     
+            
+            \small{
+            \hfill Sheldon Cooper, 
+            
+            \hfill in \textit{The Big Band Theory}, Season 2, Episode 13
+            }
+}
+
+    \end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+\subsection{Introduction}
+    \begin{frame}
+    \frametitle{Pourquoi faire appel à des algorithmes ?}
+    Pour automatiser des tâches
+    
+    Exemples :
+    \begin{itemize}
+    \item Métier à tisser\\
+    \item Méthode de calcul à la main d'une division\\
+    \item Recette de cuisine\\
+    \item ...\\
+    \end{itemize}
+    \end{frame}
+ 
+ %%%%%%%%%%%%%%%%%
+ 
+    \begin{frame}
+    \frametitle{Qu'est-ce qu'un algorithme ?}
+    \begin{block}{Définition}
+    Un algorithme est un ensemble 
+    ordonné d'instructions simples
+permettant de résoudre un problème.
+    \end{block}
+    \end{frame}
+    
+ %%%%%%%%%%%%%%%%%%
+ \subsection{Construction d'un algorithme}
+%%%%%%%%%%%%%%%%%%%    
+\section{La machine de Turing}
+%%%%%%%%%%%%%%%%%%%%
+ 
+  
+\begin{frame}[fragile]
+\frametitle{Un peu d'histoire...}
+\begin{codeblock}{Test}
+\begin{codeC}
+for (int i = 0 ; i < n ; i ++) {
+    //a comment
+    printf("%d",i);
+    }
+\end{codeC}
+\end{codeblock}
+
+\begin{termblock}{test 2}
+\lstset{escapeinside={§§}}
+\begin{lstlisting}
+§\textbf{>>}§./a.out
+§\color{darkgray}{\texttt{  Hello World}}§
+\end{lstlisting}
+\end{termblock}
+
+ \begin{block}{Bloc standard}
+blablabla
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{essai}
+\begin{columns}
+\column{6cm}
+\begin{block}
+
+\begin{figure}
+\begin{tikzpicture} [
+    auto,
+    decision/.style = { diamond, draw=blue, thick, fill=blue!20,
+                        text width=5em, text badly centered,
+                        inner sep=1pt, rounded corners },
+    block/.style    = { rectangle, draw=blue, thick, 
+                        fill=blue!20, text width=10em, text centered,
+                        rounded corners, minimum height=2em },
+    line/.style     = { draw, thick, ->, shorten >=2pt },
+  ]
+   \matrix [column sep=-10mm, row sep=10mm] {
+                    & \node [text centered] (x) {$\mathbf{X}$};            & \\
+                    & \node (null1) {};                                    & \\
+                    & \node [block] (doa) {\textsf{DoAE}($\mathbf{X}$)};   & \\
+  	               \node(null3){}; & \node [decision] (uiddes)
+                        {\textsf{UID}($\hat{\mathbf{X}}$)};
+                                  & \node[text centered](tra){$\mathbf{i}$}; \\
+                  & \node [block] (track) {\textsf{DoAT}($\mathbf{x}$)}; & \\
+                    & \node [block] (pesos)
+                        {\textsf{BF}(DoA$_{\mathrm{T}}$,DoAs)};            & \\
+                    & \node [block] (filtrado)
+                        {\textsf{SF}($\mathbf{w}$,$\mathbf{x}$)};          & \\
+                    & \node [text centered] (xf) {$\hat{x}(t)$ };          & \\
+  };
+  % connect all nodes defined above
+ \begin{scope} [every path/.style=line]
+    \path (x)        --    (doa);
+    \path (doa)      --    node [near start] {DoAs} (uiddes);
+    \path (tra)      --    (uiddes);
+    \path (uiddes)   --++  (-3,0) node [near start] {no} |- (null1);
+    \path (uiddes)   --    node [near start] {DoA} (track);
+    \path (track)    --    node [near start] {DoA$_{\mathrm{T}}$} (pesos);
+    \path (pesos)    --    node [near start] {\textbf{w}} (filtrado);
+    \path (filtrado) --    (xf);
+  
+  \end{scope}
+\end{tikzpicture}
+\end{figure}
+\end{block}
+\column{3cm}
+\begin{block}{bulbul}
+\end{block}
+\end{columns}
+\end{frame}
+
+\end{document}
