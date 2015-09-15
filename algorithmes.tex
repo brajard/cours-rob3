@@ -327,3 +327,100 @@ Algorithme qui détermine le prix d'entrée dans un musée (les mineurs payent moit
 
 \end{columns}
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Structures à choix multiple 2/2}
+\begin{columns}[t]
+\column{6cm}
+%\begin{block}
+
+\begin{figure}
+\begin{tikzpicture} [
+    auto,
+    decision/.style = { diamond, draw=blue, thick, fill=blue!20,
+                        text width=1.5cm, text badly centered,
+                        rounded corners, aspect=2.2, scale=0.7 },
+    block/.style    = { rectangle, draw=blue, thick, 
+                        fill=blue!20, text width=2cm, text centered,
+                        rounded corners, minimum height=2em , scale=0.8},
+    line/.style     = { draw, thick, ->, shorten >=2pt },
+    node distance=1.8cm,
+  ]
+  \node (rac) {} ;
+  \node (selon) [block, below of=rac, yshift=7mm] {Selon \red{le cas}} ;
+  \node (cas1) [decision, below of=selon] {Cas 1} ;
+  \node (cas2) [decision, below of=cas1]  {Cas 2} ;
+  \node (casn) [decision, below of=cas2, yshift=-3mm] {Cas n} ;
+  \node (def)  [decision, below of=casn] {défaut} ;
+  \node (ac1) [block, right of = cas1, xshift= 11mm] {Action 1} ;
+  \node (ac2) [block, right of = cas2, xshift= 11mm] {Action 2} ;
+  \node (acn) [block, right of = casn, xshift= 11mm] {Action n} ;
+  \node (acd) [block, right of = def, xshift =11mm] {Action par défaut} ;
+  \node (ce1) [draw, circle, thick, inner sep=2pt, minimum size =0pt, radius = 2pt, right of = ac1, xshift=-3mm]{};
+  \node (ce2) [draw, circle, thick, inner sep=2pt, minimum size =0pt, radius = 2pt, right of = ac2, xshift=-3mm]{};
+  \node (cen) [draw, circle, thick, inner sep=2pt, minimum size =0pt, radius = 2pt, right of = acn, xshift=-3mm]{};
+  \node (ced) [draw, circle, thick, inner sep=2pt, minimum size =0pt, radius = 2pt, right of = acd, xshift=-3mm]{};
+  \node (center)  [draw, circle, thick, inner sep=2pt, minimum size =0pt, radius = 2pt, below of = def, yshift=11mm]{};
+  \node (out) [below of= center, yshift = 12mm]{};
+%  \node (center) [draw,circle,  thick, inner sep=2pt,minimum size= 0pt, radius = 2pt,below of =condition]{};
+ 
+
+  % connect nodes
+  \begin{scope}[every path/.style=line]
+  \path (rac) -- (selon);
+  \path (selon) -- (cas1);
+  \path (cas1) -- (cas2);
+  \path (casn) -- (def);
+  \path (cas1) -- (ac1) ;
+  \path (cas2) -- (ac2) ;
+  \path (casn) -- (acn) ;
+  \path (def) -- (acd) ;
+  \path (ced) |- (center);
+  \path (center) -- (out) ;
+
+  \end{scope}
+  \draw[-, thick] (ac1) -- (ce1) ;
+  \draw[-, thick] (ac2) -- (ce2) ;
+  \draw[-, thick] (acn) -- (cen) ;
+  \draw[-, thick] (acd) -- (ced) ;
+  \draw[-, thick] (ce1) -- (ce2) ;
+  \draw[-, thick] (ce2) -- (cen) ;
+  \draw[-, thick] (cen) -- (ced) ;
+  
+  \draw[-, thick] (def) -- (center) ;
+
+  
+\draw[dotted, -, thick] (cas2) -- (casn) ;
+\end{tikzpicture}
+\end{figure}
+%\end{block}
+\column{6cm}
+
+\begin{block}{}
+\begin{algorithmic}[0]
+\STATE{\textbf{Selon} \red{le cas}}
+\STATE \hspace{0.8em} Cas 1 : Action 1 
+\STATE \hspace{0.8em} Cas 2 : Action 2 
+\STATE \hspace{0.8em} ... 
+\STATE \hspace{0.8em} Cas n : Action n
+\STATE \hspace{0.8em} Defaut : Action par défaut
+\STATE{\textbf{Fin Selon}}
+\end{algorithmic}
+\end{block}
+
+\begin{exampleblock}{Un exemple}
+\begin{algorithmic}[0]
+\STATE{\textbf{Selon} \red{valeur de age}}
+\STATE \hspace{0.8em} Cas 1 : Action 1 
+\STATE \hspace{0.8em} Cas 2 : Action 2 
+\STATE \hspace{0.8em} ... 
+\STATE \hspace{0.8em} Cas n : Action n
+\STATE \hspace{0.8em} Defaut : Action par défaut
+\STATE{\textbf{Fin Selon}}
+\end{algorithmic}
+\end{exampleblock}
+
+\end{columns}
+\end{frame}
