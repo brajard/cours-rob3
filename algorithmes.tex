@@ -96,7 +96,7 @@ Son nom est à l'origine du mot "algorithme".
     \tableofcontents[currentsection,hideothersubsections,currentsubsection]
     \column{7cm}
     \centering{
-      \includegraphics[width=7cm]{fig/lego.jpg}
+      \includegraphics[width=4cm]{fig/construction.png}
      % \textit{``I believe I've isolated the algorithm for making friends.''}
      % \small{
      %   \hfill Sheldon Cooper, 
@@ -332,7 +332,7 @@ Algorithme qui détermine le prix d'entrée dans un musée (les mineurs payent moit
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]
-\frametitle{Structures à choix multiple 2/2}
+\frametitle{Structures à choix multiple}
 \begin{columns}[t]
 \column{6cm}
 %\begin{block}
@@ -687,3 +687,142 @@ On connaît le nombre d'itérations à l'avance.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Jeu d'essais}
+\begin{itemize}
+\item Faire fonctionner l'algorithme avec des valeurs.
+\item Traiter tous les cas possibles.
+\item En particulier les cas pouvant nécessaiter à traitement spécifique.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+\frametitle{Un exemple :}
+\framesubtitle{Calcul de la valeur absolue d'un nombre}
+\begin{exampleblock}{Données}
+\begin{algorithmic}[1]
+\REQUIRE{X (entier)}\\
+\COMMENT{nombre dont on veut calculer la valeur absolue}
+\ENSURE{Val\_abs (entier)}\\
+\COMMENT{valeur absolue de X}
+\end{algorithmic}
+\end{exampleblock}
+\begin{columns}
+\column{0.45\textwidth}
+
+\begin{exampleblock}{Instructions}
+\begin{algorithmic}[0]
+\IF{$X \geq 0$}
+\STATE Val\_abs $\leftarrow$ X
+\ELSE
+\STATE  Val\_abs $\leftarrow$ -X
+\ENDIF
+\RETURN{ Val\_abs}
+\end{algorithmic}
+\end{exampleblock}
+
+\column{0.45\textwidth}
+\pause
+\begin{exampleblock}{Jeu d'essais}
+\begin{itemize}
+\item X $\leftarrow$ un entier négatif
+\item X $\leftarrow$ un entier positif
+\item X $\leftarrow$ 0
+\end{itemize}
+\end{exampleblock}
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Examples}
+
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections,currentsubsection]
+    \column{7cm}
+    \centering{
+      %\includegraphics[width=7cm]{fig/dominos.jpg}
+     % \textit{``I believe I've isolated the algorithm for making friends.''}
+     % \small{
+     %   \hfill Sheldon Cooper, 
+     %   \hfill in \textit{The Big Band Theory}, Season 2, Episode 13
+%     }
+    }
+  \end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Exemple 1}
+Un colis est conforme si ses trois dimensions
+($L \times l \times h$ avec $h \leq l \leq L$) vérifient
+les conditions suivantes : 
+\begin{itemize}
+\item Un rectangle de 10cm $\times$ 7cm doit pouvoir s'inscrire
+dans une face du colis,\\
+\item $L + l + h \leq 100$ cm,\\
+\item $L \leq 60 cm.$\\
+\end{itemize}
+
+\begin{block}{Exercice}
+Ecrire l'algorithme permettant de savoir si un colis est conforme ou non.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple 1 -corrigé}
+\begin{block}{}
+\begin{algorithmic}[0]
+\REQUIRE{~\\L (réel),l (réel),h (réel)}
+\COMMENT{longeur,largeur,hauteur}
+\ENSURE{Pas de sortie}
+
+\IF {($L>10$ \textbf{et} $l>7$)\\ 
+\textbf{et} $L+l+h \leq 100$\\
+\textbf{et} $L \leq 60$
+}
+\PRINT "Colis conforme"
+\ENDIF
+\end{algorithmic}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple 2}
+\framesubtitle{Que fait cet algo ?}
+\begin{algorithmic}[0]
+\REQUIRE{~\\X, tableau à 2 dimension de n$\times$n réels,\\
+v, vecteur de n réels}
+\ENSURE{s, vecteur de n réels}
+\FOR{i variant de 1 à n}
+\STATE s(i) $\leftarrow$ 0
+\FOR {j variant de 1 à n}
+\STATE s(i) $\leftarrow$ S(i) + X(i,j).v(j)
+\ENDFOR
+\ENDFOR
+\RETURN{s}
+\end{algorithmic}
+\end{frame}
+
+\begin{frame}
+\frametitle{Corrigé}
+\begin{block}{Multiplication Matrice-vecteur}
+\begin{equation*}
+s = X.v
+\end{equation*}
+
+\begin{equation*}
+s_i = \sum_{j=1}^n X_{ij}.v_j
+\end{equation*}
+
+
+\end{block}
+\end{frame}
