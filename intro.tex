@@ -1,4 +1,9 @@
+\ifdefined\ishandout
+\documentclass[handout]{beamer}
+\else
 \documentclass{beamer}
+\fi
+
 
 \usepackage[frenchb]{babel}
 \usepackage[T1]{fontenc}
@@ -13,11 +18,22 @@
 \usepackage{array}
 \usepackage{rotating}
 \usepackage{color, colortbl}
-%\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{handoutWithNotes}
+
+% \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{xcolor}
 
-%\usepackage{handoutWithNotes}
-%\pgfpagesuselayout{3 on 1 with notes}[a4paper,border shrink=5mm]
+\ifdefined\ishandout
+% \pgfpagesuselayout{3 on 1 with notes}[a4paper,border shrink=5mm]
+\usecolortheme{dove}
+\else
+\usecolortheme{dolphin}
+\fi
+
+\setbeamertemplate{navigation symbols}{}
+
+% \usepackage{handoutWithNotes}
+% \pgfpagesuselayout{3 on 1 with notes}[a4paper,border shrink=5mm]
 
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary{shapes.arrows}
@@ -35,34 +51,35 @@
 }
 {}
 \newcommand{\red}{\textcolor{red}}
-%\newcommand \emph
-%Default size : 12.8 cm * 9.6 cm
+% \newcommand \emph
+% Default size : 12.8 cm * 9.6 cm
 
 \newenvironment<>{codeblock}[1]{%begin
   \setbeamercolor{block title}{fg=darkgray,bg=yellow}%
   \begin{block}{#1}}
   % \begin{codeC}}
-  %  {\end{codeC}
-{  
-\end{block}}
+  % {\end{codeC}
+  {  
+  \end{block}}
 
 \newenvironment<>{termblock}[1]{
-    \setbeamercolor{block title}{fg=white,bg=lightgray}%
-    \begin{block}{#1}}
-%     \begin{Verbatim}}
-{%\end{Verbatim}
-\end{block}
+  \setbeamercolor{block title}{fg=white,bg=lightgray}%
+  \begin{block}{#1}}
+  % \begin{Verbatim}}
+  {%\end{Verbatim}
+  \end{block}
 }
-%\newcommand{\output}[1]{
+% \newcommand{\output}[1]{
 
-%%% Paramètres du cours (à régler)
-%Numéro du cours
+%%%   Paramètres du cours (à régler)
+%   Numéro du cours
 \newcommand{\nb}{1}
 
 \title[Info. Gen.]{Cours d'informatique générale}
 \author[]{julien.brajard@upmc.fr}
 \institute[Polytech' UPMC]{Polytech' UPMC}
 \date{28 Septembre 2015}
+
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%% SLIDES DE TITRE
 \begin{frame}
@@ -169,6 +186,34 @@ S?? - ??/?? & \multicolumn{3}{|c|}{Test du projet (facultatif)} \\
 \end{itemize}
 
 
+\end{frame}
+
+\begin{frame}
+\frametitle{Plateforme d'enseignement en ligne Sakaï}
+
+\begin{figure}
+\raggedright
+\hfill \includegraphics[scale=0.05]{./fig/Sakai.png}
+\end{figure}
+
+\begin{itemize}
+\item Accessible sur~\url{http://australe.upmc.fr}.\\
+\item Connection avec votre login et mot de passe annuaire.\\
+\item Onglet \textbf{EPU-C5-IGE Info Gen}.\\
+\end{itemize}
+\begin{alertblock}{}
+Vous devez pouvoir accéder à votre e-mail dans l'annuaire de l'UPMC.
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Pourquoi utiliser cette plateforme ?}
+\begin{itemize}
+\item Documents de cours, de TD et de TP accessibles en lignes.\\
+\item Votre bulletin de sera en ligne (ou sur YPareo).\\
+\item Les QCM sont accessibles.\\
+\end{itemize}
 \end{frame}
 
 %%%%%% SECTION 12
@@ -311,5 +356,6 @@ blablabla
 \end{block}
 \end{columns}
 \end{frame}
+
 
 \end{document}

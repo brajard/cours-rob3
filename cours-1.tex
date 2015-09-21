@@ -1,4 +1,8 @@
+\ifdefined\ishandout
+\documentclass[handout]{beamer}
+\else
 \documentclass{beamer}
+\fi
 
 \usepackage[frenchb]{babel}
 \usepackage[T1]{fontenc}
@@ -12,14 +16,20 @@
 \usepackage{algorithmic}
 \usepackage{xcolor}
 \usepackage{color, colortbl}
-
+\usepackage{handoutWithNotes}
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary{shapes.arrows, chains}
 \usetikzlibrary{arrows}
 \usepackage{array}
-
 \usetheme{Boadilla}
+
+\ifdefined\ishandout
+\pgfpagesuselayout{3 on 1 with notes}[a4paper,border shrink=5mm]
+\usecolortheme{dove}
+\else
 \usecolortheme{dolphin}
+\fi
+
 
 \lstnewenvironment{codeC}
 { \lstset{language=C,
@@ -46,6 +56,8 @@
 \end{block}
 }
 %\newcommand{\output}[1]{
+\setbeamertemplate{navigation symbols}{}
+
 
 %%% Paramètres du cours (à régler)
 %Numéro du cours
@@ -73,7 +85,8 @@
 
 
 %%%%%% SECTION 12
-%\include{algorithmes}
+\include{algorithmes}
+
 \include{turing}
 \end{document}
 
