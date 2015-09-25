@@ -164,10 +164,122 @@ expressions ou variables.
 \verb|!x| & $\neq$ 0 (vrai) & 0 (faux) \\
 \hline
 \end{tabular}
-\caption{Table de vérité du non logique}
+
 
 \end{table}
 \end{columns}
 
+%\begin{columns}
+%\column{.48\textwidth}
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\bvrb|x| & \bvrb|y| & \bvrb|(x && y)| & \bvrb!(x || y)!\\
+\hline
+0 (faux) & 0 (faux) & 0 (faux) & 0 (faux) \\
+\hline
+0 (faux) & $\neq$ 0 (vrai) & 0 (faux) & $\neq$ 0 (vrai)\\
+\hline
+$\neq$ 0 (vrai) & 0 (faux)  & 0 (faux) & $\neq$ 0 (vrai)\\
+\hline
+$\neq$ 0 (vrai) & $\neq$ 0 (vrai) & $\neq$ 0 (vrai) & $\neq$ 0 (vrai) \\
+\hline
+\end{tabular}
+\end{table}
+%\end{columns}
+\end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Incrémentation/Décrémentation}
+\begin{block}{}
+Incrémenter(\bvrb|++|) ou décrémenter (\bvrb|--|) de 1 une variable.
+\end{block}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+x++ ; // x = x+1
+--y ; // y = y-1
+\end{codeC}
+\end{codeblock}
+
+\begin{itemize}
+\item Si l'opérateur est placé avant la variable (préfixe), celle-ci est incrémentée (ou décrémentée) avant son utilisation.\\
+\item Si l'opérateur est placé après la variable (postfixé), cell-ci est incrémentée (ou décrémentée) après son utilisation.\\
+\end{itemize}
+\begin{columns}
+
+\column{0.48\textwidth}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+a = 2 ;
+b = a++ ;// b=2, a=3
+\end{codeC}
+\end{codeblock}
+
+\column{0.48\textwidth}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+a = 2 ;
+b = ++a ;// a=3, b=3
+\end{codeC}
+\end{codeblock}
+
+\end{columns}
+\begin{alertblock}{}
+Utilisez l'opérateur seul pour éviter les erreurs.
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Opérateurs d'affectation élargie}
+\begin{block}{}
+Ils permettent d'alléger l'écriture des opérations de mise à jour de variable.
+\end{block}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+x += b ; // x = x + b
+x -= b ; // x = x - b
+x /= b ; // x = x / b
+x *= b ; // x = x * b
+x %= b ; // x = x % b
+x |= b ; // x = x | b
+x &= b ; // x = x & b
+x <<= b ; // x = x << b
+x >>= b ; // x = x >> b
+\end{codeC}
+\end{codeblock}
+\begin{alertblock}{}
+Attention de ne pas confondre avec l'opérateur de comparaison
+\bvrb|<=|.
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{L'opérateur conditionnel}
+\centering 
+\bvrb|£textitµexpr1§ ? £textitµexpr2§  : £textitµexpr3§ |
+\begin{block}{}
+Cet opérateur (ternaire) permet d'agir en fonction du résultat
+d'évaluation d'une expression.
+\end{block}
+On évalue \bvrb|£textitµexpr1§| :
+\begin{itemize}
+\item Si elle est vraie (donc non nulle), on évalue \bvrb|£textitµexpr2§|\\
+\item Sinon, on évalue \bvrb|£textitµexpr3§|
+\end{itemize}
+
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+int x = 5, y = 4, z ;
+z = (x>y) ? x : y ;
+\end{codeC}
+\end{codeblock}
+Si \verb|x>y|, \verb|z| prend la valeur de \verb|x|, 
+sinon celle de \verb|y|. 
 \end{frame}
