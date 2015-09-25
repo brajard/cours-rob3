@@ -1,0 +1,269 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Le langage C}\label{section:1}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    \centering{
+      \includegraphics[width=2cm]{fig/stroustrup.jpg}
+      
+      \textit{``There are only two kinds of programming languages: 
+those people always bitch about and those nobody uses.''}\\
+      \small{
+        \hfill Bjarne Stroustrup, 
+        
+        \hfill auteur du language de programmation C++.
+      }
+    }
+  \end{columns}
+  
+\end{frame}
+
+\begin{frame}
+\frametitle{Welcome to the machine}
+\framesubtitle{Qu'y-a-t'il à l'intérieur de l'ordinateur ?}
+\begin{figure}
+\centering
+\begin{tikzpicture} [
+  label/.style = { 
+    rectangle,
+    rounded corners,
+    text width = 3cm, 
+    text badly centered},
+  node distance = 5cm
+  ]
+  \node[inner sep=0pt] (carte) at (0,0)
+  {\includegraphics[scale=0.2]{./fig/carte_mere.jpg}};
+  \node (mem) [draw, ellipse, very thick, minimum width=4.9cm, minimum height=1cm, color=red] at (1.15,-2) {};
+  \node (proc) [draw, ellipse, very thick, minimum width=1.8cm, minimum height=1.8cm, color=orange] at (1,-0.3) {};
+  \node (com) [draw, ellipse, very thick, minimum width=4.5cm, minimum height=1.5cm, color=magenta] at (0.8,2.7) {};
+  \node (lcom) [label,draw=magenta,right of = com,xshift=+0.2cm] {Des communications avec "l'extérieur"};
+  \node (lproc)[label,draw=orange,right of = proc] {Une unité de traitement};
+  \node (lmem) [label,draw=red,right of = mem,xshift=-0.15cm] {De la mémoire};
+
+\draw[->,thick,red] (mem) -- (lmem);
+\draw[->,thick,orange] (proc) -- (lproc);
+\draw[->,thick,magenta] (com) -- (lcom);
+
+\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Que fait l'ordinateur ?}
+\begin{itemize}
+
+\item Un ordinateur traite de façon automatique de l'information
+\begin{itemize}
+\item Sous forme magnétique ou électrique,\\
+\item Représentation binaire (i.e. 0 et 1).\\
+\end{itemize}
+
+\item Besoin d'abstraction pour représentaiton l'information utilement.
+\begin{itemize}
+\item Entiers,\\
+\item Réels,\\
+\item Caractères,\\
+\item Mots.\\
+\end{itemize}
+
+\item Besoin d'abstraction pour représenter les traitements
+\begin{itemize}
+\item Affectations,
+\item Boucles,
+\item Opération arithmétiques,
+\item Tests.
+\end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Historique}
+\begin{description}
+\item[1969 : ] Création du système UNIX (Lab. Bell, K. Thompson et D. Ritchie). UNIX est intialement écrit en assembleur.\\
+\item[1970 : ] K. Thompson définit le langage B et réécrit UNIX dans ce langage.\\
+\item[1972 : ] D. Ritchie définit le langage C.\\
+\item[1973 : ] UNIX (version 5) est réécrit en C à 90\%\\
+\item[1989 : ] l'ANSI (American National Standard Institute) définit une norme du langage C : C ANSI.\\ 
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{Caractéristiques du C}
+\begin{itemize}
+\item Langage de programmation impérative.\\
+\item Programmation modulaire.\\
+\item Langage de bas-niveau (proche du sytème).\\
+\item Simplicité et minimalité du langage.\\
+\item Bibliothèques standards assez riches.\\
+\item Exécutable généré rapide et de petite taille.\\
+\item Langage permissif : faiblement typé (le compilateur de vérifie pas tout).\\
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Un programme en C}
+\begin{columns}
+\column{.5\textwidth}
+\begin{figure}
+\begin{tikzpicture}[
+ block/.style = { 
+    rectangle,
+    draw=black,
+    text width = 3cm, 
+    text badly centered},
+  node distance = 2cm
+  ]
+\node(code)[block,fill=yellow]{\verb|Code C|};
+\node(exec)[block,fill=lightgray,below of=code]{\verb|Exéctuable|};
+\draw[->,thick,black] (code) -- (exec);
+
+\end{tikzpicture}
+\end{figure}
+\column{.5\textwidth}
+\begin{itemize}
+\item Le \colorbox{yellow}{\texttt{Code C}} est un fichier texte (ASCII) lisible par des éditeurs de texte (emacs, gedit, vi, ...) et donc par vous.\\
+\item L'\colorbox{lightgray}{\texttt{Exécutable}} est fichier binaire directement interprétable pas le sytème (mais illisble par vous).\\
+\end{itemize}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Création d'un programme}
+\begin{enumerate}
+
+\item Écriture d'un programme dans un éditeur de texte (emacs, gedit, ...)
+\begin{itemize}
+\item Sauvegarde dans un fichier : \verb|fichier_source.c|
+\end{itemize}
+
+\item Compilation sous Linux avec \verb|gcc| (dans un terminal)
+\begin{itemize}
+\item \verb|gcc -Wall -o fichier_executable fichier_source.c|
+\end{itemize}
+
+\item Exécution comme une commande (dans un terminal)
+\begin{itemize}
+\item \Verb[commandchars=\\\{\}]|./fichier_executable\textit{ [paramètres]}|
+\end{itemize}
+
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple simple : "Hello World"}
+\begin{columns}
+\column{.5\textwidth}
+\begin{itemize}
+\item Pré en-tête (inclusion de bibliothèques, ...) commençant par \bvrb|#|
+\tikz[remember picture,baseline=-.5ex]\coordinate(lbib);
+\item Commentaire
+\tikz[remember picture,baseline=-.5ex]\coordinate(lcom);
+\item Définition du \bvrb|main| (fonction principale du programme)
+\tikz[remember picture,baseline=-.5ex]\coordinate(lmai);
+\item Accolade ouvrante \bvrb|{|
+\tikz[remember picture,baseline=-.5ex]\coordinate(laco);
+\item Bloc d'instruction : suite d'instructions entre \bvrb|{| et \bvrb|}| séparées
+par des \bvrb|;|
+\tikz[remember picture,baseline=-.5ex]\coordinate(lins);
+\item Accolade fermante \bvrb|}|
+\tikz[remember picture,baseline=-.5ex]\coordinate(lacf);
+\end{itemize}
+\column{.5\textwidth}
+\begin{codeblock}{Fichier hello.c}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+§\tikz[remember picture,baseline=-.5ex]\coordinate(bib);§#include <stdio.h>
+
+§\tikz[remember picture,baseline=-.5ex]\coordinate(com);§/* Programme principal */
+§\tikz[remember picture,baseline=-.5ex]\coordinate(mai);§int main()
+§\tikz[remember picture,baseline=-.5ex]\coordinate(aco);§{
+§\tikz[remember picture,baseline=+.5ex]\coordinate(ins);§ printf("Hello world");
+  return(0);
+§\tikz[remember picture,baseline]\coordinate(acf);§}
+\end{codeC}
+\end{codeblock}
+\end{columns}
+\begin{tikzpicture}[remember picture,overlay]
+\draw (lbib) edge[->, gray,thick] (bib);
+\draw (lcom) edge[->, gray,thick] (com);
+\draw (lmai) edge[->, gray,thick] (mai);
+\draw (laco) edge[->, gray,thick] (aco);
+\draw (lins) edge[->, gray,thick] (ins);
+\draw (lacf) edge[->, gray,thick] (acf);
+\end{tikzpicture}
+
+\begin{alertblock}{}
+\centering
+En C, une instruction se termine par un point-virgule \red{\textbf{\Large{;}}}
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple simple : "Hello World"}
+
+
+\begin{termblock}{Compilation}
+\begin{Verbatim}[commandchars=\\\{\}]
+\textbf{>>}gcc -Wall hello.c -o hello
+\end{Verbatim}
+\end{termblock}
+
+\begin{termblock}{Exécution}
+\begin{Verbatim}[commandchars=\\\{\}]
+\textbf{>>}./hello
+\end{Verbatim}
+\end{termblock}
+
+
+\begin{termblock}{Le programme affiche à l'écran}
+\begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{darkgray}{Hello world}
+\end{Verbatim}
+\end{termblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Indentation}
+\begin{itemize}
+\item La façon de présenter un programme n'a pas d'impact sur ses performances.\\
+\item Mais, indenter un programme le rend plus lisible et donc plus facile à corriger et donc à faire fonctionner.\\
+\item Indenter : décaler de quelques espaces les parties du code dans un bloc.\\
+\end{itemize}
+\begin{columns}
+\column{.47\textwidth}
+\begin{codeblock}{Avec indentation}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+#include <stdio.h>
+
+/*Programme principal*/
+int main()
+{
+  printf("Hello world");
+  return(0);
+}
+\end{codeC}
+\end{codeblock}
+
+\column{.47\textwidth}
+\begin{codeblock}{Sans indentation}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+#include <stdio.h> /*Pro
+gramme principal*/int 
+main(){printf("Hello 
+world");return(0);}
+\end{codeC}
+\end{codeblock}
+
+\end{columns}
+\end{frame}

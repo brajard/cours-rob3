@@ -1,0 +1,65 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Les commentaires }
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    \centering{
+      \includegraphics[width=6cm]{fig/code.jpg}
+      
+      \textit{Eagleson's Law: "Any code of your own that you haven't looked at for six or more months, might as well have been written by someone else."}\\
+      \small{
+        \hfill Anonyme
+      }
+    }
+  \end{columns}
+  
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les commentaires}
+\begin{itemize}
+\item Pour mettre le reste d'une ligne en commentaire, on le précède de \bvrb|//| :
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+int a ; // a est un entier
+// fin de la déclaraion des variables
+\end{codeC}
+\end{codeblock}
+\item Pour mettre tout un bloc en commentaire, on l'encadre entre \bvrb|/*| et \bvrb|*/| :
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+#include <stdio.h>
+
+/* Ce qui suit est la fonction principale de hello.c
+Elle affiche : hello world*/
+
+int main()
+{...
+\end{codeC}
+\end{codeblock}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Remarques sur les commentaires}
+\begin{block}{Pourquoi utiliser les commentaires ?}
+\begin{itemize}
+\item Maintenir le code (le modifier après une semaine, un mois,
+un an, ...)\\
+\item Travailler en équipe\\
+\item Expliquer une partie d'un algorithme\\
+\item Peut permettre le déboggage (voir cours n$^o$6)\\
+\item Générer une documentation automatique (doxygen, javadoc, ...)
+\end{itemize}
+\end{block}
+\begin{alertblock}{Attention}
+Commenter un programme fait partie du travail du programmeur (c'est-à-dire : \textbf{vous}).
+\end{alertblock}
+
+\end{frame}

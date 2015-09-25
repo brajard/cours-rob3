@@ -1,8 +1,11 @@
-cours = intro
-dependancy = 
+#cours = intro
+#dependancy = 
 
 #cours = cours-1
 #dependancy = algorithmes.tex turing.tex
+
+cours = cours-2
+dependancy = langageC.tex commentaires.tex
 
 all: online slides print
 
