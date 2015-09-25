@@ -1,0 +1,194 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Les variables}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    
+  \end{columns}
+  
+\end{frame}
+
+\begin{frame}
+\frametitle{Qu'est-ce qu'une variable ?}
+\begin{block}{}
+Emplacement destiné à recevoir des données.
+\end{block}
+\begin{block}{}
+Zone située dans la mémoire de l'ordinateur (reperée par une adresse)
+\end{block}
+Une variable :
+\begin{itemize}
+\item peut recevoir une valeur,
+\item peut être modifiée,
+\item \red{doit} être déclarée.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Déclaration de variables}
+\begin{block}{Syntaxe}
+\bvrb| £textitµtype_variable nom_variable§ ; |
+\end{block}
+\begin{itemize}
+\item Une variable est un "objet" manipulé par le programme,
+on peut également l'appeler \textit{opérande}.\\
+\item Toute variable doit être \red{typée}.\\
+\item Règles de nommage d'une variable :
+\begin{itemize}
+\item Composée de lettre, de chiffres et du caractère \verb|_| uniquement.\\
+\item Ne doit pas être un mot réservé du C.\\
+\end{itemize}
+\item Le type de la variable doit être séparée du nom de la variable par un espace.\\
+\item Une ligne de déclaration se termine par un \bvrb|;| (comme toute instruction C).\\
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemples de déclaration}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+float x ;
+short n = 10 ;
+int j,k;
+unsigned int p;
+\end{codeC}
+\end{codeblock}
+\begin{block}{Recommandations}
+\begin{itemize}
+\item Choisir des noms de variables significatifs
+(qui ont un sens) ni trop longs, ni trop courts.\\
+\item Attention à bien distinguer majuscules et minuscules.\\
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Mots réservés en C}
+\begin{block}{}
+Certains mots sont réservés au langage C, on ne peut les utiliser que
+dans un but bien défini (impossible de les utiliser pour nommer une variable par exemple).
+\end{block}
+
+\begin{table}
+\centering
+\begin{tabular}{cccc}
+        \bvrb|auto|    &     \bvrb|double|    &      \bvrb|int|      &       \bvrb|struct| \\
+         \bvrb|break|       &     \bvrb|else|      &      \bvrb|long|     &       \bvrb|switch| \\
+         \bvrb|case|        &     \bvrb|enum|      &      \bvrb|register| &       \bvrb|typedef| \\
+         \bvrb|char|        &     \bvrb|extern|    &      \bvrb|return|   &       \bvrb|union| \\
+         \bvrb|const|       &     \bvrb|float|     &      \bvrb|short|    &       \bvrb|unsigned| \\
+         \bvrb|continue|    &     \bvrb|for|       &      \bvrb|signed|   &       \bvrb|void| \\
+         \bvrb|default|     &     \bvrb|goto|      &      \bvrb|sizeof|   &       \bvrb|volatile| \\
+         \bvrb|do|          &     \bvrb|if|        &      \bvrb|static|   &       \bvrb|while| \\
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Types du langage C}
+\begin{table}
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\bvrb|char| & caractère & $\geq$8 bits \\
+\hline
+\bvrb|short| & entier court & $\geq$16 bits \\
+\hline
+\bvrb|int| & entier & $\geq$16 bits (souvent 32) \\
+\hline
+\bvrb|long| & entier long & $\geq$32 bits \\
+\hline
+\bvrb|float| & réel & 32 bits \\
+\hline
+\bvrb|double| & réel double précision & 64 bits \\
+\hline
+\bvrb|long double| & réel de longueur max & 128 bits\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{block}{}
+Les données peuvent aussi être déclarées signées (par défaut)
+ou non signées(\bvrb|unsigned|).
+\end{block}
+
+\textit{Plus de détails dans le cours 9.}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Quelques utilisations simples}
+\begin{itemize}
+\item Déclaration d'un entier
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+int n;
+\end{codeC}
+\end{codeblock}
+
+\item Affectation d'une variable
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+n = 2;
+\end{codeC}
+\end{codeblock}
+En pseudo-langage, on écrirait : $n \leftarrow 2$.\\
+
+\item Un calcul simple :
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+int p;
+p = 2*n + 1;
+\end{codeC}
+\end{codeblock}
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Affichage d'une variable}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+int n = 2 ;
+printf("n est égal à %d\n",n);
+\end{codeC}
+\end{codeblock}
+\begin{itemize}
+\item \bvrb|%d| indique qu'on affiche un entier
+\item \bvrb|\n| indique qu'on veut "afficher" un retour à la ligne.
+\item \bvrb|,n| affiche le contenu de la variable \verb|n| à la place de \verb|%d|.
+\end{itemize}
+\begin{termblock}{Résultat à l'écran}
+\begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{darkgray}{n est égal à 2}
+\end{Verbatim}
+\end{termblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lecture d'une variable}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+int n = 2 ;
+scanf("%d",&n);
+\end{codeC}
+\end{codeblock}
+\begin{itemize}
+\item \bvrb|%d| indique qu'on lit un entier,
+\item \bvrb|&n| indique qu'on affecte à la variable \verb|n| la valeur entrée au clavier.
+\end{itemize}
+\begin{alertblock}{}
+Ne pas oublier le \red{\textbf{\Large \&}}
+\end{alertblock}
+\textit{Plus de détails dans le cours 3.}
+\end{frame}

@@ -1,0 +1,173 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Opérateurs}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    
+  \end{columns}
+  
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Rappel : l'opérateur d'affectaction}
+\begin{block}{}
+L'opérateur d'affectation est le signe \bvrb|=|
+\end{block}
+\begin{columns}
+\column{0.45\textwidth}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+a = 1 ;  §\tikz[remember picture,baseline = -.5ex]\coordinate(a1);§
+x = 2 * 3 + 5 ; §\tikz[remember picture,baseline = -.5ex]\coordinate(x);§
+a = a + x ; §\tikz[remember picture,baseline = -.5ex]\coordinate(a2);§
+\end{codeC}
+\end{codeblock}
+\column{0.45\textwidth}
+\tikz[remember picture,baseline = -.5ex]\coordinate(la1);
+\verb|a| reçoit la valeur 1  ;
+
+\tikz[remember picture,baseline = -.5ex]\coordinate(lx);
+\verb|x| reçoit la valeur 11 ;
+
+\tikz[remember picture,baseline = -.5ex]\coordinate(la2);
+\verb|a| reçoit la valeur 12  ;
+
+\end{columns}
+\begin{tikzpicture}[remember picture,overlay]
+\draw (la1) edge[->, gray,thick] (a1);
+\draw (lx) edge[->, gray,thick] (x);
+\draw (la2) edge[->, gray,thick] (a2);
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les opérateurs arithmétiques}
+\begin{block}{}
+Les expressions arithmétiques sont évaluées de 
+la gauche vers la droite en tenant de 
+la préséance (priorité des opérateurs)
+\end{block}
+\begin {columns}
+\column{.4\textwidth}
+\begin{table}
+\centering
+\begin{tabular}{|r|p{3cm}|}
+\hline
+\bvrb|*| & multiplication \\
+\hline
+\bvrb|/| & division  \\
+\hline
+\bvrb|+| & addition \\
+\hline
+\bvrb|-| & soustraction \\
+\hline
+\bvrb|-| & reste de la division entière (modulo) \\
+\hline
+\end{tabular}
+\end{table}
+\column{0.55\textwidth}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+a+b*c //  a + (b*c)
+-c%d //  (-c)%d
+a*b + c%d // (a*b)+(c%d)
+-a/-b+c //  ((-a)/(-b))+c
+a/b/c //  (a/b)/c
+\end{codeC}
+\end{codeblock}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les opérateurs de comparaison}
+\begin{block}{}
+Ils permettent de comparer entre elles des expressions ou des variables
+\end{block}
+\begin{columns}
+\column{.55\textwidth}
+\begin{table}
+\centering
+\begin{tabular}{|c|p{4cm}|}
+\hline
+\bvrb|>| &  strictement supérieur à\\
+\hline
+\bvrb|>=| &   supérieur ou égal à\\
+\hline
+\bvrb|<| &  strictement inférieur à\\
+\hline
+\bvrb|<=| &  inférieur ou égal à\\
+\hline
+\bvrb|==| &  égal à\\
+\hline
+\bvrb|!=| &  différent de\\
+\hline
+\end{tabular}
+\end{table}
+
+\column{.43\textwidth}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+x = 5 ;
+y = 4 ;
+x > y ; //=1 (vrai)
+x == y ; //=0 (faux)
+\end{codeC}
+\end{codeblock}
+\end{columns}
+
+\begin{block}{}
+Le résultat de la comparaison est un entier de valeur:
+\begin{itemize}
+\item \bvrb|non nulle| si la comparaison est \red{vraie}.\\
+\item \bvrb|0| si la comparaison est \red{fausse}.\\
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les opérateurs logiques}
+\begin{block}{}
+Ils effectuent de opérations logiques (et, ou, ...) entre
+expressions ou variables.
+\end{block}
+\begin{columns}
+\column{0.4\textwidth}
+\begin{table}
+\centering
+\begin{tabular}{|c|p{3cm}|}
+\hline
+\bvrb|&&| & \textbf{et} logique \\
+\hline
+\bvrb!||! & \textbf{ou} logique \\
+\hline
+\bvrb|!| & \textbf{non} logique \\
+\hline
+\end{tabular}
+\end{table}
+\column{.55\textwidth}
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\verb|x| & 0 (faux) & $\neq$ 0 (vrai) \\
+\hline
+\verb|!x| & $\neq$ 0 (vrai) & 0 (faux) \\
+\hline
+\end{tabular}
+\caption{Table de vérité du non logique}
+
+\end{table}
+\end{columns}
+
+
+\end{frame}
