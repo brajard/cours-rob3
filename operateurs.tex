@@ -339,16 +339,44 @@ sinon celle de \verb|y|.
 \begin{frame}[fragile]
 \frametitle{Récapitulatif : les opérateurs du C}
 \begin{columns}
-\column{0.7\textwidth}
+\column{0.65\textwidth}
 \begin{table}
 \centering
 \begin{tabular}{|r|l|}
 \hline
 Unaires & \bvrb|() [] -> .| \\
 \hline
+Unaires & \bvrb|! + - ++ -- * & sizeof()| \\
+\hline
+Arithmétiques & \bvrb|* / %| \\
+\hline
+Décalages & \bvrb|<< >>| \\
+\hline
+Comparaison & \bvrb|< <= > >=| \\
+\hline
+Egalités & \bvrb|== !=|\\
+\hline
+Manip. bits & \bvrb|&| \\
+\hline
+Manip. bits & \bvrb|^| \\
+\hline
+Manip. bits & \bvrb!|! \\
+\hline
+Logiques & \bvrb|&&| \\
+\hline
+Logiques & \bvrb!||! \\
+\hline
+Conditionnel & \bvrb|? :|\\
+\hline
+Affectations & \bvrb!= += *= ^= %= &= |= <<= >>=! \\
+\hline
 \end{tabular}
 \end{table}
-\column{0.25\textwidth}
+\column{0.33\textwidth}
+\begin{itemize}
+\item Les opérateurs sur une même ligne ont même priorité.\\
+\item Les lignes sont classées dans l'ordre décroissant de priorité.\\
+\end{itemize}
 \end{columns}
 \end{frame}
 

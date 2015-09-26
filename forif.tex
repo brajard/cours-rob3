@@ -1,0 +1,191 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Structures de contrôle et répétitive}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    
+  \end{columns}
+  
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Introduction}
+\begin{block}{Pour un comportement "intelligent" du programme}
+\begin{itemize}
+\item Possibilité d'effectuer des \red{choix}, de se comporter
+différemment suivant les "circonstances" (\red{test}):
+
+Instructions \bvrb|if...else| et \bvrb|switch|\\
+\item Possibilité de \red{répéter plusieurs fois} un ensemble 
+d'instructions (\red{boucle}) :
+
+Instructions \bvrb|do...while|, \bvrb|while| et \bvrb|for|\\
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{L'instruction \bvrb|if...else|}
+\begin{block}{}
+Permet d'exprimer une prise de décision entre \red{2 choix}.
+\end{block}
+\begin{columns}
+\column{.42\textwidth}
+\begin{block}{}
+\bvrb|if (£textitµexpression§)|\\
+\bvrb|   £textitµbloc_instructions1;§|\\
+\end{block}
+\begin{block}{}
+\bvrb|if (£textitµexpression§)|\\
+\bvrb|   £textitµbloc_instructions1;§|\\
+\bvrb|else|\\
+\bvrb|   £textitµbloc_instructions2;§|\\
+\end{block}
+\column{.55\textwidth}
+\begin{itemize}
+\item \bvrb|£textitµexpression§| : expression à évaluer (vraie ou fausse)\\
+\item \bvrb|£textitµbloc_instructions1§| : bloc d'instructions, ou instruction simple
+à effectuer si \bvrb|£textitµexpression§| est \red{vraie}.\\
+\item \bvrb|£textitµbloc_instructions2§| : bloc d'instructions, ou instruction simple
+à effectuer si \bvrb|£textitµexpression§| est \red{fausse}.
+Ce bloc est optionnel.\\
+
+\end{itemize}
+\end{columns}
+\begin{block}{}
+Possibilité d'imbriquer des instructions \bvrb|if..else| dans d'autres expressions \bvrb|if..else|.
+Le \bvrb|else| se rapporte au dernier \bvrb|if| rencontré.
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{L'instruction \bvrb|if...else|}
+\framesubtitle{Exemple}
+\begin{exampleblock}{}
+\begin{algorithmic}[0]
+\IF{somme introduite = prix de la boisson}
+\STATE Delivrer boisson
+\STATE nbre\_boissons $\leftarrow$  nbre\_boissons - 1
+\ENDIF
+\end{algorithmic}
+\end{exampleblock}
+
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+
+int main()
+{
+...
+float somme = 0 ;
+...
+if (somme == prix_boisson)
+    {
+    printf("Voici votre boisson\n");
+    nb_boissons--;
+    }
+...
+}
+\end{codeC}
+\end{codeblock}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{L'instruction \bvrb|if...else|}
+\framesubtitle{Exemple}
+\begin{columns}
+\column{.48\textwidth}
+\begin{codeblock}{Max de 2 entiers}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+
+int main()
+{
+  int max, a, b;
+  printf("Entrez 2 nombres :");
+  scanf("%d %d",&a,&b);
+  if (a > b) {
+    max = a ;
+    b = 0;    
+  }
+  else {
+    max = b ;
+    a = 0 ;
+     }
+  printf("maximum : %d\n",max);
+}
+\end{codeC}
+\end{codeblock}
+\column{.48\textwidth}
+\begin{codeblock}{valeur absolue}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+
+int main()
+{
+  int val_abs, n;
+  printf("Entrez 1 nombre :");
+  scanf("%d",&n);
+  if (n > 0) {
+    val_abs = n ;
+    }
+  else {
+    val_abs = -n ;
+    }
+  printf("v. a. de %d : %d\n",
+      n,val_abs);
+}
+\end{codeC}
+\end{codeblock}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{L'instruction \bvrb|switch|}
+\begin{block}{}
+Permet d'exprimer une prise de décision à \red{choix multiple}.
+\end{block}
+\begin{columns}
+\column{.45\textwidth}
+\begin{block}{}
+\bvrb|switch (£textitµexpression§) {|\\
+\bvrb|   case £textitµconstante_1§:|\\
+\bvrb|      £textitµbloc_instructions1§|\\
+\bvrb|   ......|\\
+\bvrb|   case £textitµconstante_N§:|\\
+\bvrb|      £textitµbloc_instructionsN§|\\
+\bvrb|   default:|\\
+\bvrb|      £textitµbloc_instructions§|\\
+\bvrb|}|
+\end{block}
+\column{.55\textwidth}
+\begin{itemize}
+\item Les arguments des \bvrb|case| et \bvrb|£textitµexpression§| doivent être des
+\red{entiers}.\\
+\item Si la valeur de  \bvrb|£textitµexpression§| correspond à l'un des arguments
+de \bvrb|case|, alors le bloc d'instruction correspond est exécuté\\
+\item L'alternative \bvrb|default| est optionnelle\\
+
+\end{itemize}
+\end{columns}
+\begin{alertblock}{}
+\red{Attention}, à partir du moment où on est entré dans un \bvrb|case|,
+on execute toutes les instructions des \bvrb|case| au-dessous jusqu'à rencontrer un 
+\bvrb|break| qui nous fait sortir du \bvrb|switch|.
+\end{alertblock}
+\end{frame}
+
