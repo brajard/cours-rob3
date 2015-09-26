@@ -190,6 +190,58 @@ $\neq$ 0 (vrai) & $\neq$ 0 (vrai) & $\neq$ 0 (vrai) & $\neq$ 0 (vrai) \\
 %\end{columns}
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Traitement de bits}
+\begin{block}{}
+\begin{itemize}
+\item Ils permettent des manipulations au niveau des bits
+représentation binaire des nombres\\
+\item On ne peut les appliquer que sur des opérandes entiers
+(\bvrb|short|, \bvrb|int|, \bvrb|long|), signé ou non.\\
+\end{itemize}
+\end{block}
+\begin{columns}
+\column{.43\textwidth}
+\begin{table}
+\centering
+\begin{tabular}{|c|p{4cm}|}
+\hline
+\bvrb|&| &  ET bit à bit\\
+\hline
+\bvrb!|! &   OU inclusif bit à bit\\
+\hline
+\bvrb|^| &  OU exclusif bit à bit\\
+\hline
+\bvrb|<<| &  décalage à gauche\\
+\hline
+\bvrb|>>| &  décalage à droite\\
+\hline
+\bvrb|~| &  complément à un\\
+\hline
+\end{tabular}
+\end{table}
+
+\column{.55\textwidth}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\begin{codeC}
+int a = 5;// a=0101(binaire)
+int b = 12;//b=1100(binaire)
+int c ;
+c = a & b ; // c = ...
+c = a | b ; // c = ...
+c = a ^ b ; // c = ...
+c = a << 1 ; // c = ...
+c = b >> 1 ; // c = ...
+c = ~b ; // c = -13 
+\end{codeC}
+\end{codeblock}
+
+\end{columns}
+\end{frame}
+
+
 \begin{frame}[fragile]
 \frametitle{Incrémentation/Décrémentation}
 \begin{block}{}
@@ -283,3 +335,20 @@ z = (x>y) ? x : y ;
 Si \verb|x>y|, \verb|z| prend la valeur de \verb|x|, 
 sinon celle de \verb|y|. 
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Récapitulatif : les opérateurs du C}
+\begin{columns}
+\column{0.7\textwidth}
+\begin{table}
+\centering
+\begin{tabular}{|r|l|}
+\hline
+Unaires & \bvrb|() [] -> .| \\
+\hline
+\end{tabular}
+\end{table}
+\column{0.25\textwidth}
+\end{columns}
+\end{frame}
+
