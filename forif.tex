@@ -189,3 +189,30 @@ on execute toutes les instructions des \bvrb|case| au-dessous jusqu'à rencontrer
 \end{alertblock}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{L'instruction \bvrb|switch|}
+\framesubtitle{exemple}
+
+\begin{codeblock}{détermination du prix d'une boisson}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+...
+int selection ;
+...
+switch (selection)
+{
+  case 0 : prix_boisson = prix_jus_orange ;
+           break ;
+  case 1 : prix_boisson = prix_eau_plate ;
+           break ;
+  case 2 : prix_boisson = prix_eau_gazeuse ;
+           break ;
+  default : printf("Erreur de selection\n");
+}  
+...
+\end{codeC}
+\end{codeblock}
+
+\end{frame}
+
