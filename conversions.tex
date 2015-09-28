@@ -1,0 +1,95 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Conversion automatique et "cast"}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+      \centering{
+      \includegraphics[width=7cm]{fig/conversion.jpg}
+
+      \hfill \textit{La conversion de Saint Paul} (vers 1690)\\
+      \hfill Luca Giordano (1634-1705)\\
+      \hfill Musée des Beaux-Arts de Nancy
+    }
+  \end{columns}
+  
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Conversions implicites}
+\begin{block}{}
+Si une expression contient des opérandes de types différents (expressions mixte),
+des conversions se font automatiquement.
+\end{block}
+Hiérarchie :\\
+\bvrb|int| $\leftarrow$ \bvrb|long| $\leftarrow$ \bvrb|float| $\leftarrow$ \bvrb|double|
+
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int a ; float x;
+a*x ; // sera de type float
+a*a + a*x // sera de type float
+\end{codeC}
+\end{codeblock}
+\begin{alertblock}{}
+Les conversions se font au fur et à mesure de l'évaluation, opération par opération
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Conversions explicites (cast)}
+\begin{block}{}
+Il est possible de forcer une conversion d'une expression quelconque
+dans un type de son choix par la syntaxe :\\
+\centering{
+\bvrb|(£textitµtype§) £textitµoperande§ ;|\\
+\bvrb|(£textitµtype§) £textitµexpression§ ;|\\
+}
+\end{block}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+float x = 5.2 ;
+int a = 5 ;
+(int) x ; // = 5
+(float) a ; // = 5.0
+(int) (x+a) ; // =10
+\end{codeC}
+\end{codeblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Remarques}
+\begin{itemize}
+\item Une division entre entiers est par défaut une division entière (euclidienne).
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+float x ;
+x = 3/2 ; //x = 1
+x = ((float) a) / ((float) b) ; //x=1.5
+\end{codeC}
+\end{codeblock}
+\pause
+\item La conversion se fait avant l'affectation
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int a = 3 , b = 2 ; float x ;
+x = a / b ; // x = 1.0
+x = (float) (a/b) ; // x = 1.0
+x=  ((float a) / ((float) b) ; //x=1.5
+\end{codeC}
+\end{codeblock}
+\end{itemize}
+
+\end{frame}

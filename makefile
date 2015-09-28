@@ -5,7 +5,7 @@
 #dependancy = algorithmes.tex turing.tex
 
 cours = cours-2
-dependancy = langageC.tex commentaires.tex variables.tex operateurs.tex forif.tex
+dependancy = langageC.tex commentaires.tex variables.tex operateurs.tex forif.tex conversions.tex
 
 all: online slides print
 
