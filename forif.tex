@@ -191,7 +191,7 @@ on execute toutes les instructions des \bvrb|case| au-dessous jusqu'à rencontrer
 
 \begin{frame}[fragile]
 \frametitle{L'instruction \bvrb|switch|}
-\framesubtitle{exemple}
+\framesubtitle{exemple 1}
 
 \begin{codeblock}{détermination du prix d'une boisson}
 \lstset{escapeinside={§§}}
@@ -216,3 +216,314 @@ switch (selection)
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{L'instruction \bvrb|switch|}
+\framesubtitle{exemple 2}
+
+\begin{columns}
+\column{.48\textwidth}
+
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+
+int main()
+{
+ int a ;
+ printf("\nEntrez un nombre :");
+ scanf("%d",&a);
+ switch (a)
+ {
+  case 0 : printf("\nNul");
+           break;
+  case 1 :
+  case 2 : printf("\nPetit");
+  case 3 :
+  case 4 : printf("\nMoyen");
+           break;
+  default : printf("\Grand");
+ }
+}
+\end{codeC}
+\end{codeblock}
+
+\column{0.48\textwidth}
+\begin{termblock}{Test d'exécution}
+\lstset{escapeinside={§§}}
+\begin{lstlisting}
+§\color{darkgray}{\texttt{  Entrez un nombre :}}§1
+§\color{darkgray}{\texttt{  Petit}}§
+§\color{darkgray}{\texttt{  Moyen}}§
+
+§\color{darkgray}{\texttt{  Entrez un nombre :}}§3
+§\color{darkgray}{\texttt{  Moyen}}§
+
+§\color{darkgray}{\texttt{  Entrez un nombre :}}§852
+§\color{darkgray}{\texttt{  Grand}}§
+
+§\color{darkgray}{\texttt{  Entrez un nombre :}}§-1
+§\color{darkgray}{\texttt{  Grand}}§
+\end{lstlisting}
+\end{termblock}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{La boucle \bvrb|for|}
+\begin{block}{}
+Permet de répeter une même action un
+\red{certain nombre de fois} (généralement connu à l'avance).
+\end{block}
+
+\begin{block}{}
+\bvrb |for ( £textitµexpr1§ ; £textitµexpr2§ ; £textitµexpr3§ )|\\
+\bvrb |  £textitµbloc_instructions§|
+\end{block}
+
+\begin{itemize}
+
+\item \bvrb|£textitµexpr1§| : condition initiale fixée.\\
+\item \bvrb|£textitµexpr2§| : Test de continuation de boucle. Le \bvrb|£textitµbloc_instructions§|
+est exécuté tant que cette valeur est vraie (et s'arrête quand elle est fausse).\\
+\item \bvrb|£textitµexpr3§| : Opération effectuée à chaque tour de boucle (ex : incrémentation).\\
+\end{itemize}
+
+Toutes ces expressions sont facultatives. \bvrb|for (;;)| est une boucle infinie.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{La boucle \bvrb|for|}
+\framesubtitle{Exemple}
+\begin{columns}
+\column{.48\textwidth}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+
+int main()
+{
+ int i;
+ for (i=1 ; i <= 5 ; i++)
+ {
+  printf("\nBonjour %d fois",i);
+ }
+}
+\end{codeC}
+\end{codeblock}
+
+\column{.48\textwidth}
+\begin{termblock}{Test d'exécution}
+\lstset{escapeinside={§§}}
+\begin{lstlisting}
+§\color{darkgray}{\texttt{  Bonjour 1 fois}}§
+§\color{darkgray}{\texttt{  Bonjour 2 fois}}§
+§\color{darkgray}{\texttt{  Bonjour 3 fois}}§
+§\color{darkgray}{\texttt{  Bonjour 4 fois}}§
+§\color{darkgray}{\texttt{  Bonjour 5 fois}}§
+\end{lstlisting}
+\end{termblock}
+
+\end{columns}
+Ne pas oublier de \red{déclarer} la variable de boucle \verb|i|.
+\begin{itemize}
+\item \Verb|i=1| : On entre dans la boucle avec \verb|i| initialisé à \verb|1|.\\
+\item \Verb|i<=5| : On repasse dans la boucle tant que i reste inférieur ou égal à \verb|5|.\\
+\item \Verb|i++| : A chaque passage dans la boucle, \verb|i| est incrémenté de \verb|1|.\\
+\item A chaque passage dans la boucle, on affiche \verb|Bonjour| puis la valeur de \verb|i| puis le mot \verb|fois|.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{La boucle \bvrb|while|}
+\begin{block}{}
+Permet de répeter une même action
+\red{tant qu'une condition est vraie} (généralement connaît pas à l'avance
+le nombre d'itération effectuées par la boucle).
+\end{block}
+
+\begin{block}{}
+\bvrb |while ( £textitµcondition§ )|\\
+\bvrb |  £textitµbloc_instructions§|
+\end{block}
+
+\begin{itemize}
+
+\item \bvrb|£textitµcondition§| est évaluée, puis, si elle est vraie \bvrb |£textitµbloc_instructions§| s'exécute, puis
+on réévalue \bvrb|£textitµcondition§|,  si elle est vraie \bvrb |£textitµbloc_instructions§| s'exécute, etc.\\
+\item \bvrb|£textitµcondition§| est donc évaluée avant chaque passage dans le corps de la boucle. \red{On n'est pas sûr d'exécuter au moins une fois le bloc d'instructions.}\\
+\item Si des variables doivent changer de valeur à chaque passage de boucle, il est nécessaire des les mettre à jour dans  \bvrb |£textitµbloc_instructions§|.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{La boucle \bvrb|while|}
+\framesubtitle{Exemple}
+
+
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+...
+while(nb_boissons != 0)
+{
+ printf("Voulez-vous prendre une boissons ? ") ;
+ scanf("%d",&choix);
+ if (choix==1)
+ //Le code 1 correspond à la réponse "oui"
+ {
+  nb_boissons--;
+ }
+}
+\end{codeC}
+\end{codeblock}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{La boucle \bvrb|do...while|}
+\begin{block}{}
+Permet de répeter une même action
+\red{tant qu'une condition est vraie} (généralement connaît pas à l'avance
+le nombre d'itération effectuées par la boucle).
+\end{block}
+
+\begin{block}{}
+\bvrb |do|\\
+\bvrb |{|\\
+\bvrb |  £textitµbloc_instructions§|\\
+\bvrb |} while ( £textitµcondition§ )|\\
+\end{block}
+
+\begin{itemize}
+
+\item \bvrb |£textitµbloc_instructions§| s'exécute, puis \bvrb|£textitµcondition§| est évaluée, puis, si elle est vraie \bvrb |£textitµbloc_instructions§| s'exécute, puis
+on réévalue \bvrb|£textitµcondition§|, etc.\\
+\item \bvrb|£textitµcondition§| est donc évaluée après chaque passage dans le corps de la boucle. \red{On est sûr d'exécuter au moins une fois le bloc d'instructions.}\\
+\item Si des variables doivent changer de valeur à chaque passage de boucle, il est nécessaire des les mettre à jour dans  \bvrb |£textitµbloc_instructions§|.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{La boucle \bvrb|do...while|}
+\framesubtitle{2 exemples}
+\begin{columns}
+\column{0.6\textwidth}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int main()
+{
+ int i=1, x=20;
+ do
+ {
+  i = i*2 ;
+ } while (i<x);
+}
+\end{codeC}
+\end{codeblock}
+\column{0.35\textwidth}
+\begin{block}{A la fin de l'exécution}
+\begin{itemize}
+\item \verb|i =|
+\ifdefined\correction \only<1>{\Verb|...|}\only<2->{32}
+\else                 \only<1->{\Verb|...|}
+\fi
+\item \verb|x =|
+\ifdefined\correction \only<1>{\Verb|...|}\only<2->{20}
+\else                 \only<1->{\Verb|...|}
+\fi
+
+\end{itemize}
+\end{block}
+\end{columns}
+
+\ifdefined\correction \pause[3]
+\else \pause[2]
+\fi
+
+\begin{columns}
+\column{0.6\textwidth}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int main()
+{
+ int i=1, x=20;
+ do
+ {
+  i = i*2 ;
+  x = x/2 ;
+ } while ( (i<x) && (x>0) );
+}
+\end{codeC}
+\end{codeblock}
+\column{0.35\textwidth}
+\begin{block}{A la fin de l'exécution}
+\begin{itemize}
+\item \verb|i =|
+\ifdefined\correction \only<3>{\Verb|...|}\only<4->{8}
+\else                 \only<2->{\Verb|...|}
+\fi
+\item \verb|x =|
+\ifdefined\correction \only<3>{\Verb|...|}\only<4->{2}
+\else                 \only<2->{\Verb|...|}
+\fi
+
+
+\end{itemize}
+\end{block}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Quel type de boucle choisir ?}
+\begin{figure}
+\centering
+\begin{tikzpicture} [
+    auto,
+    block/.style    = { rectangle, draw=blue, thick, 
+                        text width=7cm, text centered,
+                        rounded corners, minimum height=2em },
+    line/.style     = { draw, thick, ->, shorten >=2pt },
+    node distance=3cm,
+  ]
+  \node (rac) [block] {Est-ce que je connais à l'avance le nombre d'itérations ?};
+  \node (fils1)[below of = rac]{};
+  \node (for) [left of = fils1] {boucle \bvrb|for|};
+  \node (right) [block, right of = fils1] 
+  {Est-ce que je veux effectuer au moins une fois les instructions avant de tester la condition d'arrêt ?};
+  \node (fils2) [below of = right]{};
+  \node (do) [left of = fils2] {boucle \bvrb|do...while|};
+  \node (while) [right of = fils2] {boucle \bvrb|while|};
+
+  
+  % connect nodes
+  \begin{scope}[every path/.style=line]
+  \path (rac) -- node [midway, left]{oui} (for);
+  \path (rac) -- node [midway, right]{non} (right);
+  \path (right) -- node [midway, left]{oui} (do);
+  \path (right) -- node [midway, right]{non} (while);
+
+  \end{scope}
+
+\end{tikzpicture}
+\end{figure}
+\end{frame}
