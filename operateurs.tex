@@ -50,7 +50,7 @@ a = a + x ; §\tikz[remember picture,baseline = -.5ex]\coordinate(a2);§
 \frametitle{Les opérateurs arithmétiques}
 \begin{block}{}
 Les expressions arithmétiques sont évaluées de 
-la gauche vers la droite en tenant de 
+la gauche vers la droite en prenant compte de 
 la préséance (priorité des opérateurs)
 \end{block}
 \begin {columns}
@@ -137,7 +137,7 @@ Le résultat de la comparaison est un entier de valeur:
 \begin{frame}[fragile]
 \frametitle{Les opérateurs logiques}
 \begin{block}{}
-Ils effectuent de opérations logiques (et, ou, ...) entre
+Ils effectuent des opérations logiques (et, ou, ...) entre
 expressions ou variables.
 \end{block}
 \begin{columns}
@@ -196,7 +196,7 @@ $\neq$ 0 (vrai) & $\neq$ 0 (vrai) & $\neq$ 0 (vrai) & $\neq$ 0 (vrai) \\
 \begin{block}{}
 \begin{itemize}
 \item Ils permettent des manipulations au niveau des bits
-représentation binaire des nombres\\
+dans la représentation binaire des nombres\\
 \item On ne peut les appliquer que sur des opérandes entiers
 (\bvrb|short|, \bvrb|int|, \bvrb|long|), signé ou non.\\
 \end{itemize}
@@ -256,7 +256,7 @@ x++ ; // x = x+1
 \end{codeblock}
 
 \begin{itemize}
-\item Si l'opérateur est placé avant la variable (préfixe), celle-ci est incrémentée (ou décrémentée) avant son utilisation.\\
+\item Si l'opérateur est placé avant la variable (préfixé), celle-ci est incrémentée (ou décrémentée) avant son utilisation.\\
 \item Si l'opérateur est placé après la variable (postfixé), cell-ci est incrémentée (ou décrémentée) après son utilisation.\\
 \end{itemize}
 \begin{columns}
