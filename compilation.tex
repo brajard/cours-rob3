@@ -1,0 +1,158 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{La compilation}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    
+  \end{columns}
+  
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                  FRAME 1                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[t,fragile]
+\frametitle{Les 4 étapes de la compilation}
+
+%%%%%%%%%%%%%% ALL SLIDES %%%%%%%%%%%%%%%%%%
+\begin{figure}[t]
+\centering
+\begin{tikzpicture} [
+  block/.style    = { rectangle, draw=blue, thick, 
+                      fill=blue!20, text width=1.8cm, text centered,
+                      rounded corners, minimum height=2em },
+ ablock/.style    = { rectangle, draw=red, thick, 
+                      fill=red!20, text width=1.8cm, text centered,
+                      rounded corners, minimum height=2em },
+ line/.style     = { draw, very thick, ->, shorten >=1pt },
+ aline/.style     = { draw, color=red,very thick, ->, shorten >=1pt },
+ label/.style    = {midway,anchor=north,yshift=-0.3cm, text width=2.4cm,text centered},
+  node distance = 2.5cm,
+]
+\node <1-> (cfile) [block] {\Verb|Bonjour.c|};
+\node <1> (ifile) [block, right of = cfile] {\Verb|Bonjour.i|};
+\node <2-> (ifile) [ablock, right of = cfile] {\Verb|Bonjour.i|};
+\node (sfile) [block, right of = ifile] {\Verb|Bonjour.s|};
+\node (ofile) [block, right of = sfile] {\Verb|Bonjour.o|};
+\node (efile) [block, right of = ofile] {\Verb|Bonjour|};
+
+\path <1> [line] (cfile) --  node[label]{preprocessing}(ifile) ;
+\path <2-> [aline] (cfile) --  node[label]{preprocessing}(ifile) ;
+\path[line] (ifile) -- node[label]{compilation}(sfile) ;
+\path[line] (sfile) -- node[label]{assemblage}(ofile) ;
+\path[line] (ofile) -- node[label]{édition des liens}(efile) ;
+
+\end{tikzpicture}
+\end{figure}
+%%%%%%%%%%%%%% SLIDE 1 %%%%%%%%%%%%%%%%%%
+\begin{onlyenv}<1>
+\vspace{-0.9cm}
+\begin{columns}[t]
+\column{.33\textwidth}
+\begin{codeblock}{\Verb|bonjour.c|\hfill\tikz[remember picture,baseline=-.5ex] \coordinate(b1);}
+\vspace{-.3cm}
+\tikz[remember picture,baseline=0ex] (tab) {X};
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+
+int main () {
+ // Affiche "bonjour"
+ printf("bonjour\n");
+}
+\end{codeC}
+\end{codeblock}
+
+\column{.38\textwidth}
+\begin{termblock}{\tikz[remember picture,baseline=-.5ex] \coordinate(b2);\Verb|Terminal|}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+§\textbf{>>}§gcc Bonjour.c -o Bonjour
+\end{lstlisting}
+\centering{\tikz[remember picture,baseline=-0.5ex] \coordinate(b2_south);}
+\vspace{-.6cm}
+\end{termblock}
+\vspace{0.8cm}
+\begin{block}{}
+%\centering{\tikz[remember picture,baseline=-.5ex] \coordinate(b3);}\\
+Fichier Exécutable \Verb|Bonjour|
+\end{block}
+\end{columns}
+
+\begin{alertblock}{}
+Par défaut \Verb|gcc| effectue les 4 étapes.
+\end{alertblock}
+
+\begin{tikzpicture}[remember picture,overlay]
+\draw (b1) edge[->, very thick,shorten >=10pt, shorten <=10pt] (b2);
+\draw ($(b2_south)+(0,0.6)$) edge[->, very thick,shorten >=10pt, shorten <=10pt] ++(0,-1.6);
+
+\end{tikzpicture}
+
+\end{onlyenv}
+
+
+%%%%%%%%%%%%%% SLIDE 2 %%%%%%%%%%%%%%%%%%
+\begin{onlyenv}<2>
+\vspace{-0.9cm}
+\begin{columns}[t]
+\column{.33\textwidth}
+\begin{codeblock}{\Verb|bonjour.c|\hfill\tikz[remember picture,baseline=-.5ex] \coordinate(b1_2);}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+
+int main () {
+ // Affiche "bonjour"
+ printf("bonjour\n");
+}
+\end{codeC}
+\end{codeblock}
+
+\column{.6\textwidth}
+\begin{termblock}{\tikz[remember picture,baseline=-.5ex] \coordinate(b2_2);\Verb|Terminal|}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+§\textbf{>>}§gcc -S Bonjour.c -o Bonjour
+\end{lstlisting}
+\centering{\tikz[remember picture,baseline=-0.5ex] \coordinate(b2_2_south);}
+\vspace{-.6cm}
+\end{termblock}
+\vspace{0.2cm}
+\begin{codeblock}{\Verb|bonjour.i|}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+(...) extern int printf 
+ (__const char *__restrict__format, _);
+(...)
+# 1 "bonjour.c"
+int main () {
+ printf("bonjour\n");
+}
+\end{codeC}
+\end{codeblock}
+\end{columns}
+
+\begin{tikzpicture}[remember picture,overlay]
+\draw (b1_2) edge[->, very thick,shorten >=3pt, shorten <=2pt] (b2_2);
+\draw ($(b2_2_south)+(0,0.6)$) edge[->, very thick , shorten <=10pt] ++(0,-0.7);
+
+\end{tikzpicture}
+
+\end{onlyenv}
+
+\end{frame}
