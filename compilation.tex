@@ -20,6 +20,7 @@
 \frametitle{Les 4 étapes de la compilation}
 
 %%%%%%%%%%%%%% ALL SLIDES %%%%%%%%%%%%%%%%%%
+\vspace{-0.7cm}
 \begin{figure}[t]
 \centering
 \begin{tikzpicture} [
@@ -35,21 +36,37 @@
   node distance = 2.5cm,
 ]
 \node <1-> (cfile) [block] {\Verb|Bonjour.c|};
-\node <1> (ifile) [block, right of = cfile] {\Verb|Bonjour.i|};
-\node <2-> (ifile) [ablock, right of = cfile] {\Verb|Bonjour.i|};
-\node (sfile) [block, right of = ifile] {\Verb|Bonjour.s|};
-\node (ofile) [block, right of = sfile] {\Verb|Bonjour.o|};
-\node (efile) [block, right of = ofile] {\Verb|Bonjour|};
 
-\path <1> [line] (cfile) --  node[label]{preprocessing}(ifile) ;
-\path <2-> [aline] (cfile) --  node[label]{preprocessing}(ifile) ;
-\path[line] (ifile) -- node[label]{compilation}(sfile) ;
-\path[line] (sfile) -- node[label]{assemblage}(ofile) ;
-\path[line] (ofile) -- node[label]{édition des liens}(efile) ;
+\node <1,4-> (ifile) [block, right of = cfile] {\Verb|bonjour.i|};
+\node <2-3> (ifile) [ablock, right of = cfile] {\Verb|bonjour.i|};
+
+\node <1-3,7->(sfile) [block, right of = ifile] {\Verb|bonjour.s|};
+\node <4-6> (sfile) [ablock, right of = ifile] {\Verb|bonjour.s|};
+
+\node <1-6,8-> (ofile) [block, right of = sfile] {\Verb|bonjour.o|};
+\node <7> (ofile) [ablock, right of = sfile] {\Verb|bonjour.o|};
+
+\node <1-7> (efile) [block, right of = ofile] {\Verb|bonjour|};
+\node <8> (efile) [ablock, right of = ofile] {\Verb|bonjour|};
+
+\path <1,4-> [line] (cfile) --  node[label]{preprocessing}(ifile) ;
+\path <2-3> [aline] (cfile) --  node[label]{preprocessing}(ifile) ;
+
+\path <1-3,7-> [line] (ifile) -- node[label]{compilation}(sfile) ;
+\path <4-6> [aline] (ifile) -- node[label]{compilation}(sfile) ;
+
+\path <1-6,8-> [line] (sfile) -- node[label]{assemblage}(ofile) ;
+\path <7> [aline] (sfile) -- node[label]{assemblage}(ofile) ;
+
+\path <1-7> [line] (ofile) -- node[label]{édition des liens}(efile) ;
+\path <8> [aline] (ofile) -- node[label]{édition des liens}(efile) ;
 
 \end{tikzpicture}
 \end{figure}
 %%%%%%%%%%%%%% SLIDE 1 %%%%%%%%%%%%%%%%%%
+\begin{overlayarea}{\textwidth}{5cm}
+
+
 \begin{onlyenv}<1>
 \vspace{-0.9cm}
 \begin{columns}[t]
@@ -75,7 +92,7 @@ int main () {
 \lstset{escapeinside={§§}}
 \lstset{basicstyle=\scriptsize}
 \begin{lstlisting}
-§\textbf{>>}§gcc Bonjour.c -o Bonjour
+§\textbf{>>}§gcc bonjour.c -o bonjour
 \end{lstlisting}
 \centering{\tikz[remember picture,baseline=-0.5ex] \coordinate(b2_south);}
 \vspace{-.6cm}
@@ -99,9 +116,28 @@ Par défaut \Verb|gcc| effectue les 4 étapes.
 
 \end{onlyenv}
 
-
-%%%%%%%%%%%%%% SLIDE 2 %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% SLIDE 2 %%%%%%%%%%%%%%%%%
 \begin{onlyenv}<2>
+\vspace{-0.9cm}
+
+\begin{block}{Preprocessing}
+Le préprocesseur effectue différentes opérations de substitution
+et de supression dans le code :
+\begin{itemize}
+\item Supression des commentaires (\bvrb|//| et  \bvrb|/* */|)
+qui sont utiles au programmeur, mais inutiles pour le processeur.\\
+\item Inclusion des fichier \Verb|.h| dans le fichier \Verb|.c| 
+(directive \bvrb|#include|). Ici, il permet de donner le prototype
+de la fonction \bvrb|printf| (son format).\\
+\item Traitemenet des directives de compilation qui commencent par
+un caractère \bvrb|#| (voir plus loin).\\
+\end{itemize}
+
+\end{block}
+\end{onlyenv}
+
+%%%%%%%%%%%%%% SLIDE 3 %%%%%%%%%%%%%%%%%%
+\begin{onlyenv}<3>
 \vspace{-0.9cm}
 \begin{columns}[t]
 \column{.33\textwidth}
@@ -125,7 +161,7 @@ int main () {
 \lstset{escapeinside={§§}}
 \lstset{basicstyle=\scriptsize}
 \begin{lstlisting}
-§\textbf{>>}§gcc -S Bonjour.c -o Bonjour
+§\textbf{>>}§gcc -E Bonjour.c -o Bonjour.i
 \end{lstlisting}
 \centering{\tikz[remember picture,baseline=-0.5ex] \coordinate(b2_2_south);}
 \vspace{-.6cm}
@@ -137,9 +173,9 @@ int main () {
 \lstset{basicstyle=\scriptsize}
 \begin{codeC}
 (...) extern int printf 
- (__const char *__restrict__format, _);
+ (__const char *__restrict__format, ...);
 (...)
-# 1 "bonjour.c"
+# 2 "bonjour.c" 2
 int main () {
  printf("bonjour\n");
 }
@@ -154,5 +190,231 @@ int main () {
 \end{tikzpicture}
 
 \end{onlyenv}
+
+
+%%%%%%%%%%%%%% SLIDE 4 %%%%%%%%%%%%%%%%%%
+\begin{onlyenv}<4>
+\begin{block}{La compilation}
+La compilation (au sens strict) tranforme le langage C en assembleur.
+\end{block}
+\end{onlyenv}
+
+
+
+%%%%%%%%%%%%%% SLIDE 5 %%%%%%%%%%%%%%%%%%
+\begin{onlyenv}<5>
+
+\vspace{-0.9cm}
+\begin{columns}[t]
+\column{.33\textwidth}
+\begin{codeblock}{\Verb|bonjour.c|\hfill\tikz[remember picture,baseline=-.5ex] \coordinate(b1_2);}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+
+int main () {
+ // Affiche "bonjour"
+ printf("bonjour\n");
+}
+\end{codeC}
+\end{codeblock}
+
+\column{.6\textwidth}
+\begin{termblock}{\tikz[remember picture,baseline=-.5ex] \coordinate(b2_2);\Verb|Terminal|}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+§\textbf{>>}§gcc -S Bonjour.c -o bonjour.s
+\end{lstlisting}
+\centering{\tikz[remember picture,baseline=-0.5ex] \coordinate(b2_2_south);}
+\vspace{-.6cm}
+\end{termblock}
+
+\vspace{0.2cm}
+
+\begin{codeblock}{\Verb|bonjour.s|}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+	.file	"bonjour.c"
+	.section	.rodata
+.LC0:
+	.string	"bonjour"
+(...)
+	movl	$.LC0, %edi
+	call	puts
+(...)
+	.section	.note.GNU-stack,"",@progbits
+\end{codeC}
+%$
+\end{codeblock}
+\end{columns}
+
+\begin{tikzpicture}[remember picture,overlay]
+\draw (b1_2) edge[->, very thick,shorten >=3pt, shorten <=2pt] (b2_2);
+\draw ($(b2_2_south)+(0,0.6)$) edge[->, very thick , shorten <=10pt] ++(0,-0.7);
+
+\end{tikzpicture}
+
+\end{onlyenv}
+
+
+%%%%%%%%%%%%%% SLIDE 6 %%%%%%%%%%%%%%%%%%
+\begin{onlyenv}<6>
+\vspace{-3.9cm}
+\begin{codeblock}{\Verb|bonjour.s| complet !}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+	.file	"bonjour.c"
+	.section	.rodata
+.LC0:
+	.string	"bonjour"
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB0:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	$.LC0, %edi
+	call	puts
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3"
+	.section	.note.GNU-stack,"",@progbits
+\end{codeC}
+%$
+\vspace{-0.3cm}
+\end{codeblock}
+
+\end{onlyenv}
+
+
+%%%%%%%%%%%%%% SLIDE 7 %%%%%%%%%%%%%%%%%%
+\begin{onlyenv}<7>
+
+\vspace{-0.9cm}
+\begin{block}{}
+Le code assembleur (encore lisible) est transformé
+en code machine binaire.
+\end{block}
+\begin{columns}[t]
+\column{.33\textwidth}
+\begin{codeblock}{\Verb|bonjour.s|\hfill\tikz[remember picture,baseline=-.5ex] \coordinate(b1_2);}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+	.file	"bonjour.c"
+	.section	.rodata
+.LC0:
+	.string	"bonjour"
+(...)
+	movl	$.LC0, %edi
+	call	puts
+(...)
+	.section	
+ .note.GNU-stack,"",
+ @progbits
+\end{codeC}
+%$
+\vspace{-0.3cm}
+\end{codeblock}
+
+\column{.6\textwidth}
+\begin{termblock}{\tikz[remember picture,baseline=-.5ex] \coordinate(b2_2);\Verb|Terminal|}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+§\textbf{>>}§gcc -c bonjour.s
+§\textbf{>>}§od -x bonjour.o
+\end{lstlisting}
+\centering{\tikz[remember picture,baseline=-0.5ex] \coordinate(b2_2_south);}
+\vspace{-.6cm}
+\end{termblock}
+
+\vspace{0.2cm}
+
+\begin{termblock}{\Verb|bonjour.o|}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\tiny}
+\begin{lstlisting}
+0000000 457f 464c 0102 0001 0000 0000 0000 0000
+0000020 0001 003e 0001 0000 0000 0000 0000 0000
+0000040 0000 0000 0000 0000 0128 0000 0000 0000
+...
+\end{lstlisting}
+\end{termblock}
+\end{columns}
+
+\begin{tikzpicture}[remember picture,overlay]
+\draw (b1_2) edge[->, very thick,shorten >=3pt, shorten <=2pt] (b2_2);
+\draw ($(b2_2_south)+(0,0.6)$) edge[->, very thick , shorten <=10pt] ++(0,-0.7);
+
+\end{tikzpicture}
+
+\end{onlyenv}
+
+%%%%%%%%%%%%%% SLIDE 8 %%%%%%%%%%%%%%%%%%
+\begin{onlyenv}<8>
+
+\vspace{-0.9cm}
+\begin{block}{}
+Le fichier \Verb|bonjour.o| est incomplet, il manque le code
+correspondant aux fonctions des bibliothèques (ici : la fonction
+\bvrb|printf| de la bibliothèque \Verb|stdio.h|).
+\end{block}
+\begin{columns}[t]
+\column{.33\textwidth}
+\begin{termblock}{\Verb|bonjour.o|\hfill\tikz[remember picture,baseline=-.5ex] \coordinate(b1_2);}
+\Verb|(code binaire)|
+\end{termblock}
+
+
+\column{.6\textwidth}
+\begin{termblock}{\tikz[remember picture,baseline=-.5ex] \coordinate(b2_2);\Verb|Terminal|}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+§\textbf{>>}§gcc bonjour.o -o bonjour
+\end{lstlisting}
+\centering{\tikz[remember picture,baseline=-0.5ex] \coordinate(b2_2_south);}
+\vspace{-.6cm}
+\end{termblock}
+
+\vspace{0.2cm}
+
+\begin{termblock}{\Verb|bonjour|}
+Fichier exécutable
+\end{termblock}
+
+\end{columns}
+
+\begin{tikzpicture}[remember picture,overlay]
+\draw (b1_2) edge[->, very thick,shorten >=3pt, shorten <=2pt] (b2_2);
+\draw ($(b2_2_south)+(0,0.6)$) edge[->, very thick , shorten <=10pt] ++(0,-0.7);
+
+\end{tikzpicture}
+
+
+\end{onlyenv}
+\end{overlayarea}
 
 \end{frame}
