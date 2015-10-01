@@ -35,31 +35,31 @@
  label/.style    = {midway,anchor=north,yshift=-0.3cm, text width=2.4cm,text centered},
   node distance = 2.5cm,
 ]
-\node <1-> (cfile) [block] {\Verb|Bonjour.c|};
+\node <1-|handout:1-> (cfile) [block] {\Verb|Bonjour.c|};
 
-\node <1,4-> (ifile) [block, right of = cfile] {\Verb|bonjour.i|};
-\node <2-3> (ifile) [ablock, right of = cfile] {\Verb|bonjour.i|};
+\node <1,4-|handout:1,4-> (ifile) [block, right of = cfile] {\Verb|bonjour.i|};
+\node <2-3|handout:2-3> (ifile) [ablock, right of = cfile] {\Verb|bonjour.i|};
 
-\node <1-3,7->(sfile) [block, right of = ifile] {\Verb|bonjour.s|};
-\node <4-6> (sfile) [ablock, right of = ifile] {\Verb|bonjour.s|};
+\node <1-3,7-|handout:1-3,7->(sfile) [block, right of = ifile] {\Verb|bonjour.s|};
+\node <4-6|handout:4-6> (sfile) [ablock, right of = ifile] {\Verb|bonjour.s|};
 
-\node <1-6,8-> (ofile) [block, right of = sfile] {\Verb|bonjour.o|};
-\node <7> (ofile) [ablock, right of = sfile] {\Verb|bonjour.o|};
+\node <1-6,8-|handout:1-6,8-> (ofile) [block, right of = sfile] {\Verb|bonjour.o|};
+\node <7|handout:7> (ofile) [ablock, right of = sfile] {\Verb|bonjour.o|};
 
-\node <1-7> (efile) [block, right of = ofile] {\Verb|bonjour|};
-\node <8> (efile) [ablock, right of = ofile] {\Verb|bonjour|};
+\node <1-7|handout:1-7> (efile) [block, right of = ofile] {\Verb|bonjour|};
+\node <8|handout:8> (efile) [ablock, right of = ofile] {\Verb|bonjour|};
 
-\path <1,4-> [line] (cfile) --  node[label]{preprocessing}(ifile) ;
-\path <2-3> [aline] (cfile) --  node[label]{preprocessing}(ifile) ;
+\path <1,4-|handout:1,4-> [line] (cfile) --  node[label]{preprocessing}(ifile) ;
+\path <2-3|handout:2-3> [aline] (cfile) --  node[label]{preprocessing}(ifile) ;
 
-\path <1-3,7-> [line] (ifile) -- node[label]{compilation}(sfile) ;
-\path <4-6> [aline] (ifile) -- node[label]{compilation}(sfile) ;
+\path <1-3,7-|handout:1-3,7-> [line] (ifile) -- node[label]{compilation}(sfile) ;
+\path <4-6|handout:4-6> [aline] (ifile) -- node[label]{compilation}(sfile) ;
 
-\path <1-6,8-> [line] (sfile) -- node[label]{assemblage}(ofile) ;
-\path <7> [aline] (sfile) -- node[label]{assemblage}(ofile) ;
+\path <1-6,8-|handout:1-6,8-> [line] (sfile) -- node[label]{assemblage}(ofile) ;
+\path <7|handout:7> [aline] (sfile) -- node[label]{assemblage}(ofile) ;
 
-\path <1-7> [line] (ofile) -- node[label]{édition des liens}(efile) ;
-\path <8> [aline] (ofile) -- node[label]{édition des liens}(efile) ;
+\path <1-7|handout:1-7> [line] (ofile) -- node[label]{édition des liens}(efile) ;
+\path <8|handout:8> [aline] (ofile) -- node[label]{édition des liens}(efile) ;
 
 \end{tikzpicture}
 \end{figure}
@@ -67,7 +67,7 @@
 \begin{overlayarea}{\textwidth}{5cm}
 
 
-\begin{onlyenv}<1>
+\begin{onlyenv}<1|handout:1>
 \vspace{-0.9cm}
 \begin{columns}[t]
 \column{.33\textwidth}
@@ -117,7 +117,7 @@ Par défaut \Verb|gcc| effectue les 4 étapes.
 \end{onlyenv}
 
 %%%%%%%%%%%%%% SLIDE 2 %%%%%%%%%%%%%%%%%
-\begin{onlyenv}<2>
+\begin{onlyenv}<2|handout:2>
 \vspace{-0.9cm}
 
 \begin{block}{Preprocessing}
@@ -137,7 +137,7 @@ un caractère \bvrb|#| (voir plus loin).\\
 \end{onlyenv}
 
 %%%%%%%%%%%%%% SLIDE 3 %%%%%%%%%%%%%%%%%%
-\begin{onlyenv}<3>
+\begin{onlyenv}<3|handout:3>
 \vspace{-0.9cm}
 \begin{columns}[t]
 \column{.33\textwidth}
@@ -193,7 +193,7 @@ int main () {
 
 
 %%%%%%%%%%%%%% SLIDE 4 %%%%%%%%%%%%%%%%%%
-\begin{onlyenv}<4>
+\begin{onlyenv}<4|handout:4>
 \begin{block}{La compilation}
 La compilation (au sens strict) tranforme le langage C en assembleur.
 \end{block}
@@ -202,7 +202,7 @@ La compilation (au sens strict) tranforme le langage C en assembleur.
 
 
 %%%%%%%%%%%%%% SLIDE 5 %%%%%%%%%%%%%%%%%%
-\begin{onlyenv}<5>
+\begin{onlyenv}<5|handout:5>
 
 \vspace{-0.9cm}
 \begin{columns}[t]
@@ -264,7 +264,7 @@ int main () {
 
 
 %%%%%%%%%%%%%% SLIDE 6 %%%%%%%%%%%%%%%%%%
-\begin{onlyenv}<6>
+\begin{onlyenv}<6|handout:6>
 \vspace{-3.9cm}
 \begin{codeblock}{\Verb|bonjour.s| complet !}
 \vspace{-.3cm}
@@ -305,7 +305,7 @@ main:
 
 
 %%%%%%%%%%%%%% SLIDE 7 %%%%%%%%%%%%%%%%%%
-\begin{onlyenv}<7>
+\begin{onlyenv}<7|handout:7>
 
 \vspace{-0.9cm}
 \begin{block}{}
@@ -372,7 +372,7 @@ en code machine binaire.
 \end{onlyenv}
 
 %%%%%%%%%%%%%% SLIDE 8 %%%%%%%%%%%%%%%%%%
-\begin{onlyenv}<8>
+\begin{onlyenv}<8|handout:8>
 
 \vspace{-0.9cm}
 \begin{block}{}
@@ -416,5 +416,199 @@ Fichier exécutable
 
 \end{onlyenv}
 \end{overlayarea}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                  FRAME 2                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{La directive \bvrb|\#define|}
+%\frametitle{L'instruction \bvrb|if...else|}
+
+
+\begin{itemize}
+\item Déclaration de constantes (ou d'une expression fixe quelconque) :\\
+\bvrb|#define £textitµidentificateur reste_de_la_ligne§|\\
+\item Lorsque le préprocesseur lit une ligne de ce type, il remplace
+toutes les occurences suivantes de \bvrb|£textitµidentificateur§| dans le fichier texte
+par \bvrb|£textitµreste_de_la_ligne§|\\
+\item Par convention, on écrit l'identificateur en MAJUSCULE.
+\end{itemize}
+\begin{columns}
+\column{0.3\textwidth}
+\begin{codeblock}{\Verb|exemple.c|\hfill\tikz[remember picture,baseline=-.5ex] \coordinate(lc);}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#define PI 3.14159
+
+int main()
+{
+  int x;
+  x = PI*2 ;
+}
+\end{codeC}
+\end{codeblock}
+\column{0.3\textwidth}
+
+\begin{termblock}{\tikz[remember picture,baseline=-.5ex] \coordinate(li);\Verb|Terminal|}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+§\textbf{>>}§ gcc -E exemple.c 
+  > exemple.i
+\end{lstlisting}
+\end{termblock}
+\column{0.3\textwidth}
+\begin{codeblock}{\tikz[remember picture,baseline=-.5ex] \coordinate(li);\Verb|exemple.i|}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+# 2 "exemple.c" 2
+
+int main()
+{
+  int x;
+  x = 3.14159*2 ;
+}
+\end{codeC}
+\end{codeblock}
+\end{columns}
+
+\begin{tikzpicture}[remember picture,overlay]
+\draw (lc) edge[->, very thick,shorten >=6pt, shorten <=6pt] (li);
+
+
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Conseils sur le \bvrb|\#define|}
+\begin{itemize}
+\item Il est fortement recommandé de placer les
+\bvrb|#define| au début de votre programme au même endroit
+que les \bvrb|#include|.\\
+\item Limitez l'utilisation des \bvrb|#define| à des options de
+compilation ou à des constantes valables et utilisées dans tout le
+programme.\\
+\end{itemize}
+\begin{columns}
+\column{0.4\textwidth}
+\begin{flushright}
+Placer ici les \bvrb|#define| de vos programmes.
+\tikz[remember picture,baseline=-.5ex]\coordinate(left);
+\end{flushright}
+
+\column{0.4\textwidth}
+\begin{codeblock}{}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+§\tikz[remember picture,baseline=-.5ex]\coordinate(d1);§#define PI 3.14159
+§\tikz[remember picture,baseline=-.5ex]\coordinate(d2);§#define NMAX 500
+§\tikz[remember picture,baseline=-.5ex]\coordinate(d3);§#define DEBUG_MODE
+
+int main()
+{
+...
+}
+\end{codeC}
+\end{codeblock}
+\end{columns}
+
+
+\begin{tikzpicture}[remember picture,overlay]
+\draw (left) edge[->, gray, thick,shorten >=2pt, shorten <=2pt] (d1);
+\draw (left) edge[->, gray, thick,shorten >=2pt, shorten <=2pt] (d2);
+\draw (left) edge[->, gray, thick,shorten >=2pt, shorten <=2pt] (d3);
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les directives pour le préprocesseur}
+\begin{itemize}
+\item \bvrb|#define £textitµidentificateur reste_de_la_ligne§|\\
+Remplace \bvrb|£textitµidentificateur§| par  \bvrb|£textitµreste_de_la_ligne§|
+jusqu'à la fin du programme ou jusqu'à une instruction \bvrb|#undef|.\\
+\vspace{0.5cm}
+\item \bvrb|#undef £textitµidentificateur§|\\
+Marque la fin du remplacement systématique initié par \bvrb|#define|\\
+\vspace{0.5cm}
+
+\item \bvrb|#ifdef £textitµidentificateur§ ... #endif|\\
+Inlus la partie de programme située entre \bvrb|#ifdef| et \bvrb|#endif| si
+l'identificateur a été déclaré avant dans un \bvrb|#define|. Sinon, la partie de
+programme concernée est supprimée avant compilation.\\
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple}
+
+\begin{columns}
+
+\column{.48\textwidth}
+\begin{codeblock}{\centering{\Verb|exemple.c|\tikz[remember picture,baseline=-.5ex] \coordinate(lc);}}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#define PI 3.14159
+
+int main()
+{
+  int x;
+  x = PI*2;
+#ifdef PI
+  printf("Constante PI définie");
+#endif
+  printf("x=%f",x);
+#undef PI
+#ifdef PI
+  printf("Ce printf sera supprimé
+par le préprocesseur");
+#endif
+}
+\end{codeC}
+\end{codeblock}
+
+\column{.48\textwidth}
+\begin{codeblock}{\centering{\tikz[remember picture,baseline=-.5ex] \coordinate(li);\Verb|exemple.i|}}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#2 exemple.c 2
+
+int main()
+{
+  int x;
+  x = PI*2;
+
+  printf("Constante PI définie");
+
+  printf("x=%f",x);
+
+
+
+
+
+}
+\end{codeC}
+\end{codeblock}
+
+\end{columns}
+
+\begin{tikzpicture}[remember picture,overlay]
+\draw (lc) edge[->, very thick,shorten >=6pt, shorten <=6pt] (li);
+\end{tikzpicture}
+
 
 \end{frame}
