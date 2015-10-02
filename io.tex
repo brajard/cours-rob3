@@ -1,0 +1,176 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Entrées/Sorties}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+     \centering{
+      \includegraphics[width=5cm]{fig/inout.jpg}
+}
+  \end{columns}
+  
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les entrées/sorties}
+\begin{itemize}
+\item Affichage de caractères à l'écran : \\
+\bvrb|printf(£textitµchaine_de_caracteres§,£textitµvariables§);|\\
+\vspace{0.5cm}
+\item Lecture de caractères au clavier : \\
+\bvrb|scanf(£textitµformat§,£textitµadresses§);|\\
+\vspace{0.5cm}
+\item Pour utiliser ces fonctions, il est nécessaire d'inclure au programme
+la bibliothèque \Verb|stdio.h| gérant les entrées sorties :
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+\end{codeC}
+\end{codeblock}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Comment fonctionne le \bvrb|scanf| ?}
+\begin{figure}
+\centering
+\begin{tikzpicture} [
+  auto,
+  line/.style     = { draw, thick, color=red,->, shorten >=2pt },
+  node distance = 4cm
+]
+\node[inner sep=0pt] (clavier)
+{\includegraphics[width=3cm]{./fig/clavier.png}};
+\node[inner sep=0pt,right of=clavier] (fils) 
+{\includegraphics[width=3cm]{./fig/cables.png}};
+\node[inner sep=0pt,right of=fils] (proc) 
+{\includegraphics[width=3cm]{./fig/carte_mere.jpg}};
+\node [below of = clavier,yshift = +2cm] (input) {{\Large 5}};
+\node [below of = proc, yshift  = +2cm] (mem)
+{
+  \begin{tabular}{p{0.9em}|p{0.9em}|p{0.9em}|p{0.9em}|p{0.9em}}
+    \hline
+    ... & & 5 & & ... \\
+    \hline
+    \multicolumn{2}{p{1.8em}}{} &\multicolumn{1}{p{0.9em}}{\texttt{\&n}} & \multicolumn{2}{p{1.8em}}{}  \\
+  \end{tabular}
+};
+\path [line] (input) -- (mem);
+\end{tikzpicture}
+\end{figure}
+
+\begin{columns}
+\column{0.45\textwidth}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+scanf("%d",&n);
+\end{codeC}
+\end{codeblock}
+\column{0.45\textwidth}
+La valeur 5 est affectée à la variable \Verb|n|.
+
+La case mémoire adressée par \Verb|&n| contient la 
+valeur 5
+\end{columns}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Comment fonctionne le \bvrb|printf| ?}
+\begin{figure}
+\centering
+\begin{tikzpicture} [
+  auto,
+  line/.style     = { draw, color=red, thick, ->, shorten >=2pt },
+  node distance = 4cm
+]
+\node[inner sep=0pt] (proc) 
+{\includegraphics[width=3cm]{./fig/carte_mere.jpg}};
+\node[inner sep=0pt,right of=proc] (fils) 
+{\includegraphics[width=3cm]{./fig/cables.png}};
+\node[inner sep=0pt, right of=fils] (ecran)
+{\includegraphics[width=3cm]{./fig/ecran.jpg}};
+
+\node [below of = ecran,yshift = +2cm] (output) {{\Large 5}};
+\node [below of = proc, yshift  = +2cm] (mem)
+{
+  \begin{tabular}{p{0.9em}|p{0.9em}|p{0.9em}|p{0.9em}|p{0.9em}}
+    \hline
+    ... & & 5 & & ... \\
+    \hline
+    \multicolumn{2}{p{1.8em}}{} &\multicolumn{1}{p{0.9em}}{\texttt{\&n}} & \multicolumn{2}{p{1.8em}}{}  \\
+  \end{tabular}
+};
+\path [line] (mem) -- (output);
+\end{tikzpicture}
+\end{figure}
+
+\begin{columns}
+\column{0.45\textwidth}
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+printf("%d",n);
+\end{codeC}
+\end{codeblock}
+\column{0.45\textwidth}
+Affiche la valeur de la variable \Verb|n|.
+
+La case mémoire adressée par \Verb|&n| est affiché.
+\end{columns}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les codes formats}
+\begin{table}
+\begin{tabular}{|l|l|}
+\hline
+\bvrb|%c| & Caractère \\
+\hline
+\bvrb|%d| & Caractère \\
+\hline
+\bvrb|%u| & Caractère \\
+\hline
+\bvrb|%x| ou \bvrb|%X| & Caractère \\
+\hline
+\bvrb|%o| & Caractère \\
+\hline
+\bvrb|%ld| & Caractère \\
+\hline
+\bvrb|%lu| & Caractère \\
+\hline
+\bvrb|%lx| ou \bvrb|%lX| & Caractère \\
+\hline
+\bvrb|%f| & Caractère \\
+\hline
+\bvrb|%e| ou \bvrb|%E| & Caractère \\
+\hline
+\bvrb|%lf| & Caractère \\
+\hline
+\bvrb|%le| ou \bvrb|%lE| & Caractère \\
+\hline
+\bvrb|%Lf| & Caractère \\
+\hline
+\bvrb|%Le| ou \bvrb|%LE| & Réel long double avec exposant e ou E \\
+\hline
+\bvrb|%s| & Caractère \\
+\hline
+\bvrb|%p| & Caractère \\
+\hline
+\end{tabular}
+\end{table}
+
+\end{frame}
