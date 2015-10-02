@@ -140,37 +140,231 @@ La case mémoire adressée par \Verb|&n| est affiché.
 \hline
 \bvrb|%c| & Caractère \\
 \hline
-\bvrb|%d| & Caractère \\
+\bvrb|%d| & Entier signé \\
 \hline
-\bvrb|%u| & Caractère \\
+\bvrb|%u| & Entier non signé \\
 \hline
-\bvrb|%x| ou \bvrb|%X| & Caractère \\
+\bvrb|%x| ou \bvrb|%X| & Entier en hexadécimal \\
 \hline
-\bvrb|%o| & Caractère \\
+\bvrb|%o| & Entier en octal\\
 \hline
-\bvrb|%ld| & Caractère \\
+\bvrb|%ld| & Entier long signé \\
 \hline
-\bvrb|%lu| & Caractère \\
+\bvrb|%lu| & Entier long non signé \\
 \hline
-\bvrb|%lx| ou \bvrb|%lX| & Caractère \\
+\bvrb|%lx| ou \bvrb|%lX| & Entier long en hexadécimal \\
 \hline
-\bvrb|%f| & Caractère \\
+\bvrb|%f| & Réel simple précision avec virgule flottante \\
 \hline
-\bvrb|%e| ou \bvrb|%E| & Caractère \\
+\bvrb|%e| ou \bvrb|%E| & Réel simple précision avec exposant e ou E \\
 \hline
-\bvrb|%lf| & Caractère \\
+\bvrb|%lf| & Réel double avec virgule flottante \\
 \hline
-\bvrb|%le| ou \bvrb|%lE| & Caractère \\
+\bvrb|%le| ou \bvrb|%lE| & Réel double avec exposant e ou E \\
 \hline
-\bvrb|%Lf| & Caractère \\
+\bvrb|%Lf| & Réel long double avec virgule flottante \\
 \hline
 \bvrb|%Le| ou \bvrb|%LE| & Réel long double avec exposant e ou E \\
 \hline
-\bvrb|%s| & Caractère \\
+\bvrb|%s| & Chaîne de caractères \\
 \hline
-\bvrb|%p| & Caractère \\
+\bvrb|%p| & Pointeur \\
 \hline
 \end{tabular}
 \end{table}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Compléments sur les formats}
+
+\begin{itemize}
+\item Autres formats d'affichage :\\
+\begin{description}
+\item[]\bvrb|\n| : Passage à la ligne.\\
+\item[]\bvrb|\t| : Tabulation.\\
+\item[]\bvrb|\0| : Fin de chaîne.\\
+\item[]\bvrb|\%| : Signe pourcentage.\\
+\end{description}
+\item On peut précéder les codes des réels de deux entiers : \bvrb|%n.p|
+\begin{description}
+\item[]\bvrb|n| : largeur minimale \\
+\item[]\bvrb|p| : précisions \\
+\end{description}
+\item On peut précéder les codes des entiers d'un entier :
+\begin{description}
+\item[]\bvrb|%n| : largeur minimale de n.\\
+\item[]\bvrb|%0n| : largeur minimal de n avec les blancs comblés par des zéros.\\
+\end{description}
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemples}
+
+\begin{codeblock}{}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+ int n=34 ;
+ float x = 3.1,y=1.525;
+ printf("_%d_%3d_%1d_%03d_\n",n,n,n,n);
+ printf("_%f_%3.2f_\n",x,x);
+ printf("_%f_%5.2f_%2.2f_\n",y,y,y);
+\end{codeC}
+\end{codeblock}
+\begin{termblock}{Test d'exécution}
+\lstset{escapeinside={§§}}
+\begin{Verbatim}
+_34_ 34_34_034_
+_3.100000_3.10_
+_1.525000_ 1.52_1.52_
+\end{Verbatim}
+\end{termblock}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\bvrb|scanf| : comment ça se passe ?}
+\begin{codeblock}{}
+\vspace{-0.2cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int a; float x ;
+scanf("%d %f",&a,&x);
+\end{codeC}
+\vspace{-0.2cm}
+\end{codeblock}
+\begin{enumerate}[<+->]
+\item Si le tampon est vide, le programme s'interrompt pour laisser
+l'utilisateur taper au clavier.\\
+\item Dès le la touche \Verb|Entrée| est frappée, la séquence des élements
+entrés est stockée dans une zone mémoire appelée \red{tampon}.\\
+\item La directive \bvrb|scanf| consomme la mémoire tampon en fonction
+du format indiqué et stocke les éléments convertis dans les variables :\\
+\begin{itemize}
+\item Si le tampon est vide avant que le format du \bvrb|scanf| ne soit
+entièrement converti, on retourne à l'étape 1.\\
+\item Si le format dans le \bvrb|scanf| ne correspond pas au prochain caractère de la séquence
+entrée au clavier, \red{la conversion d'interrompt et le programme continue}.\\
+\item Si la conversion est entièrement terminée, le programme continue
+mais \red{il peut rester encore des éléments dans le tampon}.\\
+\end{itemize}
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}[t,fragile]
+\frametitle{Illustration}
+\begin{columns}[t]
+\column{0.4\textwidth}
+\begin{codeblock}{}
+\vspace{-0.2cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int a; float x ;
+scanf("%d %f",&a,&x);§\tikz[remember picture,baseline=-.5ex]\coordinate(code);§
+\end{codeC}
+\vspace{-0.2cm}
+\end{codeblock}
+\vspace{0.5cm}
+\begin{visibleenv}<3->
+\begin{termblock}{au clavier : \tikz[remember picture,baseline=-.5ex]\coordinate(clav);   }
+\lstset{escapeinside={§§}}
+\begin{lstlisting}
+3 2.5 (Entrée)§\tikz[remember picture,baseline=-.5ex]\coordinate(term);§
+\end{lstlisting}
+\end{termblock}
+\vspace{0.4cm}
+\end{visibleenv}
+
+\begin{visibleenv}<6->
+
+L'espace est ignoré \tikz[remember picture,baseline=-.5ex]\coordinate(space);\\
+\red{sauf} si le format \bvrb|%c|
+(caractère) est spécifié.
+\end{visibleenv}
+
+\column{0.55\textwidth}
+\vspace{-0.5cm}
+\begin{figure}
+  % \centering
+  \begin{tikzpicture}[
+    auto,
+    remember picture,
+    node distance = 2cm,
+    fond/.style = {rectangle,draw=blue!80, rectangle, minimum width=5.5cm, minimum height = 1.5cm, fill=blue!20},
+    head/.style={regular polygon, xshift=-2.27cm,yshift=0.13cm,fill=black,rotate around = {60:(0,0)},regular polygon sides = 3, inner sep=0.05cm},
+    ]
+    \node <2->(boite1) [fond]{};
+    \node <4->(boite2) [fond,below of = boite1]{};
+    \node <5->(boite3) [fond,below of = boite2]{};
+    \node <7->(boite4) [fond,below of = boite3]{};
+    
+    \node <2->(tampon1)
+    {
+      \begin{tabular}{|p{0.35cm}|p{0.35cm}|p{0.35cm}|p{0.35cm}|p{0.1cm}|p{0.35cm}|p{0.35cm}|}
+        \multicolumn{4}{c}{tampon}& \multicolumn{1}{c}{} & \multicolumn{1}{c}{\texttt{\&a}} & \multicolumn{1}{c}{\texttt{\&x}} \\
+        \cline{1-4}\cline{6-7}
+        & & & & & & \\
+        \cline{1-4}\cline{6-7}
+      \end{tabular}
+    };
+    \node <2-> (tik1) [head] {};
+    
+    \node <4-> (tampon2) [below of = boite1]
+    {
+      \begin{tabular}{|p{0.35cm}|p{0.35cm}|p{0.35cm}|p{0.35cm}|p{0.1cm}|p{0.35cm}|p{0.35cm}|}
+        \multicolumn{4}{c}{tampon}& \multicolumn{1}{c}{} & \multicolumn{1}{c}{\texttt{\&a}} & \multicolumn{1}{c}{\texttt{\&x}} \\
+        \cline{1-4}\cline{6-7}
+        \footvrb|3| & & \footvrb|2.5| & \footvrb|\n| & & & \\
+        \cline{1-4}\cline{6-7}
+      \end{tabular}
+    };
+
+\node <4->(tik2) [below of =boite1, head] {};
+        \node  <5-> (tampon3) [below of = boite2]
+    {
+      \begin{tabular}{|p{0.35cm}|p{0.35cm}|p{0.35cm}|p{0.35cm}|p{0.1cm}|p{0.35cm}|p{0.35cm}|}
+        \multicolumn{4}{c}{tampon}& \multicolumn{1}{c}{} & \multicolumn{1}{c}{\texttt{\&a}} & \multicolumn{1}{c}{\texttt{\&x}} \\
+        \cline{1-4}\cline{6-7}
+        & \footvrb|2.5| & \footvrb|\n| & & & 3 & \\
+        \cline{1-4}\cline{6-7}
+      \end{tabular}
+    };
+    \node <5->(tik3) [below of =boite2, head] {};
+    \node <7->(tampon4) [below of = boite3]
+    {
+      \begin{tabular}{|p{0.35cm}|p{0.35cm}|p{0.35cm}|p{0.35cm}|p{0.1cm}|p{0.35cm}|p{0.35cm}|}
+        \multicolumn{4}{c}{tampon}& \multicolumn{1}{c}{} & \multicolumn{1}{c}{\texttt{\&a}} & \multicolumn{1}{c}{\texttt{\&x}} \\
+        \cline{1-4}\cline{6-7}
+        \footvrb|\n| & & & & & 3 & 2.5 \\
+        \cline{1-4}\cline{6-7}
+      \end{tabular}
+    };
+    \node <7->(tik4) [below of =boite3, head] {};
+  \end{tikzpicture}
+\end{figure}
+
+\begin{tikzpicture}[
+  remember picture,
+  overlay,
+  line/.style= {draw=red, very thick, ->},
+  ]
+  \draw <2-> [line] ($(code)+(0,0)$) -- ($(tampon1.west)+(0,-0.2)$) ;
+  \draw<3-> [line] ($(tampon1.west)+(0,-0.6)$) -- ($(clav)+(0,0)$) ;
+\draw <4-> [line] ($(term)+(0,0)$) -- ($(tampon2.west)+(0,-0.2)$) ;
+  \draw<5-> [line] ($(tampon2.west)+(0.5,-0.4)$) -- ($(tampon3.east)+(-1.6,+0.1)$) node[midway,above,sloped]{\red{\texttt{\%d}}};
+  \draw<7-> [line] ($(tampon3.west)+(1.5,-0.4)$) -- ($(tampon4.east)+(-0.6,+0.1)$) node[midway,above,sloped]{\red{\texttt{\%f}}};
+  \draw<6-> [->] ($(tampon3.west)+(0,-0.2)$) -- (space) ;
+
+\end{tikzpicture}
+
+\end{columns}
 
 \end{frame}
