@@ -368,3 +368,95 @@ L'espace est ignoré \tikz[remember picture,baseline=-.5ex]\coordinate(space);\\
 \end{columns}
 
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Faire attention}
+\begin{itemize}
+\item Les caractères peuvent rester dans le tampon (Exemple ~\ref{exemple1}).\\
+\vspace{0.4cm}
+\item Le caractère espace est pris en compte seulement dans le cas
+du formateur \bvrb|%c| (Exempl~\ref{exemple2}).\\
+\vspace{0.4cm}
+\item La conversion peut s'arrêter et ainsi des variables peuvent ne pas
+être attribuées (Exemple~\ref{exemple2}).\\
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]
+\frametitle{\label{exemple1} Exemple 1}
+\begin{codeblock}{}
+\vspace{-0.2cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int a; float x ;
+printf("Ecrire a : ");
+scanf("%d",&a);
+printf("Ecrire x :");
+scanf("%f,&x);
+printf("Fin\n");
+\end{codeC}
+\vspace{-0.2cm}
+\end{codeblock}
+\vspace{-0.5cm}
+\begin{columns}[t]
+\column{0.48\textwidth}
+\begin{termblock}{Test d'exécution}
+\lstset{escapeinside={§§}}
+\begin{Verbatim}
+Ecrire a : 32 (Entrée)
+Ecrire x : 2.1 (Entrée)
+Fin
+\end{Verbatim}
+\end{termblock}
+Ce fonctionnement est normal :
+Le 1er \bvrb|scanf| consomme l'entier \verb|32|
+et le 2ème consomme le réel \verb|2.1|.
+
+\column{0.48\textwidth}
+\begin{termblock}{Test d'exécution}
+\lstset{escapeinside={§§}}
+\begin{Verbatim}
+Ecrire a : 3 2 (Entrée)
+Ecrire x : 
+Fin
+\end{Verbatim}
+\end{termblock}
+On a séparé (par erreur) le 3 et le 2.
+Ce qui fait que le premier \bvrb|scanf| ne consomme
+que le 3. Le deuxième \bvrb|scanf| consomme le 2 sans donner la main
+à l'utilisateur.
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Solution}
+On peut écrire une petite procédure qui vide le tampon après chaque scanf.
+\begin{codeblock}{}
+\vspace{-0.2cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int a ; float x ;
+char c;
+printf("Ecrire a : ");
+scanf("%d",&a);
+do {
+  c = getchar();
+  } while (c!='\n' && c!=EOF);
+printf("Ecrire x : ";
+scanf("%f",&x);
+\end{codeC}
+\vspace{-0.2cm}
+\end{codeblock}
+
+\vspace{0.2cm}
+
+\bvrb|getchar| lit un caractère \Verb|c| dans le tampon
+tant que (\bvrb|while|) \Verb|c| est différent de \Verb|\n| ou
+\Verb|EOF| (fin du tampon).
+
+\end{frame}
+
+
