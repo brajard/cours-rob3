@@ -8,7 +8,7 @@
 #dependancy = langageC.tex commentaires.tex variables.tex operateurs.tex forif.tex conversions.tex
 
 cours = cours-3
-dependancy = compilation.tex
+dependancy = compilation.tex io.tex
 
 
 all: online slides print
@@ -18,21 +18,21 @@ slides: $(cours)_slides.pdf
 print: $(cours)_print.pdf
 
 $(cours)_online.pdf: $(cours).tex $(dependancy)
-	pdflatex $<
-	pdflatex $<
-	pdflatex $<
+	-pdflatex -interaction=nonstopmode  $<
+	-pdflatex -interaction=nonstopmode  $<
+	-pdflatex -interaction=nonstopmode  $<
 	mv $(cours).pdf $@
 
 $(cours)_slides.pdf: $(cours).tex $(dependancy)
-	pdflatex "\def\correction{1} \input{$<}" 
-	pdflatex "\def\correction{1} \input{$<}"
-	pdflatex "\def\correction{1} \input{$<}"
+	-pdflatex -interaction=nonstopmode  "\def\correction{1} \input{$<}" 
+	-pdflatex -interaction=nonstopmode  "\def\correction{1} \input{$<}"
+	-pdflatex -interaction=nonstopmode  "\def\correction{1} \input{$<}"
 	mv $(cours).pdf $@
 
 
 $(cours)_print.pdf: $(cours).tex $(dependancy)
-	pdflatex "\def\ishandout{1} \input{$<}"
-	pdflatex "\def\ishandout{1} \input{$<}"
-	pdflatex "\def\ishandout{1} \input{$<}"
+	-pdflatex -interaction=nonstopmode "\def\ishandout{1} \input{$<}"
+	-pdflatex -interaction=nonstopmode "\def\ishandout{1} \input{$<}"
+	-pdflatex -interaction=nonstopmode "\def\ishandout{1} \input{$<}"
 	mv $(cours).pdf $@
 

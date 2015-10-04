@@ -372,13 +372,13 @@ L'espace est ignoré \tikz[remember picture,baseline=-.5ex]\coordinate(space);\\
 \begin{frame}[fragile]
 \frametitle{Faire attention}
 \begin{itemize}
-\item Les caractères peuvent rester dans le tampon (Exemple ~\ref{exemple1}).\\
+\item Les caractères peuvent rester dans le tampon (Exemple~1).\\
 \vspace{0.4cm}
 \item Le caractère espace est pris en compte seulement dans le cas
-du formateur \bvrb|%c| (Exempl~\ref{exemple2}).\\
+du formateur \bvrb|%c| (Exemple~2).\\
 \vspace{0.4cm}
 \item La conversion peut s'arrêter et ainsi des variables peuvent ne pas
-être attribuées (Exemple~\ref{exemple2}).\\
+être attribuées (Exemple~3).\\
 \end{itemize}
 \end{frame}
 
@@ -458,5 +458,161 @@ tant que (\bvrb|while|) \Verb|c| est différent de \Verb|\n| ou
 \Verb|EOF| (fin du tampon).
 
 \end{frame}
+
+\begin{frame}[t,fragile]
+\frametitle{\label{exemple2} Exemple 2}
+\begin{codeblock}{}
+\vspace{-0.2cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+char c;
+scanf("%c",&c);
+\end{codeC}
+\vspace{-0.2cm}
+\end{codeblock}
+
+
+\centering{
+un espace\\
+\tikz[remember picture,baseline=-.5ex]\coordinate(sp1);
+}
+\vspace{-0.5cm}
+
+
+\begin{columns}[t]
+\column{0.48\textwidth}
+\begin{termblock}{Test d'exécution}
+\lstset{escapeinside={§§}}
+\begin{lstlisting}
+A (Entrée)
+\end{lstlisting}
+\end{termblock}
+
+La variable \verb|c| contient \verb|'A'|.
+
+\column{0.48\textwidth}
+\begin{termblock}{Test d'exécution}
+\lstset{escapeinside={§§}}
+\begin{lstlisting}
+§\tikz[remember picture,baseline=-.5ex]\coordinate(sp2);§ A (Entrée)
+\end{lstlisting}
+\end{termblock}
+La variable \verb|c| contient \verb|' '|.
+
+\end{columns}
+
+\begin{tikzpicture}[auto, remember picture, overlay]
+\draw[thick,->, shorten >= 3pt] (sp1) -- (sp2) ;
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}[t,fragile]
+\frametitle{Solution}
+\begin{codeblock}{}
+\vspace{-0.2cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+char c;
+scanf("§\tikz[remember picture,baseline=-.5ex]\coordinate(spc1);§ %c",&c);
+\end{codeC}
+\vspace{-0.2cm}
+\end{codeblock}
+\tikz[remember picture,baseline=-.5ex]\coordinate(spc2);
+L'espace indique qu'on ignore les espaces avant le caractère\\
+\vspace{0.5cm}
+\centering{
+un espace\\
+\tikz[remember picture,baseline=-.5ex]\coordinate(sp1);
+}
+\vspace{-0.5cm}
+
+
+\begin{columns}[t]
+\column{0.48\textwidth}
+\begin{termblock}{Test d'exécution}
+\lstset{escapeinside={§§}}
+\begin{lstlisting}
+A (Entrée)
+\end{lstlisting}
+\end{termblock}
+
+La variable \verb|c| contient \verb|'A'|.
+
+\column{0.48\textwidth}
+\begin{termblock}{Test d'exécution}
+\lstset{escapeinside={§§}}
+\begin{lstlisting}
+§\tikz[remember picture,baseline=-.5ex]\coordinate(sp2);§ A (Entrée)
+\end{lstlisting}
+\end{termblock}
+La variable \verb|c| contient \verb|'A'|.
+
+\end{columns}
+
+\begin{tikzpicture}[auto, remember picture, overlay]
+\draw[thick,->, shorten >= 3pt] (sp1) -- (sp2) ;
+\draw[thick,->, shorten >= 13pt] (spc1) -- (spc2) ;
+
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple 3}
+\begin{codeblock}{}
+\vspace{-0.2cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int a ; float x ;
+scanf("%d %f",&a,&x);
+\end{codeC}
+\vspace{-0.2cm}
+\end{codeblock}
+
+
+\begin{termblock}{Test d'exécution}
+\lstset{escapeinside={§§}}
+\begin{lstlisting}
+3 k (Entrée)
+\end{lstlisting}
+\end{termblock}
+
+La variable \verb|a| a bien été initialisée à 3, mais la variable
+\verb|x| n'a pas été initialisée (impossible de convertir \verb|k| en
+\bvrb|float|).
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Solution}
+\begin{codeblock}{}
+\vspace{-0.2cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int a ; float x ;
+int status ;
+status = scanf("%d %f",&a,&x);
+if (status != 2)
+  {...
+\end{codeC}
+\vspace{-0.2cm}
+\end{codeblock}
+
+
+\begin{termblock}{Test d'exécution}
+\lstset{escapeinside={§§}}
+\begin{lstlisting}
+3 k (Entrée)
+\end{lstlisting}
+\end{termblock}
+
+La variable \verb|status| sera égale à 1 (et non comme attendu
+à 2). On peut donc prévoir un traitement spécifique à l'aide
+d'une structure \bvrb|if|.
+\end{frame}
+
 
 
