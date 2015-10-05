@@ -1,0 +1,64 @@
+% !TEX encoding = IsoLatin9
+\section{Tableaux statiques}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    \centering{
+      \includegraphics[width=4cm]{fig/kelly.jpg}
+      
+      \textit{``Should array indices start at 0 or 1 ? 
+My compromise of 0.5 was rejected without, I thought, proper consideration''}\\
+      \small{
+        \hfill Stan Kelly-Bootle (1929-2014)\\
+               \hfill informaticien, auteur-compositeur}
+    }
+  \end{columns}
+  
+\end{frame}
+
+\begin{frame}
+\frametitle{Généralités}
+\begin{itemize}
+  \setlength\itemsep{1em}
+\item Un tableau est un ensemble d'éléments de même type
+désignés par un identificateur unique.\\
+\item Chaque élément est repéré par un \red{indice} précisant
+sa position au sein de l'ensemble.\\
+\item Il se déclare en même temps que les autres variables.\\
+\item Il existe deux grandes familles de tableaux : \\
+\begin{itemize}
+\item Les tableaux unidimensionnels (vecteurs)\\
+\item Les tableaux multidimensionnels (matrices)\\
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tableaux unidimensionnels}
+\begin{itemize}
+\item On doit réserver un emplacement mémoire pour un certain
+nombre d'éléments.\\
+{\centering{
+\bvrb|£textitµtype nom_tableau§[ £textitµnb_elements§ ];|\\
+}}
+\begin{itemize}
+\item \bvrb|£textitµtype§| est le type des élements du tableau \bvrb|£textitµnom_tableau§|\\
+\item \bvrb|£textitµnb_elements§| est le nombre d'éléments que contient le tableau.\\
+\end{itemize}
+
+\item Conventionnellement, \red{la première position porte le numéro 0}.
+Les indices vont donc de \verb|0| à \Verb|nb_elements-1|
+\end{itemize}
+\begin{codeblock}{}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int tab[10] ; // tab est un tableau de 10 entiers
+float zz[5] ; // zz est un tableau de 5 réels
+char y[12] ; // y est un tableau de 12 caractères
+\end{codeC}
+\end{codeblock}
+\end{frame}
