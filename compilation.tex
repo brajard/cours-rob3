@@ -35,7 +35,7 @@
  label/.style    = {midway,anchor=north,yshift=-0.3cm, text width=2.4cm,text centered},
   node distance = 2.5cm,
 ]
-\node <1-|handout:1-> (cfile) [block] {\Verb|Bonjour.c|};
+\node <1-|handout:1-> (cfile) [block] {\Verb|bonjour.c|};
 
 \node <1,4-|handout:1,4-> (ifile) [block, right of = cfile] {\Verb|bonjour.i|};
 \node <2-3|handout:2-3> (ifile) [ablock, right of = cfile] {\Verb|bonjour.i|};
@@ -100,7 +100,7 @@ int main () {
 \vspace{0.8cm}
 \begin{block}{}
 %\centering{\tikz[remember picture,baseline=-.5ex] \coordinate(b3);}\\
-Fichier Exécutable \Verb|Bonjour|
+Fichier Exécutable \Verb|bonjour|
 \end{block}
 \end{columns}
 
@@ -129,7 +129,7 @@ qui sont utiles au programmeur, mais inutiles pour le processeur.\\
 \item Inclusion des fichier \Verb|.h| dans le fichier \Verb|.c| 
 (directive \bvrb|#include|). Ici, il permet de donner le prototype
 de la fonction \bvrb|printf| (son format).\\
-\item Traitemenet des directives de compilation qui commencent par
+\item Traitement des directives de compilation qui commencent par
 un caractère \bvrb|#| (voir plus loin).\\
 \end{itemize}
 
@@ -161,7 +161,7 @@ int main () {
 \lstset{escapeinside={§§}}
 \lstset{basicstyle=\scriptsize}
 \begin{lstlisting}
-§\textbf{>>}§gcc -E Bonjour.c -o Bonjour.i
+§\textbf{>>}§gcc -E Bonjour.c > Bonjour.i
 \end{lstlisting}
 \centering{\tikz[remember picture,baseline=-0.5ex] \coordinate(b2_2_south);}
 \vspace{-.6cm}

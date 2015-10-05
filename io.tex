@@ -242,7 +242,7 @@ scanf("%d %f",&a,&x);
 \begin{enumerate}[<+->]
 \item Si le tampon est vide, le programme s'interrompt pour laisser
 l'utilisateur taper au clavier.\\
-\item Dès le la touche \Verb|Entrée| est frappée, la séquence des élements
+\item Dès que la touche \Verb|Entrée| est frappée, la séquence des élements
 entrés est stockée dans une zone mémoire appelée \red{tampon}.\\
 \item La directive \bvrb|scanf| consomme la mémoire tampon en fonction
 du format indiqué et stocke les éléments convertis dans les variables :\\
@@ -250,7 +250,7 @@ du format indiqué et stocke les éléments convertis dans les variables :\\
 \item Si le tampon est vide avant que le format du \bvrb|scanf| ne soit
 entièrement converti, on retourne à l'étape 1.\\
 \item Si le format dans le \bvrb|scanf| ne correspond pas au prochain caractère de la séquence
-entrée au clavier, \red{la conversion d'interrompt et le programme continue}.\\
+entrée au clavier, \red{la conversion s'interrompt et le programme continue}.\\
 \item Si la conversion est entièrement terminée, le programme continue
 mais \red{il peut rester encore des éléments dans le tampon}.\\
 \end{itemize}
@@ -423,8 +423,8 @@ Fin
 \end{Verbatim}
 \end{termblock}
 On a séparé (par erreur) le 3 et le 2.
-Ce qui fait que le premier \bvrb|scanf| ne consomme
-que le 3. Le deuxième \bvrb|scanf| consomme le 2 sans donner la main
+Le premier \bvrb|scanf| consomme
+le 3. Le deuxième \bvrb|scanf| consomme le 2 sans redonner la main
 à l'utilisateur.
 \end{columns}
 

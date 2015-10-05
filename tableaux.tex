@@ -23,7 +23,7 @@ My compromise of 0.5 was rejected without, I thought, proper consideration''}\\
 \begin{itemize}
   \setlength\itemsep{1em}
 \item Un tableau est un ensemble d'éléments de même type
-désignés par un identificateur unique.\\
+désigné par un identificateur unique.\\
 \item Chaque élément est repéré par un \red{indice} précisant
 sa position au sein de l'ensemble.\\
 \item Il se déclare en même temps que les autres variables.\\
@@ -36,7 +36,7 @@ sa position au sein de l'ensemble.\\
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Tableaux unidimensionnels}
+\frametitle{Déclaration de tableaux unidimensionnels}
 \begin{itemize}
 \item On doit réserver un emplacement mémoire pour un certain
 nombre d'éléments.\\
@@ -61,4 +61,297 @@ float zz[5] ; // zz est un tableau de 5 réels
 char y[12] ; // y est un tableau de 12 caractères
 \end{codeC}
 \end{codeblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Quelques règles}
+\begin{itemize}
+ \setlength\itemsep{1em}
+\item Chaque élément est stocké dans une case d'un tableau
+(localisé par un \red{indice}).\\
+\item Un élément de tableau est une variable :
+\begin{itemize}
+\item On peut l'initialiser.\\
+\item On peut l'utiliser dans une expresssion.\\
+\end{itemize}
+\item Le premier élément du tableau est à l'indice \red{0}.\\
+\item La dimension d'un tableau (nombre d'éléments) ne peut être
+qu'une constante ou une expression constante (pas une variable).\\
+\item Il faut faire très attention aux problèmes de débordement d'indice
+(cas où l'on veut accéder à un indice de tableau supérieur au nombre
+d'éléments prévus).\\
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Initialisation des éléments (1)}
+
+\begin{itemize}
+\item Initialisation de l'élement d'indice \verb|k| :\\
+
+\begin{columns}
+\column{0.5\textwidth}
+\begin{block}{}
+\bvrb|£textitµnom_tableau§[k] = £textitµvaleur§ ;|\\
+\bvrb|£textitµnom_tableau§[k] = £textitµexpression§ ;|\\
+\end{block}
+\column{0.45\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+tab[0]=5 ;
+/* le premier élément du 
+tableau tab a pour 
+valeur 5*/
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{columns}
+\item Initialisation à la déclaration
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+//Place les valeurs 1,2,3,4,5 dans chacun des 
+//5 éléments du tableau :
+int tab[5] = {1,2,3,4,5};
+
+//Ne remplit que certains indices (ici 2 et 4) :
+int tab[5] = {,,3,,5};
+
+//Ne remplit que les 2 premiers indices (0 et 1) :
+int tab[5] = {2,3};
+
+//Determine automatiquement la taille du tableau (en fonction
+//du nombre de valeurs :
+int tab[] = {1,2,3,4,5};
+
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Initialisation des éléments (2)}
+\begin{block}{}
+Initialisation des éléments dans une boucle \bvrb|for|
+\end{block}
+\begin{columns}[t]
+\column{0.45\textwidth}
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+0 & 0 & 0 & 0 & 0 \\
+\hline
+\end{tabular}
+\end{table}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int j ; //ind. de boucle
+int Tab[5] ;
+
+for (j=... ; ... ; ...) 
+
+{
+
+...
+
+}
+
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.45\textwidth}
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+0 & 2 & 4 & 6 & 8 \\
+\hline
+\end{tabular}
+\end{table}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int j ; //ind. de boucle
+int Tab[5] ;
+
+for (j=... ; ... ; ...) 
+
+{
+
+...
+
+}
+
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Un exemple (version 1)}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+
+/* Remplissage d'un tableau de
+notes et calcul de la moyenne */
+
+int main()
+{
+  float notes[50], moy=0.0;
+  int i;
+  
+  for (i=0;i<50;i++)
+  {
+    printf("\Entrez la note: ");
+    scanf("%f",&notes[i]);
+    moy += notes[i];
+  }
+  printf("\nmoyenne = %f",moy/50);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.5\textwidth}
+\begin{itemize}
+\item On remplit les 50 éléments du 
+tableau (utilisation d'une boucle
+\bvrb|for|)\\
+\item \Verb|i| sert d'indice pour parcourir
+les éléments du tableau.\\
+\item La moyenne est calculée en ajoutant
+à chaque pasasge de boucle, la nouvelle 
+note saisie au clavier (\bvrb|scanf|)\\
+\end{itemize}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Problèmes dans l'exemple}
+\begin{itemize}
+ \setlength\itemsep{1em}
+\item Utilisation non sécurisée de \bvrb|scanf|\\
+\begin{itemize}
+\item Vérification du nombre d'éléments correctements
+entrés
+\item "Nettoyage de la mémoire tampon".\\
+\end{itemize}
+\item Problème pratique si on veut modifier la taille
+du tableau.\\
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Un exemple (version 2)}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+#define NMAX 50
+
+/* Remplissage d'un tableau de
+notes et calcul de la moyenne */
+
+int main()
+{
+  float notes[NMAX], moy=0.0;
+  int i;
+  
+  for (i=0;i<NMAX;i++)
+  {
+    printf("\Entrez la note: ");
+    scanf("%f",&notes[i]);
+    moy += notes[i];
+  }
+  printf("\nmoyenne = %f",moy/NMAX);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.45\textwidth}
+Définition de la taille du 
+tableau par un \bvrb|#define| (fortement
+conseillé).\\
+
+\begin{alertblock}{}
+Si la valeur de \Verb|NMAX| est modifiée,
+il faut recompiler.
+\end{alertblock}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les tableaux multidimensionnels}
+\begin{block}{Déclaration}
+\bvrb|£textitµtype nom_tableau §[£textitµdim1§][£textitµdim2§]...[£textitµdimN§];|
+\end{block}
+
+\begin{codeblock}{Initialisation}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+//tableau vu comme 5 tableaux de deux éléments chacun
+int tab[5][2] = {{1,2},{3,4},{5,6},{7,8},{9,10}};
+
+//Eléments rangés en mémoire automatiquement :
+int tab[5][2] = {1,2,3,4,5,6,7,8,9,10};
+
+//Omission de valeurs :
+int tab[5][2] = {1,,3,,,,7,8,9,};
+
+//Accès à un indice (après déclaration):
+tab[3][0] = 12 ;
+
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Algorithmes classiques sur les tableaux}
+\begin{itemize}
+ \setlength\itemsep{1em}
+\item Initialisation d'un tableau à une valeur constante.\\
+\item Copie d'un tableau.\\
+\item Vérification de l'égalité de deux tableaux.\\
+\item Recherche d'un élément dans un tableau.\\
+\item Comptage du nombre d'occurences d'un éléments
+dans un tableau.\\
+\item Tri des éléments dans un tableau.\\
+\end{itemize}
 \end{frame}
