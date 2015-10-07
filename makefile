@@ -7,8 +7,12 @@
 #cours = cours-2
 #dependancy = langageC.tex commentaires.tex variables.tex operateurs.tex forif.tex conversions.tex
 
-cours = cours-3
-dependancy = compilation.tex io.tex tableaux.tex
+#cours = cours-3
+#dependancy = compilation.tex io.tex tableaux.tex
+
+cours = cours-4
+dependancy = fonctions.tex
+
 
 
 all: online slides print
