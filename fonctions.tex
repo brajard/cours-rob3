@@ -1,6 +1,6 @@
 % !TEX encoding = IsoLatin9
 
-%%%%%%%%%%%%%%%%%%%%% SECTION 1
+%%%é%%%%%%%%%%%%%%%%%% SECTION 1
 \section{Les fonctions}
 \begin{frame}
   \begin{columns}
@@ -10,4 +10,351 @@
     
   \end{columns}
   
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Introduction}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item La résolution d'un problème informatique
+peut conduire è la résolution de plusieurs problèmes
+plus élémentaires.
+\begin{itemize}
+\item Exemple des traitements des tableaux
+\end{itemize}
+\item Idée :
+\begin{itemize}
+\item Identifier ces traitements élémentaires 
+pour la résolution du problème initial.
+\item Construire des petits programmes pour chacun
+des traitements élémentaires (et les \red{tester}).
+\item Ecrire un programme final simple qui utilise
+les programmes élémentaires comme des briques de base.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution : les fonctions}
+\begin{block}{}
+Le langage C permet ce découpage.
+C'est la programmation modulaire.
+\end{block}
+\begin{itemize}
+\item Permet de découpe un traitement en autant
+de traitements élémentaires qu'on le souhaite.
+\item Permet d'appeler des modules existants (bibliothèque).
+\item Permet de définir ses modules et de construire ses propres
+bibliothèques.
+\item Permet de découper un gros logiciel pour faciliter sa mise au point.
+\item Evite des copier-coller de code et améliore sa visibilité.
+\item Permet le travail collaboratif.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Qu'est-ce qu'une fonction ?}
+\begin{alertblock}{}
+Une fonction est sous-programme pouvant être
+appelé dans un programme et qui effectue une 
+suite d'opérations.
+
+Les opérations effectuée peuvent dépendre
+de 1 ou plusieurs entrées et la fonction peut 
+renvoyer au plus une seule sortie (en langage C).
+\end{alertblock}
+\vspace{1cm}
+\begin{figure}
+\centering
+\begin{tikzpicture} [
+       auto,
+       function/.style={diamond, draw=blue,thick,fill=blue!20,
+               text width = 2cm, text badly centered, rounded corners,
+               aspect=2},
+       texte/.style={text width = 2cm,text badly centered},
+        line/.style     = { draw, thick, ->, shorten >=2pt },
+       node distance=4cm,
+       ]
+       \node (input) [texte]{Entiers, tableaux, réels, ...};
+       \node (fonc) [function, right of = input] {La fonction};
+       \node (output) [texte, right of = fonc] {\textbf{Un} entier ou \textbf{Un} réel, ou ...};
+        \begin{scope}[every path/.style=line]
+        \path (input) -- (fonc) ;
+        \path (fonc) -- (output); 
+\end{scope}
+\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle<1>{Exemple : la fonction max}
+\frametitle<2>{Terminologie}
+
+\visible<2>{\red{\textbf{Déclaration : }}}
+\begin{figure}
+\centering
+\begin{tikzpicture} [
+       auto,
+       function/.style={diamond, draw=blue,thick,fill=blue!20,
+               text width = 2cm, text badly centered, rounded corners,
+               aspect=2},
+       texte/.style={text width = 2cm,text badly centered},
+        line/.style     = { draw, thick, ->, shorten >=2pt },
+       node distance=4cm,
+       ]
+       \node (input) [texte]{Un entier \textbf{a}, Un entier \textbf{b}};
+       \node (fonc) [function, right of = input] {max};
+       \node (output) [texte, right of = fonc] {\textbf{Un entier} (maximum entre a et b)};
+        \begin{scope}[every path/.style=line]
+        \path (input) -- (fonc) ;
+        \path (fonc) -- (output); 
+\end{scope}
+\end{tikzpicture}
+\end{figure}
+
+\visible<2>{\red{\textbf{Appel : }}}
+\begin{figure}
+\centering
+\begin{tikzpicture} [
+       auto,
+       function/.style={diamond, draw=blue,thick,fill=blue!20,
+               text width = 2cm, text badly centered, rounded corners,
+               aspect=2},
+       texte/.style={text width = 2cm,text badly centered},
+        line/.style     = { draw, thick, ->, shorten >=2pt },
+       node distance=4cm,
+       ]
+       \node (input) [texte]{2\\3};
+       \node (fonc) [function, right of = input] {max};
+       \node (output) [texte, right of = fonc] {3};
+        \begin{scope}[every path/.style=line]
+        \path (input) -- (fonc) ;
+        \path (fonc) -- (output); 
+\end{scope}
+\end{tikzpicture}
+\end{figure}
+
+\visible<2>{\red{\textbf{Définition : }}}
+\begin{figure}
+\centering
+\begin{tikzpicture} [
+       auto,
+       function/.style={diamond, draw=blue,thick,fill=blue!20,
+               text width = 2cm, text badly centered, rounded corners,
+               aspect=2},
+       texte/.style={text width = 2cm,text badly centered},
+        line/.style     = { draw, thick, ->, shorten >=2pt },
+       node distance=4cm,
+       ]
+       \node (input) [texte]{Un entier \textbf{a}, Un entier \textbf{b}};
+       \node (fonc) [function, right of = input, text width = 3cm, inner sep = 0pt] {{\footnotesize si a<b, renvoyer b\\sinon renvoyer a}};
+       \node (output) [texte, right of = fonc] { \textbf{Un entier} (maximum entre a et b)} ;
+        \begin{scope}[every path/.style=line]
+        \path (input) -- (fonc) ;
+        \path (fonc) -- (output); 
+\end{scope}
+\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{En langage C}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Déclaration (le \red{prototype} de la fonction) :\\
+\bvrb|£textitµtype_retour nom_fonction§(£textitµarguments§);|\\
+\item Appel :\\
+\bvrb|£textitµnom_fonction§(£textitµliste_valeurs§);|\\
+\item Définition :\\
+\bvrb|£textitµtype_retour nom_fonction§(£textitµarguments§);|\\
+\bvrb|{|\\
+\bvrb|£textitµdéclaration de variables locales§|\\
+\bvrb|£textitµbloc d'instructions§|\\
+\bvrb|return £textitµvaleur_retour§;|\\
+\bvrb|}|
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{La fonction \Verb|max|}
+
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Déclaration :\\
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int max (int a, int b);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\item Appel :\\
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int maxi ;
+int n ;
+scanf("%d",&n);
+maxi = max(n,3); //Appel de la fonction max
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\item Définition :\\
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int max (int a, int b)
+{
+  if (a<b) return(b) ;
+  else return(a) ;
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Quelque règles}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Une fonction peut être définie n'importe où dans le programme ;
+\item Une fonction doit être déclarée avant d'être déclarée avant d'être appelée pour
+la première fois ;
+\item Une fonction peut être appelée dans le \bvrb|main| ou dans
+une autre fonction ;
+\item On ne peut \red{pas} définir une fonction dans une autre fonction ;
+\item Une fonction peut prendre autant d'argument que l'on souhaite
+en entrée mais ne retour qu'un plus un élément ;
+\item Les règles sur les noms de fonctions sont les mêmes que
+sur les noms de variables.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tolérance}
+\begin{block}{}
+Si l'on définit une fonction avant de l'appeler, on peut éventuellement
+se passer de la déclarer.
+\end{block}
+\begin{columns}
+\column{.4\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+//Déclaration-Définition
+int max (int a, int b) {
+  if (a<b) return (b) ;
+  else return (a) ;
+}
+
+//Fonction principale
+int main() {
+  int maxi, n ;
+  scanf("%d",&n);
+  maxi = max (n,3);
+  printf("%d\n",maxi);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{.15\textwidth}
+{\centering {\footnotesize Equivalent
+$$\Leftrightarrow$$}}
+
+\column{.4\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+//Déclaration
+int max (int a, int b) ;
+
+//Fonction principale
+int main() {
+  int maxi, n ;
+  scanf("%d",&n);
+  maxi = max (n,3);
+  printf("%d\n",maxi);
+}
+
+//Définition
+int max (int a, int b) {
+  if (a<b) return (b) ;
+  else return (a) ;
+}
+
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fonction appelée / Fonction appelante}
+\begin{columns}
+\column{0.45\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+//Déclaration des fonctions
+int f(int a);
+int g(int b);
+
+//Fonction principale
+int main() {
+  int z = 2 ;
+  z = g(z) + f(z) ;
+  printf("%d\n",z);
+ }
+
+//Définition des fonctions
+int f (int a) {
+  return (a+2) ;
+}
+
+int g (int b) {
+  return ( 2*f(b) ) ;
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\column{0.5\textwidth}
+\begin{block}{}
+Une fonction peut àtre appelée de n'importe
+quelle fonction y compris dans le
+\bvrb|main|
+\end{block}
+
+\begin{itemize}
+\item Fonctions appelantes :
+\begin{itemize}
+\item \Verb|main| appelle \Verb|g| et \Verb|f|
+\item \Verb|g| appelle \Verb|f|
+\end{itemize}
+\item Fonctions appelées :
+\begin{itemize}
+\item \Verb|f| est appelée par \Verb|main| et \Verb|g|
+\item \Verb|g| est appelêe par \Verb|main|
+\end{itemize}
+\end{itemize}
+\end{columns}
 \end{frame}

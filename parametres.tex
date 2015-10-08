@@ -1,0 +1,78 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Passage et renvoi de paramètres}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    
+  \end{columns}
+  
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Entrées et sorties}
+\begin{block}{Prototype d'une fonction}
+\bvrb|£textitµtype_retour nom_fonction§(£textitµarguments§);|
+\end{block}
+\vspace{1cm}
+\begin{itemize}
+\item Les entrées de la fonction sont appelés \red{arguments}.
+\item \bvrb|£textitµtype_retour§| est le type renvoyé par la fonction.
+Une fonction (en C) ne peut renvoyer qu'une valeur de ce type.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les sorties}
+\framesubtitle{L'instruction \bvrb|return|}
+\begin{block}{}
+Une fonction retourne une valeur à l'appellent par 
+l'instruction \bvrb|return|.
+\end{block}
+\begin{itemize}
+\item Syntaxe : \bvrb|return(£textitµexpression§);|
+\item Exemples :
+\begin{columns}
+\column{.3\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+return (-1) ;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{.3\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+return (2*z + 3) ;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{.3\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+return (2 * f(1+z));
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{columns}
+\item La valeur de retour est convertie selon le type de la
+valeur de retour précisé dans le prototype de la fonction.
+\item Parfois, le compilateur émet un avertissement (\Verb|Warning|)
+si ce n'est pas le cas.
+\item La fonction appelante n'utilise pas forcément la valeur de retour.
+\end{itemize}
+\end{frame}
