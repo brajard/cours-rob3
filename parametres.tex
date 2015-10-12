@@ -76,3 +76,620 @@ si ce n'est pas le cas.
 \item La fonction appelante n'utilise pas forcément la valeur de retour.
 \end{itemize}
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les sorties}
+\framesubtitle{La sortie \bvrb|void|}
+
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Une fonction qui ne retourne rien à l'appelant
+doit avoir pour type de retour \bvrb|void|.\\
+\item Exemple : Les fonctions faisant des affichages.\\
+\end{itemize}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+void affiche_intervalle (int a, int b)
+{
+  int j;
+  for (j=a;j<=b;j++)
+  {
+    printf("%d\t",j);
+  }
+  printf("\n");
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les entrées}
+\framesubtitle{Argument formel / Argument effectif}
+
+\begin{block}{Argument formel}
+Nomme et décrit le type des arguments à
+l'intérieur de la fonction
+\begin{itemize}
+\item Utilisé lors de la \red{déclaration} ou de la \red{définition}
+de la fonction.
+\end{itemize}
+\end{block}
+
+\begin{block}{Argument effectif}
+Valeur qui sera affectée à l'argument formel.
+\begin{itemize}
+\item Utilisé lors de l'\red{appel} de la fonction.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple 1}
+\begin{columns}
+\column{0.6\textwidth}
+\begin{codeblock}{}
+
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+// Déclaration de la fonction
+int max (int a, §\tikz[remember picture, baseline=-.5ex]{\coordinate(arg1)}§int b) ;
+
+//Programme principal
+int main() {
+  int maxi;
+  int n;
+  scanf("%d",&n);
+  maxi = max(n, §\tikz[remember picture, baseline=-.5ex]{\coordinate(arg2)}§3);
+}
+
+//Définition de la fonction
+int max (int a, §\tikz[remember picture, baseline=-.5ex]{\coordinate(arg3)}§int b) {
+  if (a<b) return(b);
+  else return(a);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\pause
+\begin{tikzpicture}[remember picture,overlay, node distance=5.5cm, auto,
+ line/.style     = { draw, thick, color=gray, ->, shorten >=2pt },
+]
+\node (carg1) [xshift = -0.5em, draw, ellipse, thick, minimum width = 6.5em, minimum height= 1.8em, color=gray] at (arg1) {};
+\node (carg2) [xshift = -0.5em, draw, ellipse, thick, minimum width = 2.5em, minimum height= 1.8em, color=gray] at (arg2) {};
+\node (carg3) [xshift = -0.5em, draw, ellipse, thick, minimum width = 6.5em, minimum height= 1.8em, color=gray] at (arg3) {};
+\node (lab1)  [right of = carg1, anchor=west] {argument formel};
+\node (lab2)  [anchor =west] at (lab1.west |- carg2) {argument effectif};
+\node (lab3)  [anchor =west] at (lab2.west |- carg3) {argument formel};
+
+\begin{scope} [every path/.style=line]
+  \path (carg1) -- (lab1);
+  \path (carg2) -- (lab2);
+  \path (carg3) -- (lab3);
+
+\end{scope}
+
+\end{tikzpicture}
+\column{0.35\textwidth}
+
+\end{columns}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Exemple 2}
+\begin{columns}
+\column{0.6\textwidth}
+\begin{codeblock}{}
+
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+// Déclaration de la fonction
+float (moins (float x, float y) ;
+
+//Programme principal
+int main() {
+  float x,y,z1,z2,z3,z4;
+  x = 2 ; y = 3 ;
+  z1 = moins (6,y) ;
+  z2 = moins (6,x) ;
+  z3 = moins (x,y) ;
+  z4 = moins (y,x) ;
+}
+
+//Définition de la fonction
+float moins(float x, float y) {
+  return (x-y) ;
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.35\textwidth}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item \Verb|z1=|
+\item \Verb|z2=|
+\item \Verb|z3=|
+\item \Verb|z4=|
+\end{itemize}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{La conversion automatique des arguments}
+\begin{columns}
+\column{0.6\textwidth}
+\begin{codeblock}{}
+
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+// Déclaration de la fonction
+float moitie (int n) ;
+
+//Programme principal
+int main() {
+  float x = 3.5;
+  x = moitie(x);
+  printf("\nx=%f\n",x);
+}
+ 
+
+//Définition de la fonction
+float moitie(int n) {
+  float x ;
+  x = (float)n/2 ;
+  return(x);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.35\textwidth}
+Qu'affiche le programme ?
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Le contexte d'exécution}
+
+\begin{block}{}
+Chaque fonction a son contexte d'exécution propre :
+\end{block}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Les variables déclarées dans une fonction ou déclarées
+en paramètres ne sont connues qu'à l'intérieur de cette fonction.
+\item Toute modification de variable dans la fonction n'a pas d'impact
+pour les variables déclarées ailleurs.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple sans fonction}
+\begin{columns}[t]
+
+\column{0.4\textwidth}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int main() {
+  int a ;§\tmark{c1}§
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\vspace{0.5cm}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+  int b = 2;§\tmark{c2}§
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\vspace{0.5cm}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+  a = 3 ;§\tmark{c3}§
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\vspace{0.5cm}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+ a = a+b ;§\tmark{c4}§
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.4\textwidth}
+\textcolor{blue}{Contexte d'exécution du \Verb|main|}
+
+\begin{visibleenv}<2->
+\begin{block}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|}
+\multicolumn{1}{c}{\Verb|a|}\\
+\hline
+\tmark{m1}\\
+\hline
+\end{tabular}
+\end{block}
+\end{visibleenv}
+
+\begin{visibleenv}<3->
+\begin{block}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|c|}
+\multicolumn{1}{c}{\Verb|a|}&\multicolumn{1}{c}{\Verb|b|}\\
+\hline
+\tmark{m2}&2\\
+\hline
+\end{tabular}
+\end{block}
+\end{visibleenv}
+
+\begin{visibleenv}<4->
+\begin{block}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|c|}
+\multicolumn{1}{c}{\Verb|a|}&\multicolumn{1}{c}{\Verb|b|}\\
+\hline
+\tmark{m3}3&2\\
+\hline
+\end{tabular}
+\end{block}
+\end{visibleenv}
+
+\begin{visibleenv}<5->
+\begin{block}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|c|}
+\multicolumn{1}{c}{\Verb|a|}&\multicolumn{1}{c}{\Verb|b|}\\
+\hline
+\tmark{m4}5&2\\
+\hline
+\end{tabular}
+\end{block}
+\end{visibleenv}
+
+
+\end{columns}
+\begin{tikzpicture}[remember picture,overlay, auto,
+ line/.style     = { draw, thick, color=gray, ->, shorten >=1em },
+]
+\begin{scope} [every path/.style=line]
+\path <2-> (c1) -- (m1) ;
+\path <3-> (c2) -- (m2) ;
+\path <4-> (c3) -- (m3) ;
+\path <5-> (c4) -- (m4) ;
+
+\end{scope}
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple avec fonction}
+\begin{columns}
+\column{.5\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int main() {
+  int x=2, q=3, p;
+  p=puiss(x,q);
+}
+
+int puiss(int x, int n) {
+  int y = 1 ;
+  while (n>0) {
+    y=y*x ;
+    n--;
+    }
+ return(y);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FRAME CONTEXTE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+\frametitle{Exemple avec fonction}
+
+\begin{columns}[t]
+
+%%%% COL1 %%%%
+\column{0.22\textwidth}
+\vspace{0.5cm}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int main() {
+ int x=2,q=3,p;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+ p=puiss(x,q);§\tmark{c1}§
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\vspace{4cm}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+}§\tmark{c4}§
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+
+%%%% COL2 %%%%
+\column{0.18\textwidth}
+{\centering
+\textcolor{blue}{Contexte du \Verb|main|}}
+\begin{block}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|c|c|}
+\multicolumn{1}{c}{\Verb|x|}&\multicolumn{1}{c}{\Verb|q|}
+&\multicolumn{1}{c}{\Verb|p|} \\
+\hline
+2\tmark{mx}&3\tmark{mq}&\\
+\hline
+\end{tabular}
+\end{block}
+
+\vspace{4cm}
+\begin{visibleenv}<7->
+\begin{block}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|c|c|}
+\multicolumn{1}{c}{\Verb|x|}&\multicolumn{1}{c}{\Verb|q|}
+&\multicolumn{1}{c}{\Verb|p|} \\
+\hline
+2&3&8\tmark{mp}\\
+\hline
+\end{tabular}
+\end{block}
+\end{visibleenv}
+
+%%%% COL3 %%%%
+\column{0.24\textwidth}
+\vspace{1.7cm}
+\begin{visibleenv}<2-8>
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+§\tmark{c2}§int puiss
+ (int x,int n) {
+
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{visibleenv}
+
+\begin{visibleenv}<4->
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+  int y = 1 ;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{visibleenv}
+
+\begin{visibleenv}<5->
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+  while (n>0) {
+    y=y*x ;
+    n--;
+    }
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{visibleenv}
+
+\begin{visibleenv}<6->
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+ return(y);
+§\tmark{c3}§}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{visibleenv}
+
+%%%% COL4 %%%%
+\column{0.18\textwidth}
+\begin{visibleenv}<2-7>
+{\centering
+\textcolor{teal}{Contexte de \Verb|puiss|}}
+\vspace{0.6cm}
+\end{visibleenv}
+
+\begin{visibleenv}<3-7>
+\begin{exampleblock}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|c|}
+\multicolumn{1}{c}{\Verb|x|}&\multicolumn{1}{c}{\Verb|n|}\\
+\hline
+\tmark{px}2&\tmark{pn}3\\
+\hline
+\end{tabular}
+\end{exampleblock}
+\end{visibleenv}
+
+\begin{visibleenv}<4-7>
+\begin{exampleblock}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|c|c|}
+\multicolumn{1}{c}{\Verb|x|}&\multicolumn{1}{c}{\Verb|n|}
+&\multicolumn{1}{c}{\Verb|y|} \\
+\hline
+2&3&1\\
+\hline
+\end{tabular}
+\end{exampleblock}
+\end{visibleenv}
+
+\begin{visibleenv}<5-7>
+\begin{exampleblock}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|c|c|}
+\multicolumn{1}{c}{\Verb|x|}&\multicolumn{1}{c}{\Verb|n|}
+&\multicolumn{1}{c}{\Verb|y|} \\
+\hline
+2&0&8\\
+\hline
+\end{tabular}
+\end{exampleblock}
+\end{visibleenv}
+
+\begin{visibleenv}<6-7>
+\begin{exampleblock}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|c|c|}
+\multicolumn{1}{c}{\Verb|x|}&\multicolumn{1}{c}{\Verb|n|}
+&\multicolumn{1}{c}{\Verb|y|} \\
+\hline
+2&0&\tmark{py}8\\
+\hline
+\end{tabular}
+\end{exampleblock}
+\end{visibleenv}
+
+
+\end{columns}
+
+
+\begin{tikzpicture}[remember picture,overlay, auto,
+ cline/.style     = { draw, color=red, ->},
+ pline/.style     = { draw, very thick, color=teal, ->},
+]
+\begin{scope} [every path/.style=cline]
+\path<2-> (c1) -- (c2) ;
+\path<6-> (c3) -- (c4) ;
+\end{scope}
+
+\draw<3-7> [color=teal, very thick] (mx) edge[bend left=45, ->,shorten >=3pt] 
+node[midway, above]{2} (px) ;
+\draw<3-7> [color=teal, very thick] (mq) edge[bend right=5, ->,shorten >=3pt] 
+node[midway, above]{3} (pn) ;
+\draw<7> [color=blue, very thick] (py) edge[bend left=15, ->,shorten >=3pt] 
+node[midway, above]{8} (mp) ;
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vision boîte noire}
+\begin{block}{}
+Une fonction peut être vue comme une
+"boîte noire". 
+On lui donne des entrées, elle renvoie une sortie,
+et on ne se préocuupe pas de ce qui 
+se passe à l'intérieur.
+\end{block}
+\vspace{2cm}
+\begin{columns}
+\column{0.4\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int main() {
+  int x=2, q=3, p;
+  p§\tmark{p}§=puiss(x§\tmark{x}§,q§\tmark{q}§);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+
+\column{0.4\textwidth}
+\begin{figure}
+\centering
+\begin{tikzpicture}[remember picture,overlay, auto, node distance = 2cm]
+ \node (boite) [draw,rectangle, minimum width=1.5cm, minimum height=1cm, fill=black, draw = black]{};
+\node (texte) [right of = boite] {fonction \Verb|puiss|};
+\draw [color=black, very thick] (x) edge[bend left=40, ->, shorten >= 3pt]
+node [midway, above]{2} (boite.north);
+\draw [color=black, very thick] (q) edge[bend left=20, ->, shorten >= 3pt]
+node [midway, above]{3} (boite.north);
+\draw [color=black, very thick] (boite.south) edge[bend left=30, ->, shorten >= 3pt]
+node [midway, above]{8} (p);
+\end{tikzpicture}
+\end{figure}
+\end{columns}
+\end{frame}

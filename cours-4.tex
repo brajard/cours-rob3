@@ -18,7 +18,9 @@
 \usepackage{xcolor}
 \usepackage{color, colortbl}
 \usepackage{handoutWithNotes}
+
 \usetikzlibrary{shapes.geometric}
+\usetikzlibrary{positioning}
 \usetikzlibrary{shapes.arrows, chains}
 \usetikzlibrary{arrows,calc}
 \usepackage{array}
@@ -73,6 +75,8 @@ keywordstyle=\bfseries\color{myblue},
 \newcommand{\red}{\textcolor{red}}
 %\newcommand \emph
 %Default size : 12.8 cm * 9.6 cm
+
+\newcommand{\tmark}[1]{\tikz[remember picture, baseline=-.5ex]{\coordinate(#1)}}
 
 \ifdefined\ishandout
 \newenvironment<>{codeblock}[1]{%begin
