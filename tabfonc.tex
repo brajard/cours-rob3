@@ -1,0 +1,167 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Passage d'un tableau en argument}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    
+  \end{columns}
+  
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Passage d'un tableau en argument}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Pour un tableau à une dimension, on passe
+le tableau et sa taille\\
+\bvrb|£textitµtype_retour nom_fonction§(float £textitµTab§[N], int n);|
+
+\item Pour un tableau à deux dimensions :\\
+\bvrb|£textitµtype_ret nom_fonct§(float £textitµTab§[N1][N2], int n1, int n2);|
+
+\end{itemize}
+
+\begin{alertblock}{}
+\Verb|N|, \Verb|N1| et \Verb|N2| ne sont \red{pas}
+des variables, ce sont des expressions constantes ou des
+identificateurs pour le précompileur via un 
+\bvrb|#define|.
+\end{alertblock}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Exemple}
+\begin{columns}
+\column{0.65\textwidth}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#define N1 3
+#define N2 2
+
+void affiche(int T[N1][N2], int n1, int n2);
+
+int main() {
+  int Tab[N1][N2]={1,2,3,4,5,6};
+  affiche(Tab,N1,N2);
+}
+
+void affiche(int T[N1][N2], int n1, int n2)
+{
+  int i,j;
+  for (i=0 ; i < n1 ; i++) {
+    for (j=0 ; j < n2 ; j++) {
+      printf("%d\t",Tab[i][j]);
+    }
+    printf("\n");
+  }
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.3\textwidth}
+Qu'affiche le programme ?
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tolérance}
+\begin{block}{}
+L'indication de la taille de la première dimension est facultatif.
+\end{block}
+
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Tableau à une dimension :\\
+\bvrb|£textitµtype_retour nom_fonction§(float £textitµTab§[], int n);|
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+void affiche(int T[], int n);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\item Pour un tableau à deux dimensions :\\
+\bvrb|£textitµtype_ret nom_fonct§(float £textitµTab§[][N2], int n1, int n2);|
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+void affiche(int T[][2], int n1, int n2);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Tableau entrée/sortie}
+\begin{block}{}
+Un tableau est un cas particulier d'argument
+qui peut être modifié.
+
+C'est un passage par référence (voir cours sur les pointeurs).
+\end{block}
+
+\begin{alertblock}{}
+Si le tableau est modifié dans la fonction appelé, il sera
+aussi modifié pour la fonction appelante.
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple}
+\begin{columns}
+\column{0.65\textwidth}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#define N 3
+
+void affiche(int Tab[], int n);
+void init0 (int Tab[],int n); 
+
+int main() {
+  int T[N]={1,2,3};
+  affiche(T,N);
+  init0(T,N);
+  affiche(T,N);
+}
+
+void init0 (int Tab[],int n)
+{
+  int i;
+  for (i=0 ; i < n ; i++) {
+   Tab[i]=0;
+  }
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.3\textwidth}
+Qu'affiche le programme ?
+\end{columns}
+
+\end{frame}
+
