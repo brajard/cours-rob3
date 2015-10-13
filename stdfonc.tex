@@ -1,0 +1,117 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Les fonctions standards}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    
+  \end{columns}
+  
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{La fonction \bvrb|rand|}
+\begin{block}{Prototype}
+\bvrb|int rand();|
+\end{block}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Renvoie un nombre aléatoire entre \Verb|0|
+et \Verb|RAND_MAX|.
+\item Utilisation :
+\begin{columns}
+\column{0.5\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+  int alea ;
+  alea = rand() ;
+  printf("%d",alea);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\column{0.4\textwidth}
+Valeur type de \Verb|RAND_MAX| :
+2~147~483~647
+\end{columns}
+\end{itemize}
+\begin{alertblock}{}
+Dans cet exemple, la valeur renvoyée par \bvrb|rand|
+sera la même à chaque exécution du programme
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Comment changer de nombre aléatoire à chaque exécution ?}
+\begin{block}{La solution}
+Il faut initialiser de manière différente le générateur alétoire
+à chaque exécution.\\
+Astuce : Utiliser l'heure d'exécution.
+\end{block}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+  int alea ;
+  srand(time(null));
+  alea = rand() ;
+  printf("%d",alea);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les fonctions mathématiques \bvrb|math.h|}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <math.h>
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\begin{figure}
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{Donctions trigonométriques} &
+\multicolumn{3}{|c|}{Fonctions élémentaires} \\
+\hline
+\bvrb|sin(x)| & \bvrb|cos(x)| & \bvrb|tan(x)| &
+\bvrb|exp(x)| & \bvrb|pow(x,y)| & \bvrb|sqrt(x)| \\
+\hline
+\bvrb|asin(x)| & \bvrb|acos(x)| & \bvrb|atan(x)| &
+\bvrb|log(x)| & \bvrb|ceil(x,y)| & \bvrb|floor(x)| \\
+\hline
+\bvrb|sinh(x)| & \bvrb|cosh(x)| & \bvrb|tanh(x)| &
+\bvrb|log10(x)| & \bvrb|fabs(x,y)| & \bvrb|fmod(x)| \\
+\hline
+\end{tabular}
+\end{figure}
+
+\begin{alertblock}{Nécessite l'option \bvrb|-lm| à la compilation}
+\Verb|gcc -o prg prg.c -lm|
+\end{alertblock}
+
+\end{frame}
