@@ -12,4 +12,279 @@
   
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Les chaînes de caractères}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Les chaînes de caratères sont des tableaux
+de caractères ;
+\item Chaque case du tableau contient un caractère ;
+\item Le dernier élément est \red{toujours} \Verb|'\0'| ;
+\item Pour socker une chaîne de \Verb|n| éléments, il
+faut \Verb|n+1| emplacements (à cause du \Verb|'\0'|).
+\end{itemize}
 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Initialisation des chaînes de caratères}
+\begin{block}{}
+On peut utiliser les doubles quotes \Verb|"| pour initialiser
+une chaîne de caractères.
+\end{block}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+char tab[] = {'i','n','f','o','r','m','a','t','i','q','u','e','\0'};
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\vspace{1em}
+\centering {ou}
+\vspace{1em}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+char tab[] = "informatique";
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Le \bvrb|printf| et les chaînes de caractères}
+
+\begin{block}{}
+Le formateur de la chaîne de caractères dans le \bvrb|printf|
+est \bvrb|%s|.
+\end{block}
+\vspace{1em}
+
+Exemple :
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+char tab[] = "informatique";
+printf("Nous sommes en cours d'%s\n",tab);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Saisie de chaînes de caratères au clavier}
+Il existe deux fonctions en langage C permettant
+de saisir des chaînes de caractères :
+\begin{itemize}
+\setlength\itemsep{1em}
+\item \bvrb|scanf| (déjà vu) ;
+\item \bvrb|fgets| (spécifique pour les chaînes de caractères).
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les \bvrb|scanf| et les chaînes de caractères}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Le formateur de la chaîne de caractère dans le
+\bvrb|scanf| est \bvrb|%s|.
+\item Pensez à déclarer un tableau de caractères d'une
+taille suffisante avant de l'affecter dans le \bvrb|scanf|.
+\item Il ne faut \red{pas} mettre le \bvrb|&|.
+\end{itemize}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+char nom[20];
+printf("\n Entrez votre nom : ");
+scanf("%s",nom);
+printf("\n Bonjour %s !\n",nom);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Rappel : le caractère espace}
+
+\begin{block}{}
+Le caractère espace est considéré comme un délimiteur.
+La conversion de la mémoire tampon en chaîne de caractères
+s'arrête donc à l'espace et ce dernier n'est pas consommé :
+il reste disponible pour la prochaine lecture.
+\end{block}
+
+\begin{columns}
+
+\column{0.49\textwidth}
+
+\begin{codeblock}{exemple.c}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+char nom[20];
+printf("\n Entrez votre nom : ");
+scanf("%s",nom);
+printf("\n Bonjour %s !\n",nom);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.45\textwidth}
+
+\begin{termblock}{test 1}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+§\textbf{>>}§./exemple
+§\color{darkgray}{\texttt{Entrez votre nom : }}§ Dupont
+§\color{darkgray}{\texttt{Bonjour Dupont ! }}§
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+
+\begin{termblock}{test 2}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+§\textbf{>>}§./exemple
+§\color{darkgray}{\texttt{Entrez votre nom : }}§ Dupont toto
+§\color{darkgray}{\texttt{Bonjour Dupont ! }}§
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+
+\end{columns}
+\begin{alertblock}{Conclusion}
+Avec \bvrb|scanf| on ne peut pas saisir de chaîne
+de caractères avec des espaces.
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Autre solution : \bvrb|fgets|}
+\centering{
+  \bvrb|fgets(£textitµstring§,£textitµtaille§,stdin);|
+}
+\begin{columns}
+
+\column{0.49\textwidth}
+
+\begin{codeblock}{exemple.c}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+char nom[20];
+printf("\n Entrez votre nom : ");
+fgets (nom,19,stdin) ;
+printf("\n Bonjour %s !\n",nom);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.45\textwidth}
+
+\begin{termblock}{test}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+§\textbf{>>}§./exemple
+§\color{darkgray}{\texttt{Entrez votre nom : }}§ Dupont toto
+§\color{darkgray}{\texttt{Bonjour Dupont toto ! }}§
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+\end{columns}
+
+\begin{itemize}
+\item Avec \bvrb|fgets|, seule la fin de ligne sert de délimiteur.
+\item \bvrb|£textitµtaille§| est le nombre maximum de caractères
+qui peuvent être lus.
+\item \bvrb|stdin| indique qu'on doit lire les caractères
+dans "l'entrée standard", c'est à dire dans ce que vous tapez
+au clavier. On peut aussi lire les caractères dans un fichier
+(cf cours n$^o$ 7)
+\item \red{ATTENTION} : la chaîne de caractère lue contiendra le
+retour à la ligne.
+Dans l'exemple précédent 
+\Verb|nom='D','u','p','o','n','t',' ','t','o','t','o','\n','\0'|
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Égalité de chaînes de caractères}
+\begin{block}{}
+Pour vérifier l'égalité de deux chaînes de caractères,
+il faut vérifier un par un tous les caractères (comme
+pour un autre tableau).
+\end{block}
+
+\vspace{1em}
+\begin{exampleblock}{Exemple :}
+
+Demander à l'utilisateur d'entrer \Verb|pluie| ou \Verb|soleil|,
+et afficher "Prenez un parapluie" si l'utilisateur à mis pluie.
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{La bibliothèque \bvrb|string.h|}
+\begin{codeblock}{exemple.c}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <string.h>
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\begin{block}{}
+Contient des fonctions standards pour gérer les 
+chaînes de caractères
+\end{block}
+Exemples :
+\begin{figure}
+\centering
+\begin{tabular}{|c|p{3.8cm}|}
+\hline
+Prototype de la fonction & Utilisation \\
+\hline
+\bvrb|int strcmp(char £textitµs1§[], char £textitµs2§[]);| &
+\red{Renvoie}  si les les chaînes \bvrb|£textitµs1§| et \bvrb|£textitµs2§|
+sont égales.\\
+\hline
+\bvrb|int strlen(char £textitµs§[]);| & 
+Renvoie la taille de \bvrb|£textitµs§|\\
+\hline
+\end{tabular}
+\end{figure}
+
+Pour le détail de toutes les fonctions :
+\begin{termblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+§\textbf{>>}§ man string
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+\end{frame}

@@ -10,8 +10,11 @@
 #cours = cours-3
 #dependancy = compilation.tex io.tex tableaux.tex
 
-cours = cours-4
-dependancy = fonctions.tex parametres.tex tabfonc.tex recurs.tex stdfonc.tex string.tex
+#cours = cours-4
+#dependancy = fonctions.tex parametres.tex tabfonc.tex recurs.tex stdfonc.tex
+
+cours = cours-5
+dependancy = string.tex
 
 
 
