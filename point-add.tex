@@ -182,6 +182,8 @@ Valeur & ... &     & 3 & &  & 4585\\
 \hline
 \multicolumn{3}{c}{} & \multicolumn{1}{c}{\Verb|n|}& \multicolumn{2}{c}{} &\multicolumn{1}{c}{\Verb|pn|}\\
 \end{tabular}
+\vspace{1em}
+
 \begin{columns}
 \column{0.27\textwidth}
 \begin{tabular}{ll}
@@ -204,4 +206,199 @@ Les égalités suivantes sont vraies :\\
 
 \end{columns}
 
+\end{frame}
+
+\begin{frame} [fragile]
+ \setbeamercovered{transparent=30}
+\frametitle<1>{Manipulation des pointeurs}
+\frametitle<2>{Autre Notation}
+\begin{columns}
+\column{0.3\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int x=1, y=2, z=3 ;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.63\textwidth}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\uncover<1> {Adresse & 2158 & 2159 & 2160} \\
+\hline
+Valeur &\visible<2>{1}&\visible<2>{2}&\visible<2>{3}\\
+\hline
+\multicolumn{1}{c}{} & \multicolumn{1}{c}{\Verb|x|}& \multicolumn{1}{c}{y} &\multicolumn{1}{c}{\Verb|z|}\\
+\end{tabular}
+
+\end{columns}
+\hrulefill
+
+
+\begin{columns}
+\column{0.3\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int *p = &x ;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.63\textwidth}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\uncover<1> {Adresse & 2158 & 2159 & 2160 & 2161} \\
+\hline
+Valeur &\visible<2>{1\tmark{v1}}&\visible<2>{2}&\visible<2>{3} & \visible<2>{\uncover<1>{2158\tmark{p1}}}\\
+
+\hline
+\multicolumn{1}{c}{} & \multicolumn{1}{c}{\Verb|x|}& \multicolumn{1}{c}{y} &\multicolumn{1}{c}{\Verb|z|} &\multicolumn{1}{c}{\Verb|p|} \\
+\end{tabular}
+
+\end{columns}
+\hrulefill
+
+\begin{columns}
+\column{0.3\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+y = *p ;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.63\textwidth}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\uncover<1> {Adresse & 2158 & 2159 & 2160 & 2161} \\
+\hline
+Valeur &\visible<2>{1\tmark{v2}}&\visible<2>{1}&\visible<2>{3} & \visible<2>{\uncover<1>{2158\tmark{p2}}} \\
+
+\hline
+\multicolumn{1}{c}{} & \multicolumn{1}{c}{\Verb|x|}& \multicolumn{1}{c}{y} &\multicolumn{1}{c}{\Verb|z|} &\multicolumn{1}{c}{\Verb|p|} \\
+\end{tabular}
+
+\end{columns}
+\hrulefill
+
+
+\begin{columns}
+\column{0.3\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+*p = 0 ;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.63\textwidth}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\uncover<1> {Adresse & 2158 & 2159 & 2160 & 2161} \\
+\hline
+Valeur &\visible<2>{0\tmark{v3}}&\visible<2>{1}&\visible<2>{3} & \visible<2>{\uncover<1>{2158\tmark{p3}}} \\
+
+\hline
+\multicolumn{1}{c}{} & \multicolumn{1}{c}{\Verb|x|}& \multicolumn{1}{c}{y} &\multicolumn{1}{c}{\Verb|z|} &\multicolumn{1}{c}{\Verb|p|} \\
+\end{tabular}
+
+\end{columns}
+\hrulefill
+
+\begin{columns}
+\column{0.3\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+p =&z ;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.63\textwidth}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\uncover<1> {Adresse & 2158 & 2159 & 2160 & 2161} \\
+\hline
+Valeur &\visible<2>{0}&\visible<2>{1}&\visible<2>{3\tmark{v4}} &\visible<2>{\uncover<1>{2160\tmark{p4}}} \\
+
+\hline
+\multicolumn{1}{c}{} & \multicolumn{1}{c}{\Verb|x|}& \multicolumn{1}{c}{y} &\multicolumn{1}{c}{\Verb|z|} &\multicolumn{1}{c}{\Verb|p|} \\
+\end{tabular}
+
+\end{columns}
+
+
+\begin{tikzpicture}[remember picture,overlay, auto,
+ line/.style     = { draw, thick, color=black},
+]
+\begin{scope} [every path/.style=line]
+\path <2-> ($(p1) + (-0.3,0)$) edge[bend right, *->] (v1) ;
+\path <2-> ($(p2) + (-0.3,0)$) edge[bend right, *->] (v2) ;
+\path <2-> ($(p3) + (-0.3,0)$) edge[bend right, *->] (v3) ;
+\path <2-> ($(p4) + (-0.3,0)$) edge[bend right, *->] (v4) ;
+
+
+\end{scope}
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Autre exemple}
+
+\begin{columns}
+\column{0.6\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+
+int main() 
+{
+   int u1, u2, v=3;
+   int *p1;
+   int *p2;
+   u1 = 2*(v+5);
+   p1 = &v;
+   p2 = p1;
+   *p2 = 5;
+   p2=&u1;
+   u2 = 2*(*p1+5);
+   *p2=*p2+1:
+   printf("\nu1=%d u2=%d v=%d",u1,u2,v);
+   return (0);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\column{0.29\textwidth}
+\begin{termblock}{Test d'exécution}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+u1=... u2=... u3=...
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+
+
+\end{columns}
 \end{frame}
