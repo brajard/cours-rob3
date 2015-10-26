@@ -1,0 +1,207 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Adresse et pointeurs}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+      \centering{
+      \includegraphics[width=5cm]{fig/postman.jpg}
+
+      \hfill \textit{Portrait of a Postman} (vers 1900-1912 ??)\\
+      \hfill Thomas Patterson \\
+      \hfill The British Postal Museum \& Archive
+    }
+  \end{columns}
+  
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Variable et adresse mémoire}
+\begin{block}{}
+La mémoire d'un ordinateur est organisée en suite de cases repérées par 
+une adresse.
+\begin{itemize}
+\item Chaque case mémoire a une adresse et un contenu.
+\end{itemize}
+\end{block}
+
+Les variables d'un programme sont stockées en mémoire et possèdent
+une valeur.
+
+
+\begin{columns}
+\column{0.2\textwidth}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int n=3;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{columns}
+\vspace{1em}
+\begin{columns}
+\column{0.6\textwidth}
+
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+Adresse & ... & 4584 & 4585 & 4586 & ...\\
+\hline
+Valeur & ... &     & 3 & & \\
+\hline
+\multicolumn{3}{c}{} & \multicolumn{1}{c}{\Verb|n|}& \multicolumn{2}{c}{}\\
+\end{tabular}
+
+\column{0.35\textwidth}
+\Verb|n| est à l'adresse 4585
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{L'opérateur \textcolor{bluegreen}{\&}}
+
+\begin{block}{}
+L'opérateur \bvrb|&| permet de retrouver l'adresse d'une variable.
+\end{block}
+
+\begin{columns}
+\column{0.2\textwidth}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int n=3;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{columns}
+
+\vspace{1em}
+\centering
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+Adresse & ... & 4584 & 4585 & 4586 & ...\\
+\hline
+Valeur & ... &     & 3 & & \\
+\hline
+\multicolumn{3}{c}{} & \multicolumn{1}{c}{\Verb|n|}& \multicolumn{2}{c}{}\\
+\end{tabular}
+\vspace{1em}
+
+\begin{tabular}{ll}
+\Verb|n| & contient 3 \\
+\Verb|&n| & contient 4585 \\
+\end{tabular}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les pointeurs}
+\begin{block}{}
+Un pointeur est une variable contenant l'adresse d'une case mémoire.
+\end{block}
+\begin{itemize}
+\item Déclaration :\\
+\vspace{0.5em}
+\begin{columns}
+\column{0.2\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int *pn;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.75\textwidth}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+Adresse & ... & 4584 & 4585 & 4586 & ...&6208\\
+\hline
+Valeur & ... &     & 3 & & &\\
+\hline
+\multicolumn{3}{c}{} & \multicolumn{1}{c}{\Verb|n|}& \multicolumn{2}{c}{} &\multicolumn{1}{c}{\Verb|pn|}\\
+\end{tabular}
+
+\end{columns}
+
+\item Affection :\\
+\vspace{0.5em}
+\begin{columns}
+\column{0.2\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+pn = &n ;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.75\textwidth}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+Adresse & ... & 4584 & 4585 & 4586 & ...&6208\\
+\hline
+Valeur & ... &     & 3 & &  & 4585\\
+\hline
+\multicolumn{3}{c}{} & \multicolumn{1}{c}{\Verb|n|}& \multicolumn{2}{c}{} &\multicolumn{1}{c}{\Verb|pn|}\\
+\end{tabular}
+
+\end{columns}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{L'opérateur \bvrb|*|}
+\begin{block}{}
+\begin{itemize}
+\item L'opérateur \bvrb|&| permet de retrouver l'adresse d'une variable.\\
+\item L'opérateur \bvrb|*| permet de retrouver le contenu d'une adresse mémoire. (Opération de déréférencement)\\
+\end{itemize}
+\end{block}
+\centering
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+Adresse & ... & 4584 & 4585 & 4586 & ...&6208\\
+\hline
+Valeur & ... &     & 3 & &  & 4585\\
+\hline
+\multicolumn{3}{c}{} & \multicolumn{1}{c}{\Verb|n|}& \multicolumn{2}{c}{} &\multicolumn{1}{c}{\Verb|pn|}\\
+\end{tabular}
+\begin{columns}
+\column{0.27\textwidth}
+\begin{tabular}{ll}
+\Verb|n| & contient 3 \\
+\Verb|pn| & contient 4585
+\end{tabular}
+
+\column{0.27\textwidth}
+\begin{tabular}{ll}
+\Verb|&n| & contient 4585 \\
+\Verb|*pn| & contient 3
+\end{tabular}
+
+\column{0.35\textwidth}
+\begin{exampleblock}{}
+Les égalités suivantes sont vraies :\\
+\Verb|n == *pn|\\
+\Verb|pn == &n | 
+\end{exampleblock}
+
+\end{columns}
+
+\end{frame}
