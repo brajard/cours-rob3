@@ -14,7 +14,7 @@
 #dependancy = fonctions.tex parametres.tex tabfonc.tex recurs.tex stdfonc.tex
 
 cours = cours-5
-dependancy = string.tex
+dependancy = string.tex point-add.tex point-tab.tex point-param.tex
 
 
 

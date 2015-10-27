@@ -1,0 +1,653 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Pointeurs et passage de paramètre}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+     
+  \end{columns}
+  
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Passage par valeur}
+
+\begin{codeblock}{Argument formel}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int fct (int a);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\vspace{2em}
+
+\begin{codeblock}{Argument effectif}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int n = 3 ;
+fct(n);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\vspace{2em}
+
+\begin{codeblock}{Dans la fonction}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+return(a+1);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Un exemple de passage par valeur}
+
+\begin{columns}
+\column{0.6\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+
+void fct(int x)
+{
+   x = x+2;
+}  
+
+int main() 
+{
+   int a=3;
+   fct(a);
+   printf("\na=%d",a);
+   return (0);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.29\textwidth}
+\begin{termblock}{Test d'exécution}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+a=...
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile,t]
+\frametitle{Suivi de la mémoire}
+
+\begin{columns}[t]
+
+%%%%% COL1 %%%%%%%%%%
+\column{0.22\textwidth}
+\vspace{1.3em}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int main() 
+{
+  int a=3;
+  fct(a);§\tmark{c1}§
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\vspace{4.2em}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+  printf("a=%d"§\tmark{c4}§
+   ,a);
+  return (0);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+%%%% COL2 %%%%
+\column{0.18\textwidth}
+\centering
+\textcolor{blue}{Contexte du \Verb|main|}
+\begin{block}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|}
+\multicolumn{1}{c}{\Verb|a|}\\
+\hline
+\textcolor{gray}{1201}\\
+\hline
+3\tmark{ma}\\
+\hline
+\end{tabular}
+\end{block}
+
+%%%% COL3 %%%%%
+\column{0.24\textwidth}
+
+\vspace{5em}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+§\tmark{c2}§void fct(int x)
+{
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\vspace{1.3em}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+ x = x + 2 ;
+§\tmark{c3}§}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+
+%%% COL4 %%%%
+\column{0.18\textwidth}
+\textcolor{teal}{Contexte de \Verb|fct|}
+
+\vspace{2.8em}
+
+\begin{exampleblock}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|}
+\multicolumn{1}{c}{\Verb|x|}\\
+\hline
+\textcolor{gray}{1202}\\
+\hline
+\tmark{fx}3\\
+\hline
+\end{tabular}
+\end{exampleblock}
+
+\begin{exampleblock}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|}
+\multicolumn{1}{c}{\Verb|x|}\\
+\hline
+\textcolor{gray}{1202}\\
+\hline
+5\\
+\hline
+\end{tabular}
+\end{exampleblock}
+
+
+\end{columns}
+
+\begin{tikzpicture}[remember picture,overlay, auto,
+ cline/.style     = { draw, color=red, ->},
+ pline/.style     = { draw, very thick, color=teal, ->},
+]
+\begin{scope} [every path/.style=cline]
+\path (c1) -- (c2) ;
+\path (c3) -- (c4) ;
+\end{scope}
+
+\draw[color=teal, very thick] (ma) edge[bend left=45, ->,shorten >=3pt] 
+node[midway, above]{3} (fx) ;
+
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Passage par adresse (ou par référence)}
+
+\begin{codeblock}{Argument formel}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int fct (int *pa);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\vspace{2em}
+
+\begin{codeblock}{Argument effectif}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int n = 3 ;
+fct(&n);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\vspace{2em}
+
+\begin{codeblock}{Dans la fonction}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+return(*pa + 1);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Un exemple de passage par adresse}
+
+\begin{columns}
+\column{0.6\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+
+void fct(int *px)
+{
+   *px = *px+2;
+}  
+
+int main() 
+{
+   int a=3;
+   fct(&a);
+   printf("\na=%d",a);
+   return (0);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.29\textwidth}
+\begin{termblock}{Test d'exécution}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+a=...
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+
+
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}[fragile,t]
+\frametitle{Suivi de la mémoire}
+
+\begin{columns}[t]
+
+%%%%% COL1 %%%%%%%%%%
+\column{0.22\textwidth}
+\vspace{1.3em}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int main() 
+{
+  int a=3;
+  fct(&a);§\tmark{c1}§
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\vspace{4.2em}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+  printf("a=%d"§\tmark{c4}§
+   ,a);
+  return (0);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+%%%% COL2 %%%%
+\column{0.18\textwidth}
+\centering
+\textcolor{blue}{Contexte du \Verb|main|}
+\begin{block}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|}
+\multicolumn{1}{c}{\Verb|a|}\\
+\hline
+\textcolor{gray}{1201}\tmark{ma}\\
+\hline
+3\\
+\hline
+\end{tabular}
+\end{block}
+
+\begin{block}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|}
+\multicolumn{1}{c}{\Verb|a|}\\
+\hline
+\textcolor{gray}{1201}\\
+\hline
+5\tmark{mp}\\
+\hline
+\end{tabular}
+\end{block}
+
+%%%% COL3 %%%%%
+\column{0.24\textwidth}
+
+\vspace{5em}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+§\tmark{c2}§void fct(int *px)
+{
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\vspace{1.3em}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+ *px = *px + 2 ;
+§\tmark{c3}§}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+
+%%% COL4 %%%%
+\column{0.18\textwidth}
+\textcolor{teal}{Contexte de \Verb|fct|}
+
+\vspace{2.8em}
+
+\begin{exampleblock}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|}
+\multicolumn{1}{c}{\Verb|px|}\\
+\hline
+\textcolor{gray}{1202}\\
+\hline
+\tmark{fx}1201\\
+\hline
+\end{tabular}
+\end{exampleblock}
+
+\begin{exampleblock}{}
+\vspace{-0.5em}
+\centering
+\begin{tabular}{|c|}
+\multicolumn{1}{c}{\Verb|px|}\\
+\hline
+\textcolor{gray}{1202}\\
+\hline
+\tmark{fp}1201\\
+\hline
+\end{tabular}
+\end{exampleblock}
+
+
+\end{columns}
+
+\begin{tikzpicture}[remember picture,overlay, auto,
+ cline/.style     = { draw, color=red, ->},
+ pline/.style     = { draw, very thick, color=teal, ->},
+]
+\begin{scope} [every path/.style=cline]
+\path (c1) -- (c2) ;
+\path (c3) -- (c4) ;
+\end{scope}
+
+\draw[color=teal, very thick] (ma) edge[bend left=45, ->,shorten >=3pt] 
+node[midway, above]{1201} (fx) ;
+\draw (fp) edge [dashed, bend right, ->, shorten >=3pt] node[midway, above]{*px} (mp) ;
+
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Passage par valeur Vs adresse}
+\begin{columns}
+\column{0.45\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+include <stdio.h>
+int fonction(int x)
+{
+  int a=2;
+  printf("\n2)a=%d,x=%d",a,x);
+  x += a;
+  printf("\n3)a=%d,x=%d",a,x);
+  return (x);
+}
+void main()
+{
+  int a=0, x=4;
+  printf("\n1)a=%d,x=%d",a,x);
+  a = fonction(x);
+  printf("\n4)a=%d,x=%d",a,x);
+  return(0);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\begin{Verbatim}
+1) a=..., x=...
+2) a=..., x=...
+3) a=..., x=...
+4) a=..., x=...
+\end{Verbatim}
+
+\column{0.48\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+include <stdio.h>
+int fonction(int *px)
+{
+ int a=2;
+ printf("\n2)a=%d,*px=%d",a,*px);
+ *px += a;
+ printf("\n3)a=%d,*px=%d",a,*px);
+ return (x);
+}
+void main()
+{
+ int a=0, x=4;
+ printf("\n1)a=%d,x=%d",a,x);
+ a = fonction(&x);
+ printf("\n4)a=%d,x=%d",a,x);
+ return(0);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\begin{Verbatim}
+1) a=..., x=...
+2) a=..., *px=...
+3) a=..., *px=...
+4) a=..., x=...
+\end{Verbatim}
+
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Exemple : échange du contenu de 2 variables}
+
+\begin{columns}
+\column{0.6\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+void echange(int * x, int * y)
+{
+   int tmp = *x;
+   *x = *y;
+   *y = tmp;
+}
+void main()
+{
+   int a=4, b=5;
+   printf("\n1) a= %d, b=%d",a,b);
+   echange(&a,&b);
+   printf("\n2) a= %d, x=%d",a,b);
+   return (0);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.29\textwidth}
+\begin{termblock}{Test d'exécution}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+1) a=..., b=...
+2) a=..., b=...
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Ça explique}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item L'utilisation du \bvrb|&| dans le \bvrb|scanf|
+\begin{columns}
+\column{0.3\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+scanf("%d",&n) ;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\column{0.4\textwidth}
+\Verb|&n| est une adresse
+\end{columns}
+
+\item Le statut particulier des chaînes de caractères dans \bvrb|scanf|
+\begin{columns}
+\column{0.3\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+char chaine[50];
+scanf("%s",chaine);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{columns}
+\Verb|chaine| est un tableau de caractères, c'est à dire
+un pointeur (donc il contient déjà une adresse).
+
+\item Le fait que les tableaux passés en argument des fonctions
+étaient modifiés.
+
+\end{itemize}
+\begin{columns}
+\column{0.4\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+void init (int *Tab);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.4\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+void init (int Tab[]);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{columns}
+
+\end{frame}
