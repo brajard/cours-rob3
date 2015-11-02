@@ -1,0 +1,410 @@
+% !TEX encoding = IsoLatin9
+\section{Structures de données}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    \centering{
+      \includegraphics[width=4cm]{fig/linus.jpeg}
+      }
+
+      \textit{"I will, in fact, claim that the difference between a bad 
+programmer and a good one is whether he considers his code or 
+his data structures more important. Bad programmers worry 
+about the code. Good programmers worry about data structures 
+and their relationships."}\\
+      \small{
+        \hfill Linus Torvalds (1969-)\\
+               \hfill créateur de Linux}
+    
+  \end{columns}
+  \end{frame}
+
+\begin{frame}
+\frametitle{Définition}
+\begin{block}{}
+Une structure est un type de donénes composé de plusieurs
+eléments de type quelconque appelés champs ou membres.
+\end{block}
+Les structures permettent de regrouper des informations
+de types distincts mais ayant un lien sémentique fort pour
+le programmeur.
+\begin{itemize}
+\item Nom, Prénom, Date, lieu de naissance, adresse $\rightarrow$ \textbf{Identité}
+\item Jour, Mois, Année $\rightarrow$ \textbf{Date}
+\item Abscisse, Ordonnée $\rightarrow$ \textbf{Point}
+\end{itemize}
+
+\begin{exampleblock}{Notes}
+\begin{itemize}
+\item Les structures complètent la notion de tableau car il devient
+possible de regrouper des éléments de types différents.
+\item Les fonctions en C peuvent renvoyer une structure.
+\end{itemize}
+
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Déclaration et initialisation}
+Un modèle de structure se défini de la façon suivante :
+\begin{columns}
+\column{.25\textwidth}
+\begin{figure}
+\begin{tikzpicture} [
+auto,
+remember picture,
+ block/.style    = { rectangle, draw=blue, black, 
+                         text width=2.8cm, text centered,
+                         font = \footnotesize,
+                        rounded corners, minimum height=2em },
+node distance=0.5em,
+]
+\node (etiq) [block] {Etiquette de structure};
+\node (point) [block, below= of etiq.south, anchor = north] 
+{Déclaration et initialisation d'un pointeur sur \bvrb|struct point|};
+
+\end{tikzpicture}
+\end{figure}
+\column{.44\textwidth}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+struct §\tmark{c_etiq}§point {
+ float x;§\tmark{c_champ1}§
+ float y;§\tmark{c_champ2}§
+ char couleur[10];§\tmark{c_champ3}§
+};
+
+struct point p1={1,-2,"Vert"};§\tmark{c_val}§
+
+§\tmark{c_point1}§struct point * Ptr_point;
+§\tmark{c_point2}§Ptr_point=&p1;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{.25\textwidth}
+\begin{figure}
+\begin{tikzpicture} [
+auto,
+remember picture,
+ block/.style    = { rectangle, draw=blue, black, 
+                         text width=2.8cm, text centered,
+                         font = \footnotesize,
+                        rounded corners, minimum height=2em },
+node distance=0.5em,
+]
+\node (champ) [block] {Champs de la structure};
+\node (val) [block, below= of champ.south, anchor = north] 
+{Déclaration et initialisation d'une variable \bvrb|struct point|};
+
+\end{tikzpicture}
+\end{figure}
+
+\end{columns}
+\vspace{1em}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item L'étiquette de structure permet de nommer le modèle
+\item L'initialisation est analogue à celle des tableaux.
+\end{itemize}
+
+\begin{tikzpicture}[remember picture,overlay, auto,
+ line/.style     = { draw, color=black, ->},
+]
+\begin{scope} [every path/.style=line, thick, shorten >=2pt]
+\path (etiq) -- (c_etiq) ;
+\path (point) -- (c_point1) ;
+\path (point) -- (c_point2) ;
+\path (champ) -- (c_champ1); 
+\path (champ) -- (c_champ2); 
+\path (champ) -- (c_champ3); 
+\path (val) -- (c_val); 
+
+\end{scope}
+
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Accès aux membres de la structure}
+\begin{block}{}
+Pour accéder aux membres de la structure, on utilise
+l'opérateur \textbf{\Large{\bvrb|.|}} (point)
+\end{block}
+Syntaxe : \bvrb|£textitµNomdevariable.membre§|\\
+\begin{codeblock}{Exemple}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+struct point {
+ int x;
+ int y;
+ char couleur[10];
+};
+int main() {
+ struct point origine;
+ origine.x=0;
+ origine.y=0;
+ origine.couleur="noir";
+printf("abscisse : %f\n",pt.x);
+printf("ordonnée : %f\n",pt.y);
+printf ("couleur : %s\n",pt.couleur);
+return(0);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Remarques}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Les noms des champs sont locaux à la structure
+\begin{columns}
+\column{0.6\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+struct point {
+ int x;
+ int y;
+ char couleur[10];
+};
+int main() {
+ struct point M={1.1,0,"rouge");
+ float x=5.1;
+ printf("x=%f\n",x);
+ printf("M.x=%f\n",M.x);
+ return(0);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.29\textwidth}
+\begin{termblock}{Test d'exécution}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+x=...
+M.x=...
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+\end{columns}
+
+\item L'usage veut que les modèles de structure
+soient placés entre les directives préprocesseur
+(\bvrb|#|) et les prototypes des fonctions.
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Opération sur les structures}
+\begin{itemize}
+\item Récupération d'adresse par \bvrb|&|
+\item Accès au membres par \bvrb|.| (point)
+\item Affectation globale pour des variables d'un même modèle.
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+struct point M={1.1,0,"rouge");
+struct point N;
+N=M;
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+Petit truc : cela permet de faire des copies de tableaux sans boucle.
+Ici \Verb|M.couleur| est un tableau de caractères et il est copié
+dans le tableau \Verb|N.couleur|.\\
+\red{Attention:} Cette astuce ne fonctionne que pour les tableaux
+statiques.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Structures et fonctions}
+\begin{itemize}
+\item Possibilité de passer une strutcture en paramètre d'une fonction
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+void affichePoint (struct point pt) {
+   printf("abscisse : %f\n",pt.x);
+   printf("ordonnée : %f\n",pt.y);
+   printf ("couleur : %s\n",pt.couleur);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\item Possibilité de retourner une structure
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+struct point construirePoint (float x, float y, char couleur[]) {
+ struct point pt;
+ pt.x=x;
+ pt.y=y;
+ strcpy(pt.couleur,couleur);
+ return pt;
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Comparaison de structure}
+\begin{block}{}
+Il n'existe pas d'opérateur de comparaison global.\\
+\red{Il faut comparer champ par champ}
+\end{block}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int comparepoint (struct point P1, struct point P2) {
+ /* renvoie 1 si les points sont égaux 0 sinon*/
+ int comp=0;
+ if (((P1.x==P2.x) && (P1.y==P2.y)) &&
+  !strcmp(P1.couleur,P2.couleur)) {
+  comp=1;
+ }
+ return (comp);
+}
+
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pointeurs sur une structure}
+\begin{itemize}
+\item Possibilité de passer une structure par adresse
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+void symetrie (struct point *pt) {
+ (*pt).x= -(*pt).x;
+ (*pt).y= -(*pt).
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\item Pour alléger l'écriture, utilisation d'un
+symbole spécial : \bvrb|->|
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+void symetrie (struct point *pt) {
+ pt->x= -pt->x;
+ pt->y= -pt->y;
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{itemize}
+\begin{exampleblock}{remarques}
+\begin{itemize}
+\item Il est souvent préférable de passer les structures par adresse.
+\item Les pointeurs sur des structures sont très utilisés.
+\end{itemize}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tableaux de structures}
+\begin{itemize}
+\item Les tableaux de structures sont \red{très} utilisés.
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+struct point Segm[2]={{0,0,"rouge"},{1,2.3,"vert"}};
+float dx,dy ;  
+dx=Segm[1].x - Segm[0].x;
+dy=Segm[1].y - Segm[0].y;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\item On préfère généralement utiliser des tableaux
+de pointeurs de structure.
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+struct point M1={0,0,"rouge"};
+struct point M2={1,2.3,"vert"};
+struct point *Segm[2]={&M1,&M2};
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Allocation dynamique de mémoire}
+
+La taille d'une structure est donnée
+par l'opérateur \bvrb|sizeof()|
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+struct point M1={0,0,"rouge"};
+struct point M2={1,2.3,"vert"};
+struct point *Segm;
+Segm=(struct point *)malloc(2*sizeof(struct Point));
+Segm[0]=M1;
+Segm[1]=M2;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\vspace{1em}
+\red{Attention} : La taille d'une structure est différente
+de la somme des tailles des champs qui la compose.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Types synonymes : \bvrb|typedef|}
+
+\end{frame}
