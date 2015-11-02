@@ -1,0 +1,456 @@
+\ifdefined\ishandout
+\documentclass[handout]{beamer}
+\else
+\documentclass{beamer}
+\fi
+
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{framed}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{xcolor}
+\usepackage{color, colortbl}
+\usepackage{handoutWithNotes}
+
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.arrows, chains}
+\usetikzlibrary{arrows,calc}
+\usepackage{array}
+\usetheme{Boadilla}
+
+\ifdefined\ishandout
+\pgfpagesuselayout{3 on 1 with notes}[a4paper,border shrink=5mm]
+\usecolortheme{dove}
+\else
+\usecolortheme{dolphin}
+\fi
+
+
+\lstnewenvironment{codeC}
+{ \lstset{language=C,
+    otherkeywords={printf,scanf}}
+}
+{}
+
+\ifdefined\ishandout
+\definecolor{mygreen}{rgb}{0,0,0}
+\definecolor{mymauve}{rgb}{0,0,0}
+\definecolor{myblue}{rgb}{0,0,0}
+\else
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{myblue}{rgb}{0,0,1}
+
+\fi
+
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+
+
+\lstset{language=C,
+% breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+%  breaklines=true,                 % sets automatic line breaking
+%  captionpos=b,                
+commentstyle=\itshape\color{mymauve},
+keywordstyle=\bfseries\color{myblue},
+%numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+%  numbersep=8pt,                   % how far the line-numbers are from the code
+%  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+%  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+%  showtabs=false,                  % show tabs within strings adding particular underscores
+%  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mygreen},     % string literal style
+%  tabsize=2 
+}
+
+\newcommand{\red}{\textcolor{red}}
+%\newcommand \emph
+%Default size : 12.8 cm * 9.6 cm
+
+\newcommand{\tmark}[1]{\tikz[remember picture, baseline=-.5ex]{\coordinate(#1)}}
+
+\ifdefined\ishandout
+\newenvironment<>{codeblock}[1]{%begin
+  \setbeamercolor{block title}{fg=black,bg=lightgray!80}%
+  \begin{block}{#1}}
+  % \begin{codeC}}
+  %  {\end{codeC}
+{  
+\end{block}}
+
+\newenvironment<>{termblock}[1]{
+    \setbeamercolor{block title}{fg=black,bg=lightgray!90}%
+    \begin{block}{#1}
+}
+%     \begin{Verbatim}}
+{%\end{Verbatim}
+\end{block}
+}
+
+\definecolor{bluegreen}{RGB}{0,0,0}
+%\definecolor{bluegreen}{rgb}{0,0.6,0.8}
+\else
+
+\newenvironment<>{codeblock}[1]{%begin
+  \setbeamercolor{block title}{fg=darkgray,bg=yellow}%
+  \begin{block}{#1}}
+  % \begin{codeC}}
+  %  {\end{codeC}
+{  
+\end{block}}
+
+\newenvironment<>{termblock}[1]{
+    \setbeamercolor{block title}{fg=white,bg=lightgray}%
+    \begin{block}{#1}}
+%     \begin{Verbatim}}
+{%\end{Verbatim}
+\end{block}
+}
+
+\definecolor{bluegreen}{RGB}{0,149,182}
+%\definecolor{bluegreen}{rgb}{0,0.6,0.8}
+\fi
+
+%\newcommand{\output}[1]{
+\setbeamertemplate{navigation symbols}{}
+\newcommand{\bvrb}{\Verb[commandchars=£µ§,formatcom=\color{bluegreen}]}
+\newcommand{\footvrb}{\footnotesize\Verb}
+
+
+%%% Paramètres du cours (à régler)
+%Numéro du cours
+\newcommand{\nb}{5}
+
+\title[Turing]{La mission Turing}
+%\author[]{julien.brajard@upmc.fr}
+%\institute[Polytech' UPMC]{Polytech' UPMC}
+\date{02 Novembre 2015}
+\begin{document}
+\usebackgroundtemplate{%             declare it
+\tikz[overlay,remember picture] \node[opacity=0.8, at=(current page.center)] {
+   \includegraphics[height=0.8\paperheight]{./fig/bond.jpg}};
+}
+%%%%%%%%%%%%%%%%%%%%% SLIDES DE TITRE
+\begin{frame}
+\frametitle{La mission Turing}
+\end{frame}
+\usebackgroundtemplate{ }    %% undeclare it
+
+\begin{frame}
+\frametitle{Votre mission}
+Vous avez reçu une machine de Turing cassée ainsi que le 
+ruban que la machine avait écrite avant de se casser.\\
+\vspace{2em}
+Imaginez que cette machine est la clé du cryptage
+d'une arme ultra-secrète, ou qu'elle permette de fournir
+une source inépuisable d'énergie propre.
+\vspace{2em}
+\begin{alertblock}{}
+Votre mission est de la réparer.
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Plus concrètement}
+\begin{figure}
+\includegraphics[width=\textwidth]{./fig/site_turing}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Comment faire ...}
+\framesubtitle{...pour sauver le monde ?}
+
+\begin{enumerate}
+\item Connectez-vous à votre QG :\\
+\url{http://www.locean-ipsl.upmc.fr/~jbrlod/ROB/connection.php}
+\item Récupérez votre mot de passe à l'aide de votre numéro d'agent (numéro d'étudiant).
+\item Entrez votre numéro d'agent (numéro d'étudiant) et votre mot de passe.
+\item Le site vous affiche la machine que vous devez réparer (chaque agent a une machine
+différente mais de complexité équivalente).
+\item Le compte à rebours est lancé : vous avez \red{1 heure} pour réparer la machine
+\item Vous avez \red{2 essais}.
+\item Si vous vous reconnectez trop tard ou soumettez une réparation trop tard, 
+le site vous donne la réponse.
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Attention !!!!}
+\begin{alertblock}{}
+Avant d'entreprendre la réparation d'une machine,
+assurez-vous que vous avez une heure libre devant vous avec une connexion internet\\
+Vous pouvez également aller au camp d'entrainement (accessible sur le site)
+autant de fois que vous voulez.
+\end{alertblock}
+Vous avez jusqu'au 15 Novembre (inclus) pour remplir votre mission.
+\end{frame}
+
+\begin{frame}
+\frametitle{Evaluation}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Machine réparée au bout du premier essai : 4 pts
+\item Machine réparée au bout de 2 essais : 2.5 pts
+\item Machine réparée en moins de 15 min : +1 pt
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Vérifiez vos numéros et emails !}
+\framesubtitle{de A à I}
+\begin{figure}
+\centering
+\footnotesize
+\begin{tabular}{|c|c|c|c|}
+\hline
+ Aussage      & Antoine    & 3526423 & toine011094@hotmail.fr                      \\
+\hline
+ Barcikowsky  & Louis      & 3301156 & louis.barcikowsky@etu.upmc.fr               \\
+ \hline
+Bec          & Aurelien   & 3300541 & aurelien.bec@etu.upmc.fr                    \\
+\hline
+ Champalou    & Fabien     & 3300146 & fabien.champalou@etu.upmc.fr                \\
+\hline
+ Chandy       & Antoine    & 3523283 & antoinechandy94@gmail.com                   \\
+\hline
+ Chelvaratnam & Colinsiya  & 3202604 & colinsiya.chelvaratnam@etu.upmc.fr          \\
+\hline
+ Conraux      & Romain     & 3305907 & romainconraux@hotmail.fr                    \\
+\hline
+ Deyris       & Antoine    & 3300180 & antoine.deyris@etu.upmc.fr                  \\
+\hline
+ Dubreuil     & Martin     & 3523231 & martin.dubreuil@etudiant.univ-bpclermont.fr \\
+\hline
+ Ekamby       & J          & 3300957 & jeremy.ekamby@etu.upmc.fr                   \\
+\hline
+ Ghorbel      & Ayman      & 3527713 & ayman.ghorbel@gmail.com                     \\
+\hline
+ Gu           & Stephane   & 3525751 & stephane.gu@hotmail.fr                      \\
+\hline
+ Guyot        & Louis      & 3523267 & guyot.1995@laposte.net                      \\
+\hline
+ Haulot-Logre & Antonin    & 3523271 & antonin.hl93@laposte.net                    \\
+\hline
+ Hoffmann     & Nicolas    & 3300402 & nicolas.hoffmann@etu.upmc.fr                \\
+\hline
+ Huber        & Johann     & 3300364 & johann.huber@etu.upmc.fr                    \\
+\hline
+ Huet         & Quentin    & 3301226 & quentin.huet@etu.upmc.fr                    \\
+\hline
+ Isnard       & Nicolas    & 3523176 & nicolas.isnard@etud.univ-montp2.fr          \\
+
+\hline
+\end{tabular}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Vérifiez vos numéros et emails !}
+\framesubtitle{de J à T}
+\begin{figure}
+\centering
+\footnotesize
+\begin{tabular}{|c|c|c|c|}
+\hline
+ Jaloux       & Valentine  & 3301259 & valentine.jaloux@etu.upmc.fr                \\
+\hline
+ Kebci        & Takfarinas & 3301287 & takfarinas.kebci@etu.upmc.fr                \\
+\hline
+ Koeberle     & Yann       & 3300932 & yann.koeberle@etu.upmc.fr                   \\
+\hline
+ Lagarde      & Marion     & 3523308 & mamalagarde@gmail.com                       \\
+\hline
+ Lechapt      & Eliott     & 3300160 & eliott.lechapt@etu.upmc.fr                  \\
+\hline
+ Makkaoui     & Yasmine    & 3201817 & y.makkaoui@yahoo.fr                         \\
+\hline
+ Manceron     & Claire     & 3523186 & claire.manceron@u-psud.fr                   \\
+\hline
+ Martin       & Julien     & 3301178 & julien.martin4@etu.upmc.fr                  \\
+\hline
+ Morel        & Paul       & 3300294 & paul.morel@etu.upmc.fr                      \\
+\hline
+ Nebout       & Yann       & 3201535 & yann.nebout@etu.upmc.fr                     \\
+\hline
+ Ocheretnyuk  & Dmitry     & 3301197 & dmitry.ocheretnyuk@etu.upmc.fr              \\
+\hline
+ Octon        & Philippe   & 3300147 & octon\_philippe@hotmail.fr                   \\
+\hline
+ Rousset      & Pauline    & 3523184 & pauline.rousset@etu.upmc.fr                 \\
+\hline
+ Russo        & Mathieu    & 3525919 & mathieu.russo9@gmail.com                    \\
+\hline
+ Tan          & Qianqian   & 3503195 & 422898406@qq.com                            \\
+\hline
+ Thelotte     & Nicolas    & 3202041 & nicolas.thelotte@etu.upmc.fr                \\
+\hline
+ Thepot       & Julien     & 3525264 & julien.thepot@u-psud.fr                     \\
+\hline
+\end{tabular}
+\end{figure}
+\end{frame}
+
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Plan du cours n°\nb}
+\tableofcontents[hideallsubsections]
+\end{frame}
+
+%%%%
+
+
+
+%%%%%% SECTION 12
+
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Les algorithmes}\label{section:1}
+\begin{frame}
+\begin{columns}
+        \column{4.8cm}
+            \tableofcontents[currentsection]
+        \column{7cm}
+        \centering{
+            \includegraphics[width=7cm]{fig/Algorithm-sheldon.png}
+            
+                 \textit{ I believe I've isolateblblblblblblsblbslbslbsl
+            sblbslblsblsblblsblbs
+            lbslblbslsb d the algorithm for making friends.}
+     
+            
+            \small{
+            \hfill Sheldon Cooper, 
+            
+            \hfill in \textit{The Big Band Theory}, Season 2, Episode 13
+            }
+}
+
+    \end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+\subsection{Introduction}
+    \begin{frame}
+    \frametitle{Pourquoi faire appel à des algorithmes ?}
+    Pour automatiser des tâches
+    
+    Exemples :
+    \begin{itemize}
+    \item Métier à tisser\\
+    \item Méthode de calcul à la main d'une division\\
+    \item Recette de cuisine\\
+    \item ...\\
+    \end{itemize}
+    \end{frame}
+ 
+ %%%%%%%%%%%%%%%%%
+ 
+    \begin{frame}
+    \frametitle{Qu'est-ce qu'un algorithme ?}
+    \begin{block}{Définition}
+    Un algorithme est un ensemble 
+    ordonné d'instructions simples
+permettant de résoudre un problème.
+    \end{block}
+    \end{frame}
+    
+ %%%%%%%%%%%%%%%%%%
+ \subsection{Construction d'un algorithme}
+%%%%%%%%%%%%%%%%%%%    
+\section{La machine de Turing}
+%%%%%%%%%%%%%%%%%%%%
+ 
+  
+\begin{frame}[fragile]
+\frametitle{Un peu d'histoire...}
+\begin{codeblock}{Test}
+\begin{codeC}
+for (int i = 0 ; i < n ; i ++) {
+    //a comment
+    printf("%d",i);
+    }
+\end{codeC}
+\end{codeblock}
+
+\begin{termblock}{test 2}
+\lstset{escapeinside={§§}}
+\begin{lstlisting}
+§\textbf{>>}§./a.out
+§\color{darkgray}{\texttt{  Hello World}}§
+\end{lstlisting}
+\end{termblock}
+
+ \begin{block}{Bloc standard}
+blablabla
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{essai}
+\begin{columns}
+\column{6cm}
+\begin{block}
+
+\begin{figure}
+\begin{tikzpicture} [
+    auto,
+    decision/.style = { diamond, draw=blue, thick, fill=blue!20,
+                        text width=5em, text badly centered,
+                        inner sep=1pt, rounded corners },
+    block/.style    = { rectangle, draw=blue, thick, 
+                        fill=blue!20, text width=10em, text centered,
+                        rounded corners, minimum height=2em },
+    line/.style     = { draw, thick, ->, shorten >=2pt },
+  ]
+   \matrix [column sep=-10mm, row sep=10mm] {
+                    & \node [text centered] (x) {$\mathbf{X}$};            & \\
+                    & \node (null1) {};                                    & \\
+                    & \node [block] (doa) {\textsf{DoAE}($\mathbf{X}$)};   & \\
+  	               \node(null3){}; & \node [decision] (uiddes)
+                        {\textsf{UID}($\hat{\mathbf{X}}$)};
+                                  & \node[text centered](tra){$\mathbf{i}$}; \\
+                  & \node [block] (track) {\textsf{DoAT}($\mathbf{x}$)}; & \\
+                    & \node [block] (pesos)
+                        {\textsf{BF}(DoA$_{\mathrm{T}}$,DoAs)};            & \\
+                    & \node [block] (filtrado)
+                        {\textsf{SF}($\mathbf{w}$,$\mathbf{x}$)};          & \\
+                    & \node [text centered] (xf) {$\hat{x}(t)$ };          & \\
+  };
+  % connect all nodes defined above
+ \begin{scope} [every path/.style=line]
+    \path (x)        --    (doa);
+    \path (doa)      --    node [near start] {DoAs} (uiddes);
+    \path (tra)      --    (uiddes);
+    \path (uiddes)   --++  (-3,0) node [near start] {no} |- (null1);
+    \path (uiddes)   --    node [near start] {DoA} (track);
+    \path (track)    --    node [near start] {DoA$_{\mathrm{T}}$} (pesos);
+    \path (pesos)    --    node [near start] {\textbf{w}} (filtrado);
+    \path (filtrado) --    (xf);
+  
+  \end{scope}
+\end{tikzpicture}
+\end{figure}
+\end{block}
+\column{3cm}
+\begin{block}{bulbul}
+\end{block}
+\end{columns}
+\end{frame}
+
+\end{document}
