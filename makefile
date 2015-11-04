@@ -13,10 +13,11 @@
 #cours = cours-4
 #dependancy = fonctions.tex parametres.tex tabfonc.tex recurs.tex stdfonc.tex
 
-cours = cours-5
-dependancy = string.tex point-add.tex point-tab.tex point-param.tex
+#cours = cours-5
+#dependancy = string.tex point-add.tex point-tab.tex point-param.tex
 
-
+cours = cours-6
+dependancy = struct.tex struct-other.tex struct-list.tex
 
 all: online slides print
 

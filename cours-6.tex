@@ -23,6 +23,7 @@
 \usetikzlibrary{positioning}
 \usetikzlibrary{shapes.arrows, chains}
 \usetikzlibrary{arrows,calc}
+\usetikzlibrary{shapes.multipart}
 \usepackage{array}
 \usetheme{Boadilla}
 
@@ -71,12 +72,15 @@ keywordstyle=\bfseries\color{myblue},
   stringstyle=\color{mygreen},     % string literal style
 %  tabsize=2 
 }
-
+\ifdefined\ishandout
+\newcommand{\red}{\textbf}
+\else
 \newcommand{\red}{\textcolor{red}}
+\fi
 %\newcommand \emph
 %Default size : 12.8 cm * 9.6 cm
 
-\newcommand{\tmark}[1]{\tikz[remember picture, baseline=-.5ex]{\coordinate(#1)}}
+\newcommand{\tmark}[1]{\tikz[remember picture, baseline=-.5ex]{\coordinate(#1);}}
 
 \ifdefined\ishandout
 \newenvironment<>{codeblock}[1]{%begin
@@ -125,6 +129,13 @@ keywordstyle=\bfseries\color{myblue},
 \newcommand{\bvrb}{\Verb[commandchars=£µ§,formatcom=\color{bluegreen}]}
 \newcommand{\footvrb}{\footnotesize\Verb}
 
+%%% Commande pour les listes/arbres
+\newcommand{\mvide}{\nodepart{one} \nodepart{two}}
+\newcommand{\tvide}{\nodepart{one} \nodepart{two} \nodepart{three}}
+
+%%Fin des commandes pour les listes/arbres.
+
+
 
 %%% Paramètres du cours (à régler)
 %Numéro du cours
@@ -153,6 +164,8 @@ keywordstyle=\bfseries\color{myblue},
 
 %%%%%% SECTION 12
 \input{struct}
+\input{struct-other}
+\input{struct-list}
 \end{document} 
 
 %%%%%%%%%%%%%%%%%%%%% SECTION 1

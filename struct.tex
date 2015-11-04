@@ -1,9 +1,10 @@
 % !TEX encoding = IsoLatin9
 \section{Structures de données}
+\subsection{Introduction}
 \begin{frame}
   \begin{columns}
     \column{4.8cm}
-    \tableofcontents[currentsection,hideothersubsections]
+    \tableofcontents[currentsection,hideothersubsections,currentsubsection]
     \column{7cm}
     \centering{
       \includegraphics[width=4cm]{fig/linus.jpeg}
@@ -406,5 +407,80 @@ de la somme des tailles des champs qui la compose.
 
 \begin{frame}[fragile]
 \frametitle{Types synonymes : \bvrb|typedef|}
+\begin{block}{}
+La fonctionnalité \bvrb|typedef| permet de définir des
+types synonymes.
+\end{block}
+\begin{columns}
 
+\column{0.45\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+typedef struct point {
+int x;
+int y;
+char couleur[10];
+} Point;
+
+typedef int * PtrEntier
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.45\textwidth}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int main() {
+  Point P={1,2,"vert"};
+  PtrEntier pn;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+
+équivalent à :
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int main() {
+struct point P={1,2,"vert"};
+int * pn;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{columns}
+
+\begin{itemize}
+\item Le type synonyme peut être utilisé
+dans toutes les expressions (en particulier
+les conversions \bvrb|()| et \bvrb|sizeof|).
+\item Il rend les noms des types plus courts et intuitifs.
+\item L'instruction \bvrb|typedef| est placée aux mêmes
+endroits du code que les modèles de structures et
+commencent par une majuscule (convention).
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Que peut-on déclarer comme champ de structure ?}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Les types classiques (\bvrb|char|, \bvrb|int|, \bvrb|float|, ...) ;
+\item Les tableaux statiques ;
+\item Les pointeurs ;
+\item D'autres structures ;
+\item Des pointeurs sur une structure (\red{y compris elle-même}).
+Ce sont alors des structures autoréférentielles ou récursives.
+\end{itemize}
 \end{frame}

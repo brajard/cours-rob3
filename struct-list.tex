@@ -1,0 +1,356 @@
+% !TEX encoding = IsoLatin9
+\subsection{Listes et arbres}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections,currentsubsection]
+    \column{7cm}
+   
+  \end{columns}
+  \end{frame}
+
+\begin{frame}
+\frametitle{Quelques définitions}
+
+\begin{block}{Structure récursive}
+Structure de données dans laquelle un membre est un pointeur
+vers une variable de la même structure.
+\begin{itemize}
+\item Données éparpillées en mémoire reliées par des pointeurs.
+\end{itemize}
+\end{block}
+
+\begin{block}{Liste chaînée}
+Un membre pointe vers la variable suivante de la liste.
+\end{block}
+
+\begin{block}{List doublement chaînée}
+Un membre pointe vers la variable suivante et un autre vers
+la variable précédente.
+\end{block}
+
+\begin{block}{arbre binaire}
+Deux pointeurs pointent vers deux membres suivants (les fils).
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Illustration}
+
+La liste chaînée :
+
+\begin{figure}
+\begin{tikzpicture}[
+auto,
+data/.style = {
+  text width = 1em,
+  align=center,
+  rectangle split,
+  rectangle split parts = 2,
+  draw,
+  text centered},
+line/.style = {draw,thick, ->,},
+node distance = 3em,
+]
+\node (tete) {tete};
+\node[data, right of = tete,yshift=-0.7em] (1) {\mvide};
+\node[data, right of = 1] (2) {\mvide};
+\node[data, right of = 2] (3) {\mvide};
+\node[data, right of = 3] (4) {\mvide};
+\node[data, right of = 4] (5) {\mvide};
+\node[right of = 5,yshift = -0.35em] (null) {\footnotesize\Verb|NULL|};
+
+ \begin{scope}[every path/.style=line]
+\path(tete) -- (1.one west) ;
+\path(1.two east) -- (2.one west) ;
+\path(2.two east) -- (3.one west) ;
+\path(3.two east) -- (4.one west) ;
+\path(4.two east) -- (5.one west) ;
+\path(5.two east) -- (null.west);
+\end{scope}
+
+\end{tikzpicture}
+\end{figure}
+
+La liste doublement chaînée :
+
+\begin{figure}
+\begin{tikzpicture}[
+auto,
+data/.style = {
+  text width = 1em,
+  align=center,
+  rectangle split,
+  rectangle split parts = 3,
+  draw,
+  text centered},
+line/.style = {draw=black,thick, ->,},
+rline/.style = {draw=blue, thick, ->,}, 
+node distance = 3em,
+]
+\node (tete) {tete};
+\node[data, right of = tete,yshift=-0.7em] (1) {\tvide};
+\node[data, right of = 1] (2) {\tvide};
+\node[data, right of = 2] (3) {\tvide};
+\node[data, right of = 3] (4) {\tvide};
+\node[data, right of = 4] (5) {\tvide};
+\node[right of = 5] (null) {\footnotesize\Verb|NULL|};
+\node[yshift = -1.4em] (null2) {\footnotesize\Verb|NULL|};
+
+ \begin{scope}[every path/.style=line]
+\path(tete) -- (1.one west) ;
+\path(1.two east) -- (2.one west) ;
+\path(2.two east) -- (3.one west) ;
+\path(3.two east) -- (4.one west) ;
+\path(4.two east) -- (5.one west) ;
+\path(5.two east) -- (null.west);
+\end{scope}
+
+\begin{scope}[every path/.style=rline]
+\path(5.three west) -- (4.one east) ;
+\path(4.three west) -- (3.one east) ;
+\path(3.three west) -- (2.one east) ;
+\path(2.three west) -- (1.one east) ;
+\path(1.three west) -- (null2.east) ;
+\end{scope}
+
+
+\end{tikzpicture}
+\end{figure}
+
+
+L'arbre binaire :
+
+\begin{figure}
+\begin{tikzpicture}[
+auto,
+data/.style = {
+  text width = 1em,
+  align=center,
+  rectangle split,
+  rectangle split parts = 3,
+  draw,
+  text centered},
+line/.style = {draw=black,thick, ->,},
+node distance = 3em,
+]
+\node (tete) {tete};
+\node[data, right of = tete,yshift=-0.7em] (1) {\tvide};
+\node[data, right of = 1,yshift=-2em] (2) {\tvide};
+\node[data, right of = 1,yshift=2em] (3) {\tvide};
+\node[data, right of = 3,yshift=-1.2em] (4) {\tvide};
+\node[data, right of = 3,yshift=1.2em] (5) {\tvide};
+
+ \begin{scope}[every path/.style=line]
+\path(tete) -- (1.one west) ;
+\path(1.two east) -- (3.one west) ;
+\path(1.three east) -- (2.one west) ;
+\path(3.two east) -- (5.one west) ;
+\path(3.three east) -- (4.one west) ;
+\end{scope}
+
+
+\end{tikzpicture}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modèles}
+\begin{codeblock}{Liste chaînée}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+struct ListeSimple{
+ type_val val;
+ struct ListeSimple *suivant;
+};
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\begin{codeblock}{Liste doublement chaînée}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+struct ListeDouble{
+ type_val val;
+ struct ListeDouble *suivant;
+ struct ListeDouble *precedent;
+};
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\begin{codeblock}{Liste doublement chaînée}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+struct Arbre{
+ type_val val;
+ struct Arbre *fils_droit;
+ struct Arbre *fils_gauche;
+};
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Utilisation}
+\begin{block}{}
+On écrit des fonctions spécifiques pour manipuler les listes :
+\end{block}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Création d'un maillon
+\item Ajout d'un maillon
+\item Supression d'un maillon
+\item Traitement (affichage, recherche, concaténation
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Création d'un maillon}
+\begin{codeblock}{Exemple de modèle de liste}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+struct liste{
+ int val;
+ struct liste *suivant;
+};
+
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\begin{codeblock}{Fonction creation}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+struct liste * creation() {
+ struct liste * nouveau ;
+ nouveau = (struct liste *) malloc (sizeof(struct liste));
+ nouveau -> val = 0 ; //par exemple
+ nouveau -> suivant = NULL ;
+ return(nouveau) ;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Supression}
+Supprime l'élément dont la valeur est égale à \Verb|val|.
+\begin{codeblock}{Fonction creation}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+struct liste *supprime(int val, struct liste *tete) {
+ struct liste *maillon = tete ;
+ struct liste *prec = tete ;
+ while (maillon != NULL && maillon -> valeur != val) {
+  prec = maillon ;
+  maillon = maillon -> suivant ;
+ }
+
+ if (maillon != NULL) {
+  if (maillon==tete)
+   tete = prec -> suivant;
+  else 
+   prec -> suivant = maillon -> suivant;
+  free(maillon);
+ }
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Autre structure récursive : l'arbre}
+\begin{block}{Vocabulaire}
+\begin{description}
+\item[Noeud de l'arbre] : Elément de base de l'arbre qui contient l'information ;
+\item[Fils d'un noeud N] : Noeud pointé par le noeud N ;
+\item[Père d'un noeud F] : Noeud qui pointe sur F ;
+\item[Racine de l'arbre] : Noeud (unique) qui n'a pas de père ;
+\item[Feuille de l'arbre] : Noeud qui n'a aucun fils (pointeurs = \Verb|NULL|).
+\end{description}
+
+\end{block}
+
+\begin{figure}
+\begin{tikzpicture} [
+  remember picture,
+  auto,
+  noeud/.style = {circle,draw=black,inner sep = 4pt, radius = 4pt},
+  line/.style = {draw,->},
+]
+
+ \node [noeud, fill = black] (rac) {};
+ \node [noeud, below of = rac, xshift = -2cm] (fg) {};
+  \node [noeud, below of = rac, xshift = +2cm] (fd) {};
+
+ \node [noeud, fill = green, below of = fg, xshift = -1.2cm] (fgg) {};
+ \node [noeud, fill = green,below of = fg, xshift = 1.2cm] (fgd) {};
+
+\node [noeud, fill = green,below of = fd, xshift = -1.2cm] (fdg) {};
+ \node [noeud, fill = green,below of = fd, xshift = 1.2cm] (fdd) {};
+
+\node [right of = rac] {racine};
+\node [right of = fdd] {feuille};
+
+ \begin{scope}[every path/.style=line]
+\path (rac) -- (fg) ;
+\path (rac) -- (fd) ;
+\path (fg) -- (fgg) ;
+\path (fg) -- (fgd) ;
+\path (fd) -- (fdg) ;
+\path (fd) -- (fdd) ;
+
+\end{scope}
+
+\end{tikzpicture}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Deux types d'arbres}
+\begin{block}{Arbre binaire}
+Arbre dont chaque noeud a au plus deux fils
+(qu'on désigne fils gauche et fils droit)
+\end{block}
+
+\begin{block}{Arbre n-aire}
+Arbre dont chaque noeud a un nombre indéterminé de fils.
+Les fils ont donc une structure de liste chaînée.
+\end{block}
+
+\begin{codeblock}{Modèle de structure d'un arbre n-aire}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}struct liste *supprime(int val, struct liste *tete) {
+struct arbre {
+  int valeur ;
+  struct arbre *fils ;
+  struct arbre *frere;
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{frame}
