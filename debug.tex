@@ -1,5 +1,6 @@
 % !TEX encoding = IsoLatin9
-\section{DÃ©bogage}
+\section{Débogage}
+\subsection{Techniques de débogage}
 \begin{frame}
   \begin{columns}
     \column{4.8cm}
@@ -19,22 +20,460 @@ programming must be the process of putting them in."}\\
 
 \begin{frame}
 \frametitle{Qu'est-ce qu'un bug ? (ou bogue)}
-\begin{block}{DÃ©finition}
-Un bug (ou en franÃ§ais un bogue) est un dÃ©faut dans le 
-programme informatique du Ã  une erreur de syntaxe ou Ã 
+\begin{block}{Définition}
+Un bug (ou en français un bogue) est un défaut dans le 
+programme informatique du à une erreur de syntaxe ou à
 \red{une erreur de conception du programme}
 \end{block}
 
-Quelques bugs informatiques cÃ©lÃ¨bres :
+Quelques bugs informatiques célèbres :
 \begin{itemize}
-\item [https://youtu.be/gp_D8r-2hwk]{Ä¿'explosion en vol d'Ariane 5 lors du premier tir}
+\item \href{https://youtu.be/gp_D8r-2hwk}{L'explosion en vol d'Ariane 5 lors du premier tir}
 \item Le bug de l'an 2000
 \item 99\% de vos futurs programmes.
 \end{itemize}
 
+\begin{alertblock}{} 
+Il est donc indispensable de déboguer ses programmes.
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Déboguage - Les 4 étapes}
+\begin{enumerate}
+\setlength\itemsep{1.5em}
+\item Détecter le bug
+\item Localiser le bug
+\item Expliquer le bug
+\item Réparer le bug
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Deux types de bug}
+\framesubtitle{1. Le plus simple : le bug à la compilation}
+\begin{itemize}
+\setlength\itemsep{1.5em}
+\item Erreur de syntaxe
+\item Variable non déclarée
+\item Crochet non fermé
+\item Point virgule oublié
+\item Erreur de type
+\item ...
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple}
+\begin{columns}
+\column{0.45\textwidth}
+\begin{codeblock}{prog1.c (boggué)}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{stepnumber=1}
+\lstset{numbers=left,numbersep=4pt}
+\begin{codeC}
+#include <stdio.h>
+
+int main() {
+ int a;
+ printf("Entrer a : ")§\tmark{lc}§
+ scanf("%d",a);
+ printf("a = %d\n",a);
+ return (0);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.48\textwidth}
+\begin{termblock}{Compilation}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{lstlisting}
+>> gcc prog1.c -o prog1
+   @prog1.c: In function 'main':@
+   @prog1.c:§\tmark{lt}§6 §\tmark{dt}§erreur:expected ';'@
+   @before 'scanf'@
+>>
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+\end{columns}
+
+\begin{enumerate}
+\item<2-> Détecter le bug\tmark{dl}
+\item<4-> Localiser le bug\tmark{ll}
+\item<7-> Expliquer le bug \visible<8->{: Il manque le \Verb|;| après le \bvrb|printf| (ligne 5)}
+\end{enumerate}
+
+\begin{tikzpicture}[
+remember picture,
+overlay,
+line/.style={draw=gray,
+  ->,
+  shorten >=2pt,
+  thick},
+]
+\begin{scope}[every path/.style=line]
+  \path<3> (dl) -- (dt);
+  \path<5-6> (ll) -- (lt);
+  \path<6> (ll) -- (lc);
+\end{scope}
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple corrigé}
+\begin{columns}
+\column{0.45\textwidth}
+\begin{codeblock}{prog1.c (déboggué ?)}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{stepnumber=1}
+\lstset{numbers=left,numbersep=4pt}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{codeC}
+#include <stdio.h>
+
+int main() {
+ int a;
+ printf("Entrer a : ");
+ scanf("%d",a);
+ printf("a = %d\n",a);
+ return (0);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.48\textwidth}
+\begin{termblock}{Compilation}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{lstlisting}
+>> gcc prog1.c -o prog1
+>>
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+\end{columns}
+
 \begin{alertblock}{}
-Il est donc indispensable de dÃ©boguer ses programmes.
+Le programme compile.
+
+Est-ce qu'il fonctionne ??
 \end{alertblock}
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Deux types de bug}
+\framesubtitle{2. Le plus compliqué : le bug à l'exécution}
+\begin{itemize}
+\setlength\itemsep{1.5em}
+\item Erreur dans la gestion de la mémoire (\Verb|Segmentation fault|)
+\item Erreur dans les bornes des boucles(\Verb|for| ou \Verb|while|)
+ou dans les tests logiques (\Verb|if|)
+\item Aglorithme incorrect (problème de modélisation)
+\item ...
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Commandes à utiliser}
+\begin{itemize}
+\setlength\itemsep{1em}
+
+\item Pour les cas difficiles, 
+utiliser un logiciel de déboguage (comme gdb). 
+Voir section~\ref{secgdb}.
+\item Pour les cas plus simples,
+déboguer "à la main".
+\begin{itemize}
+\item Ajouter des commentaires pour isoler les parties problématiques
+du programme.
+\item Utiliser \Verb|printf| pour afficher les variables à différentes
+étapes.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple}
+\begin{columns}
+\column{0.45\textwidth}
+\begin{codeblock}{prog1.c (déboggué ?)}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{stepnumber=1}
+\lstset{numbers=left,numbersep=4pt}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{codeC}
+#include <stdio.h>
+
+int main() {
+ int a;
+ printf("Entrer a : ");
+ scanf("%d",a);
+ printf("a = %d\n",a);
+ return (0);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.48\textwidth}
+Compilation : ok.
+
+\begin{visibleenv}<2->
+\begin{termblock}{Exécution}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{lstlisting}
+>> ../prog1
+Enter la valeur de a : 2
+§\tmark{rt}§Segmentation fault.
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+\end{visibleenv}
+\end{columns}
+
+\begin{enumerate}
+\item<3-> Bug repéré\tmark{rl}
+\item<4-> Pour le localiser , il faut regarder quelle ligne pose problème.\\
+\visible<5->{$\rightarrow$ Pour cela, on peut utiliser des commentaires.}
+\end{enumerate}
+
+\begin{tikzpicture}[
+remember picture,
+overlay,
+line/.style={draw=gray,
+  ->,
+  shorten >=2pt,
+  thick},
+]
+\begin{scope}[every path/.style=line]
+  \path<3-> (rl) -- (rt);
+\end{scope}
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Localiser le bug}
+\begin{columns}
+\column{0.45\textwidth}
+\begin{codeblock}{prog1.c (boggué)}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{stepnumber=1}
+\lstset{numbers=left,numbersep=4pt}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{codeC}
+#include <stdio.h>
+
+int main() {
+ int a;
+ printf("Entrer a : ");
+ // scanf("%d",a);
+ a = 2 ;
+ printf("a = %d\n",a);
+ return (0);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.48\textwidth}
+\begin{block}{}
+Après plusieurs essais on commente \bvrb|scanf|
+pour le remplacer par une affectation simple.
+\end{block}
+
+Compilation : ok.
+\begin{visibleenv}<2->
+\begin{termblock}{Exécution}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{lstlisting}
+>> ../prog1
+Entrer  a : 
+a = 2
+>>
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+\end{visibleenv}
+\end{columns}
+
+
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Bug localisé : le problème vient de \Verb|scanf|
+\item <2-> Bug expliqué : ..................
+\end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Corrigé}
+\begin{columns}
+\column{0.45\textwidth}
+\begin{codeblock}{prog1.c (déboggué)}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{stepnumber=1}
+\lstset{numbers=left,numbersep=4pt}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{codeC}
+#include <stdio.h>
+
+int main() {
+ int a;
+ printf("Entrer a : ");
+ scanf("%d",&a);
+ printf("a = %d\n",a);
+ return (0);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.48\textwidth}
+
+
+Compilation : ok.
+\begin{termblock}{Exécution : ok}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{lstlisting}
+>> ../prog1
+Entrer  a : 2
+a = 2
+>>
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+\end{columns}
+
+
+\end{frame}
+
+
+\subsection{Le débogueur gdb}
+\label{secgdb}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections,currentsubsection]
+    \column{7cm}
+    \centering{
+      \includegraphics[width=4cm]{fig/kernighan.jpg}
+      }
+
+      \textit{"Debugging is twice as hard as writing the code
+in the first place. Therefore, if you write the code as cleverly
+as possible, you are, by definition, not smart enough to debug it."}\\
+      \small{
+        \hfill Brian W. Kernighan (1942-)\\
+\hfill auteur du premier livre sur le C, \\
+\hfill et du programme "hello world"}
+    
+  \end{columns}
+  \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Le débogueur \Verb|gdb|}
+
+\begin{block} {}
+\Verb|gdb| est l'acronyme de "GNU DeBugger".
+Il s'agit d'un logicie libre installé sur tout 
+système linux permettant de déboguer vos programmes.
+\end{block}
+
+\begin{itemize}
+\item Il ne nécessite pas de modifier le code
+\item Les premières utilisations sont un peu lourde à mettre en place.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Comment utiliser \Verb|gdb|}
+\begin{enumerate}
+\setlength\itemsep{1em}
+\item Au moment de compiler, ajouter l'option \bvrb|-g| comme option
+de compilation\\
+\begin{termblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{lstlisting}
+>> gcc -g -Wall monprog.c -o prog
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+
+\item Ensuite, lancer : \bvrb |gdb £textitµnom_executable§|\\
+\begin{termblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{lstlisting}
+>> gdb prog
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+
+\item On arrive ensuite dans un environnement ou l'on peut
+faire appel à plusieurs commandes de déboguage.
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Principale commandes}
+\begin{figure}
+\centering
+\begin{tabular}{|p{5cm}|p{5cm}|}
+\hline
+quit (q) & Quitter gdb \\
+\hline
+run (r) & Lancer l'éxécution \\
+\hline
+break, watch, clear, delete (b,w,cl,d) &
+Introduire un point d'arrêt ou "surveiller" une variable \\
+\hline
+step, next, continue (s,n,c) & Avancer d'un pas ou jusqu'au prochain point d'arrêt \\
+\hline
+print, backtrace,list (p,bt,l) & Affiche la valeur d'une variable, la pile d'exécution\\
+\hline 
+\end{tabular}
+\end{figure}
+
+Tutoriel sur le web :
+\url{http://www.linux-france.org/article/devl/gdb_howto.html}
+
+\end{frame}
