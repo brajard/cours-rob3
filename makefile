@@ -17,7 +17,7 @@
 #dependancy = string.tex point-add.tex point-tab.tex point-param.tex
 
 cours = cours-6
-dependancy = struct.tex struct-other.tex struct-list.tex
+dependancy = struct.tex struct-other.tex struct-list.tex debug.tex
 
 all: online slides print
 
