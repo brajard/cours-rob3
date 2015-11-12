@@ -1,0 +1,224 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Passage de paramètres au \texttt{main}}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    
+  \end{columns}
+\end{frame}
+  
+\begin{frame}[fragile]
+\frametitle{La fonction \bvrb|main|}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Un code C doit contenir obligatoirement une fonction \bvrb|main|.
+\item Le \bvrb|main| est le point d'entrée de l'exécutable.
+\end{itemize}
+\begin{block}{}
+Il est possible de communiquer des informations à l'exécutable.
+\end{block}
+
+Exemple : le programme \Verb|gedit| est un exécutable, on peut lui passer
+en argument le nom du fichier à ouvrir.
+
+\begin{termblock}{Ouvre l'éditeur de texte avec un fichier vide :}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+>> gedit
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+
+\begin{termblock}{Ouvre le fichier \Verb|hello.c| :}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+>> gedit hello.c
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Arguments du \bvrb|main|}
+\begin{block}{}
+Il est possible de récupérer les arguments passés
+à l'exécutable grâce aux arguments du main.
+\end{block}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int main (int argc, char *argv[]){
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\begin{itemize}
+\setlength\itemsep{1em}
+\item \bvrb|argc :| contient le nombre d'arguments
+passés à l'exécutable (nombre de mots dans la ligne
+de commande).
+\item \bvrb|argv :| tableau des arguments.\\
+\red{Le premier
+argument est le nom de l'exécutable.}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Comment ça marche ?}
+\begin{itemize}
+\item Dans le terminal :
+\begin{termblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+>> monprog arg1 arg2
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+
+\item Dans le code :
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int main (int argc, char *argv[]){
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\item En mémoire :
+\begin{figure}
+\begin{tikzpicture}[
+auto,
+node distance = 1em,
+block/.style  = {rectangle, inner sep = 0pt},
+]
+\node (argc) [block] {\Verb|argc|};
+\node (argc3) [block,right = of argc] {
+  \begin{tabular}{|c|}
+    \hline
+    3 \\
+    \hline
+    \end{tabular}
+    };
+\node (argv) [block,below = of argc] {\Verb|argv|};
+\node (argcp) [block,right = of argv] {
+  \begin{tabular}{|c|}
+    \hline
+    \phantom{3} \\
+    \hline
+    \end{tabular}
+    };
+\node(argc0) [block,right= of argcp] {
+ \begin{tabular}{|c|}
+    \hline
+    \Verb|argv[0]| \\
+    \hline
+    \end{tabular}
+    };
+\node(argc0v) [block,right = of argc0] {
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \hline
+    m & o & n & p & r & o & g & \Verb|\0|\\
+    \hline
+    \end{tabular}
+    };
+
+\node(argc1) [block,below= of argc0,yshift = 0.8 em] {
+ \begin{tabular}{|c|}
+    \hline
+    \Verb|argv[1]| \\
+    \hline
+    \end{tabular}
+    };
+\node(argc1v) [block,right = of argc1] {
+\begin{tabular}{|c|c|c|c|c|}
+    \hline
+    a & r & g & 1 & \Verb|\0|\\
+    \hline
+    \end{tabular}
+    };
+
+\node(argc2) [block,below= of argc1,yshift = 0.8em] {
+ \begin{tabular}{|c|}
+    \hline
+    \Verb|argv[2]| \\
+    \hline
+    \end{tabular}
+    };
+\node(argc2v) [block,right = of argc2] {
+\begin{tabular}{|c|c|c|c|c|}
+    \hline
+    a & r & g & 2 & \Verb|\0|\\
+    \hline
+    \end{tabular}
+    };
+
+\draw [black,->] (argc0.east) -- (argc0v.west) ;
+\draw [black,->] (argc1.east) -- (argc1v.west) ;
+\draw [black,->] (argc2.east) -- (argc2v.west) ;
+\draw [black,->] (argcp.east) -- (argc0.west) ;
+
+\end{tikzpicture}
+\end{figure}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Un exemple}
+
+\begin{codeblock}{\Verb|monprog.c|}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int main (int argc, char * argv[]) {
+ int i;
+ for (i=1;i<argc;i++)
+ {
+  printf("Argument %d : %s\n",i,argv[i]);
+ }
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\begin{termblock}{Test d'exécution}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{lstlisting}
+>> monprog fic1.txt 100
+Argument 1 : fic1.txt
+Argument 2 : 100
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Utilisation}
+\begin{itemize}
+\setlength\itemsep{1.5em}
+\item Permet de transmettre des informations
+du shell au programme.
+\item Utile dans les scripts shell qui appellent
+plusieurs exécutables.
+\item Permet de passer certains paramètres
+à vos exécutable (nom de fichiers, identifiants, etc.)
+\end{itemize}
+\end{frame}

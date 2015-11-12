@@ -1,0 +1,453 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Programmation modulaire}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    
+  \end{columns}
+\end{frame}
+ 
+\begin{frame}
+\frametitle{Etat des lieux}
+\begin{itemize}
+\setlength\itemsep{1.2em}
+\item Vos programmes sont de plus en plus gros.
+\item Certaines fonctionnalités ne sont pas spécifiques à un seul programme
+(exemple fonctions d'E/S).
+\item Le maintien et la compréhension des programmes est difficile.
+\item le travail collaboratif est presque impossible.
+\item La compilation de tout le projet est nécessaire à chaque modification (même minime).
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Une solution : la programmation modulaire}
+
+\begin{block}{}
+Possibilité de répartir un programme
+sur \red{plusieurs fichiers} réunissant les
+fonctionnalités et définitions d'un aspect
+particulier du programme.
+\end{block}
+Chacun de ces découpages est appelé 
+\red{un module}.\\
+Ex : 
+\begin{itemize}
+\item Un module d'E/S, 
+\item Un module pour les calculs,
+\item Un module contenant le \bvrb|main()|.
+\end{itemize}
+\vspace{1em}
+$\rightarrow$ nécessite une réflexion sur le découpage de votre
+code.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Que contient un module ?}
+\begin{block}{}
+Un module est composé :
+\begin{itemize}
+\item Un fichier entête \bvrb|.h|
+\item Un fichier source \bvrb|.c|
+\end{itemize}
+\end{block}
+\begin{itemize}
+\item Le fichier entête décrit l'interface 
+du module.
+\item Le fichier source contient l'implémentation
+(la définition) des fonctions.
+\end{itemize}
+\vspace{1em}
+Le fichier entête est inclus par la directive :
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include "entete.h"
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple : Les matrices}
+\begin{figure}
+\centering
+\begin{tikzpicture}[
+auto,
+block/.style = {rectangle, draw=black,
+rounded corners, minimum height=2em ,
+  text width = 3.7cm,
+  text badly centered,},
+node distance = 1.5cm,
+line/.style = {draw, thick, color=black, ->}
+]
+
+\node(main)  [block]
+{
+  Module \textbf{matrices}\\
+  \textit{le programme principal}
+};
+
+\node(center) [below = of main] {};
+\node (oper) [block, left of = center, xshift = -2.5cm]
+{
+  Module \textbf{operations}\\
+  \textit{Calcul sur les matrices}
+};
+
+\node (io) [block, right of = center, xshift = 2.5cm]
+{
+  Module \textbf{matricesio}\\
+  \textit{Entrées/sorties pour les matrices}
+};
+
+\node (com) [block, below = of center]
+{
+  Module \textbf{commun}\\
+  \textit{Description de la structure }\Verb|matrice|
+};
+
+
+\begin{scope} [every path/.style=line]
+\path<2-> (com) -- node [midway, right]{utile à} (main);
+\path<2-> (com) -- node [midway, left]{utile à} (oper);
+\path<2-> (com) -- node [midway, right]{utile à} (io);
+\path<2-> (oper) -- node [midway, left]{utile à} (main);
+\path<2-> (io) -- node [midway, right]{utile à} (main);
+
+\end{scope}
+\end{tikzpicture}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Le fichier entête (header) .h}
+Le fichier entête contient :
+\begin{itemize}
+\item Des directives \bvrb|#include|
+\item Des directives \bvrb|#define|
+\item Les prototypes des fonctions du module
+utilisables par les autres modules
+\item des \red{déclaration} de variables globales
+\item Des modèles de structure.
+\end{itemize}
+
+\begin{alertblock}{}
+Eviter de \red{définir} des variables (initialisation, etc.)
+\end{alertblock}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Module \Verb|commun|}
+\begin{columns}
+
+\column{.47\textwidth}
+\begin{codeblock}{commun.h}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+/* Description de la structure 
+matrice */
+#ifndef COMMUN_H
+#define COMMUN_H
+
+struct matrice {
+   int col;
+   int lig;
+   float** mat;
+};
+
+#endif
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{.47\textwidth}
+\begin{codeblock}{pas de commun.c}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+(pas de fonctions)
+\begin{codeC}
+
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Module \Verb|matricesio|}
+\begin{columns}
+
+\column{.47\textwidth}
+\begin{codeblock}{matricesio.h}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+/* Entrées-sorties pour
+ les matrices */
+#include "commun.h"
+
+
+struct matrice* saisir();
+void 
+afficher(struct matrice* mat);
+struct matrice* mat_uni();
+
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{.47\textwidth}
+\begin{codeblock}{matricesio.c}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include <stdio.h>
+#include "matriceio.h"
+
+struct matrice* saisir(){
+...
+}
+
+void afficher(struct matrice* 
+mat){
+...
+}
+
+struct matrice* mat_uni(){
+...
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{columns}
+\end{frame}
+
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{Module \Verb|operations|}
+
+\begin{codeblock}{operations.h}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+/* calculs sur les matrices */
+#include "commun.h"
+
+struct matrice* add(struct matrice* m1, struct matrice* m2);
+struct matrice* mul(struct matrice* m1, struct matrice* m2);
+struct matrice* mul_scal(struct matrice* m, float mu);
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+
+\begin{codeblock}{operations.c}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include "operations.h"
+
+struct matrice* add(struct matrice* m1, struct matrice* m2){
+...
+}
+
+struct matrice* mul(struct matrice* m1, struct matrice* m2){
+...
+}
+
+struct matrice* mul_scal(struct matrice* m, float mu){
+...
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{Module \Verb|matrices|}
+\framesubtitle{Programme principal}
+\begin{columns}
+
+\column{.67\textwidth}
+\begin{codeblock}{matrices.c}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+#include "commun.h"
+#include "matricesio.h"
+#include "operations.h"
+
+int main(){
+ struct matrice *m1, *m2, *m3, *m4, *m5, *m6;
+ m1 = saisir();
+ m2 = saisir();
+ m3 = mat_uni();  
+ m4 = add(m1,m2);
+ afficher(m4);
+ m5 = mul(m2,m3);
+ afficher(m5);
+ m6 = mul_scal(m4,4);
+ afficher(m6);
+ return 0;
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{.27\textwidth}
+\begin{codeblock}{matrices.h}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+Pas de matrices.h
+\begin{codeC}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Compilation séparée}
+\begin{termblock}{}
+\vspace{-.2cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{Verbatim}[commandchars=£µ§]
+gcc -c matricesio.c
+£vrbalert[2-]µgcc -c operations.c§
+£vrbalert[3-]µgcc -c matrices.c§
+£vrbalert[4-]µgcc matrices.o matricesio.o operations.o -o matrices§
+\end{Verbatim}
+\vspace{-.3cm}
+\end{termblock}
+\begin{figure}
+\centering
+\begin{tikzpicture}[
+block/.style = {rectangle, draw=black,
+  minimum height=2em ,
+  text width = 1.6cm,
+  text badly centered,
+  font = \footnotesize,},
+line/.style = {draw, thick, color=black, ->},
+rline/.style = {draw, very thick, color=red, ->},
+node distance = 0.6cm,
+]
+\node (c) [block] {\Verb|matrices.c|};
+\node (i) [block, right = of c] {} ;
+\node (a) [block, right =of i] {} ;
+\node (o) [block, text width = 1.9cm, right =of a] {\Verb|matrices.o|} ;
+\visible<3->{\node (om) [block, text width = 1.9cm,above = of o] {\Verb|matricesio.o|};}
+\visible<2->{\node (oo) [block, text width = 1.9cm,above = of om] {\Verb|operations.o|};}
+\visible<4->{\node (exe) [block, right = of om] {Exécutable \Verb|matrices|};}
+
+\begin{scope} [every path/.style=line]
+\path (c) -- node [midway, below, yshift = -0.3cm,font = \scriptsize] {preprocessing} (i) ;
+\path (i) -- node [midway, below, yshift = -0.3cm,font = \scriptsize] {compilation} (a) ;
+\path (a) -- node [midway, below, yshift = -0.3cm,font = \scriptsize] {compilation} (o) ;
+\end{scope}
+\begin{scope} [every path/.style=rline]
+\path<4-> (o) -- node[midway, below, anchor = west, font = \footnotesize] {Edition des liens} (exe) ;
+\path<4-> (om) -- (exe) ;
+\path<4-> (oo) -- (exe) ;
+\end{scope}
+
+
+\end{tikzpicture}
+
+\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Problème des inclusions multiples}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[
+auto,
+block/.style = {rectangle, draw=black,
+rounded corners, minimum height=2em ,
+  text width = 3.7cm,
+  text badly centered,},
+node distance = 1cm,
+line/.style = {draw, thick, color=black, ->}
+]
+
+\node(main)  [block, text width = 4.5cm]
+{
+  \textbf{matrices.c}\\
+\Verb|#include "matricesio.h"|\\
+\Verb|#include "operations.h"|\\
+\Verb|#include "commun.h"|
+};
+
+\node(center) [below = of main] {};
+\node (oper) [block, left of = center, xshift = -2cm]
+{
+  \textbf{operations.h}\\
+\Verb|#include "commun.h"|
+};
+
+\node (io) [block, right of = center, xshift = 2cm]
+{
+  \textbf{matricesio.h}\\
+\Verb|#include "commun.h"|
+};
+
+\node (com) [block, below = of center]
+{
+  \textbf{commun.h}\\
+ \Verb|struct matrice {|
+};
+
+
+\begin{scope} [every path/.style=line]
+\path (com) -- (main);
+\path (com) --  (oper);
+\path (com) --  (io);
+\path (oper) -- (main);
+\path (io) -- (main);
+
+\end{scope}
+\end{tikzpicture}
+\end{figure}
+La structure matrice est définie 3 fois !
+
+Risque d'erreur : \Verb|previous declaration of matrice|
+
+
+\end{frame}
