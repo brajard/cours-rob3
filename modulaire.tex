@@ -451,3 +451,109 @@ Risque d'erreur : \Verb|previous declaration of matrice|
 
 
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Problème des inclusions multiples}
+\begin{columns}
+\column{0.3\textwidth}
+\begin{codeblock}{matrices.c}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\tiny}
+\begin{codeC}
+#include "matricesio.h"
+#include "operation.h"
+#include "commun.h"
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.25\textwidth}
+\begin{codeblock}{matrices.i (provisoire)}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\tiny}
+\lstset {moredelim=**[is][\color{gray}]{@}{@}}
+\begin{codeC}
+§\tmark{i1}§#ifndef COMMUN_H
+#define COMMUN_H
+struct matrice {
+   int col;
+   int lig;
+   float** mat;
+};
+§\tmark{i2}§#endif
+§\tmark{i3}§#ifndef COMMUN_H
+#define COMMUN_H
+struct matrice {
+   int col;
+   int lig;
+   float** mat;
+};
+§\tmark{i4}§#endif
+§\tmark{i5}§#ifndef COMMUN_H
+#define COMMUN_H
+struct matrice {
+   int col;
+   int lig;
+   float** mat;
+};
+§\tmark{i6}§#endif
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\column{0.25\textwidth}
+\begin{codeblock}{matrices.i\\ (finale)}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\tiny}
+\lstset {moredelim=**[is][\color{gray}]{@}{@}}
+\begin{codeC}
+#ifndef COMMUN_H
+#define COMMUN_H
+struct matrice {
+   int col;
+   int lig;
+   float** mat;
+};
+#endif
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+  
+ 
+ 
+§~§  
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+
+\end{columns}
+
+
+
+\begin{tikzpicture}[
+  auto,
+  overlay,
+  remember picture,
+  line/.style={draw=black, very thick},
+  label/.style={midway,above, sloped,anchor=center,yshift=-0.3cm,rotate=180},
+]
+\path [line] ($(i1)+(-0.2,0)$) -- node[label]{\footnotesize{matricesio.h}}($(i2)+(-0.2,0)$) ;
+\path [line] ($(i3)+(-0.2,0)$) -- node[label]{\footnotesize{operation.h}}($(i4)+(-0.2,0)$) ;
+\path [line] ($(i5)+(-0.2,0)$) -- node[label]{\footnotesize{commun.h}}($(i6)+(-0.2,0)$) ;
+
+ \end{tikzpicture}
+
+\end{frame}
