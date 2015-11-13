@@ -1,0 +1,233 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Les fichiers}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Les fichiers}
+
+\begin{block}{}
+Une entrée/sortie correspond à un tranfert
+d'information entre la mémoire de la machine et
+un périphérique (écran, clavier, disque dur, ...)
+\end{block}
+
+\vspace{1cm}
+L'information est traitée sur formes de \red{blocs}
+qui représentent un volume de données tranférées
+\begin{block}{}
+Un fichier est une suite de blocs stockés sur un disque.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Types de fichiers}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item \red{Les fichiers binaires :} Ils contiennent
+l'information brute telle qu'elle est codée dans la
+mémoire centrale. Ils se présentent comme une suite d'octets
+mis bout à bout, ils ne sont pas lisibles par l'humain.
+\item \red{Les fichiers textes : } Ils contiennt des
+données "traduites" pour être lisibles. Ils contiennent
+des séparateurs (espaces, tabulations, retours à la ligne)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Types d'accès aux fichiers}
+\begin{itemize}
+\setlength\itemsep{1em}
+\item \red{Accès séquentiel :} On accède aux blocs
+successivement de premier au dernier. Ainsi pour atteindre une donnée, 
+il faut lire toutes les données précédentes.
+\item \red{Accès direct :} On déplace la position de lecture vers la position
+voulue avant de lire la donnée.
+\item \red{Accès indexé :} Il existe des index qui "pointent" vers des zones spécifiques du fichier
+(utilisé pour les gros fichiers, comme les bases de données).
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les structures \bvrb|FILE| et \bvrb|FILE *|}
+\bvrb|FILE| est une structure contenant plusieurs champs nécessaires
+aux entrées/sorties :
+\begin{itemize}
+\item Un pointeur sur la mémoire tampon associée au fichier.
+\item Un pointeur sur la position courante dans le fichier
+\item Un mode d'accès au fichier (lecture, écriture, ...)
+\item Un indicateur d'erreur et un indicateur de fin de fichier
+\end{itemize}
+\begin{block}{}
+Les fonctions C ne manipulent \red{que} des pointeurs sur \bvrb|FILE| : \bvrb|FILE *|
+\end{block}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int main() {
+  FILE *fid;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Entrées/Sorties standards}
+3 variable d'entrées-sorties de type \bvrb|FILE *| sont préféfinies dans le
+langage C (bibliothèque \bvrb|stdio.h|) et sont toujours utilisables :
+\begin{itemize}
+\item \Verb|stdin| : fichier d'entrée standard, c'est à dire le clavier.
+\item \Verb|stdout| : fichier de sortie standard, c'est à dire l'écran.
+\item \Verb|stderr| : fichier d'erreurs, par défaut, l'écran.
+\end{itemize}
+
+\begin{alertblock}{}
+Toutes les opérations faites sur les fichiers peuvent
+être faites sur les entrées-sorties prédéfinies.
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Liste des principales fonctions}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int n,p, fend;
+FILE *fid ;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\begin{figure}
+\footnotesize
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{nom} & \textbf{description} & \textbf{exemple} \\
+\hline
+\Verb|fopen| & ouverture d'un fichier & \Verb |fid = fopen("fic.txt","r");| \\
+\hline
+\Verb|fclose| & fermeture d'un fichier & \Verb |fclose(fid);| \\
+\hline
+\Verb|fwrite| & écriture dans un fichier binaire & \Verb |fwrite (&n,sizeof(int),1,fid);| \\
+\hline
+\Verb|fprintf| & écriture dans un fichier texte & \Verb |fprintf(fid,"%d",n);| \\
+\hline
+\Verb|fread| & lecture dans un fichier binaire & \Verb |fread(&p,sizeof(int),1,fid);| \\
+\hline
+\Verb|fscanf| & lecture dans un fichier texte & \Verb |fscanf(fid,"%d",&p);| \\
+\hline
+\Verb|feof| & test de fin de fichier & \Verb |fend = foef(fid);| \\
+\hline
+\end{tabular}
+\end{figure}
+
+\begin{alertblock}{}
+Ces fonctions appartiennent à la bibliothèque \bvrb|stdio.h|
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Ouverture/Fermeture}
+\begin{itemize}
+\item Ouverture avec \bvrb|fopen()| : \\
+\bvrb|FILE * fopen(char £textitµnomFichier[]§, char £textitµmodeOuverture[]§);|\\
+$\rightarrow$ \bvrb|fopen()| retourne \Verb|NULL| si l'opération échoue.
+
+\item Fermeture avec \bvrb|fclose()| : \\
+\bvrb|fclose (FILE * £textitµfid§);|\\
+$\rightarrow$ \bvrb|fclose()| retourne 0 si tout s'est bien déroulé et \Verb|EOF| sinon.
+\end{itemize}
+
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+int main() {
+ char nom[]="fic.txt";
+ FILE *fid;
+ fid=fopen(nom,"r");
+ fclose(fid);
+}
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modes d'ouverture}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+//Ouverture en mode lecture
+fid=fopen(nom,"r");
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+
+\begin{itemize}
+\item \textbf{"r"} : ouverture du fichier en lecture
+\item \textbf{"w"} : ouverture du fichier en écriture.\\
+S'il n'existe pas, alors création, sinon, destruction.
+\item \textbf{"a"} : ouverture en ajout (écriture à la fin du fichier)\\
+S'il n'existe pas, alors création, sinon positionnement à la fin
+\item "r+" : ouverture en lecture et écriture\\
+Positionnement au début du fichier.
+\item "w+": ouverture en lecture et écriture\\
+S'il n'existe pas, alors création, sinon, destruction
+\item "a+": Ouverture en lecture et ajout\\
+S'il n'existe pas, alors création. La lecture est positionnée au début,
+l'écriture à la fin.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lecture/Ecriture dans un fichier binaire}
+\begin{itemize}
+\item Lecture avec \bvrb|fread()| :\\
+\bvrb|int fread (type *adresse, int taille, int nbloc, FILE *fid);|\\
+$\rightarrow$ Place les données lues dans \Verb|adresse|.\\
+$\rightarrow$ retourne le nombre de valeurs lues.
+
+\item Ecriture avec \bvrb|fwrite()| :\\
+\bvrb|int fwrite (type *adresse, int taille, int nbloc, FILE *fid);|\\
+$\rightarrow$ Ecrit les données de \Verb|adresse| dans le fichier.\\
+$\rightarrow$ retourne le nombre de blocs écrits.
+
+
+\item \bvrb|taille| : taille du bloc à écrire ou à lire (généralement déterminé par \bvrb|sizeof()|).
+\item \bvrb|nbloc| : nombre de bloc à écrire ou à lire (ex : dimension d'un tableau).
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lecture/Ecriture formatée dans un fichier texte}
+\begin{itemize}
+\item Lecture avec \bvrb|fscanf()| (comme \bvrb|scanf|) :\\
+\bvrb|int fscanf (FILE *fid, format, ...);|
+\item Ecriture avec \bvrb|fprintf()| (commet \bvrb|printf|) :\\
+\bvrb|int fprintf (FILE *fid, format, ...);|
+\item \bvrb|format| : Même utilisation que dans scanf ou printf
+\item Différence avec le binaire : les fichiers sont lisibles par l'humain.
+\end{itemize}
+\end{frame}
