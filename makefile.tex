@@ -1,0 +1,98 @@
+% !TEX encoding = IsoLatin9
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Makefile}
+\begin{frame}
+  \begin{columns}
+    \column{4.8cm}
+    \tableofcontents[currentsection,hideothersubsections]
+    \column{7cm}
+    
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{L'outil \Verb|make|}
+\begin{block}{}
+L'outil \Verb|make| est un programme présent sous Linux permettant
+de déclencher un certains nombre de commandes \Verb|shell| à partir d'un
+fichier nommé \Verb|Makefile| ou \Verb|makefile|.
+\end{block}
+\Verb|make| permet dans votre cas d'automatiser la compilation en 
+exploitant les avantages de la compilation séparée.
+
+Procédez comme suit : 
+\begin{enumerate}
+\item Définir les règles de compilation dans le fichier \Verb|Makefile|
+\item Au moment de la compilation, invocation en entrant dans le terminal : \Verb|make|
+\item La compilation se fait, en recompilant uniquement les fichiers nécessaires (ceux qui ont été
+modifiés depuis la dernière compilation, que l'on repère grace à la date de modification des fichiers).
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Structure du \Verb|Makefile|}
+Un makefile est un ensemble de règles définies par :
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{codeC}
+nom_cible : liste_dependances
+<TAB>commandes
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\begin{itemize}
+\item \Verb|nom_cible| : nom du fichier à générer
+\item \Verb|liste_dependances| : liste des fichiers
+permettant la génération de la cible
+\item \Verb|commandes| (\red{Obligatoirement précédé d'une tabulation}) :
+Commande de compilation permettant de générer la cible.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple}
+\begin{codeblock}{Makefile}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{codeC}
+matrices : matrices.o matricesio.o operations.o 
+<tab>gcc matrices.o matricesio.o operations.o -o matrices
+
+matrices.o : matrices.c operations.h matricesio.h commun.h 
+<tab>gcc -c matrices.c
+
+matricesio.o : matricesio.c matricesio.h commun.h 
+<tab>gcc -c matricesio.c
+
+operations.o : operations.c operations.h commun.h 
+<tab>gcc -c operations.c
+
+clean :
+<tab>rm -f *.o matrices
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+
+\begin{termblock}{}
+%\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{lstlisting}
+>> make clean
+>> make matrices
+\end{lstlisting}
+\vspace{-.3cm}
+\end{termblock}
+
+\end{frame}
