@@ -16,9 +16,11 @@
 #cours = cours-5
 #dependancy = string.tex point-add.tex point-tab.tex point-param.tex
 
-cours = cours-6
-dependancy = struct.tex struct-other.tex struct-list.tex debug.tex
+#cours = cours-6
+#dependancy = struct.tex struct-other.tex struct-list.tex debug.tex
 
+cours = cours-7
+dependancy = mainparam.tex modulaire.tex makefile.tex fichiers.tex
 all: online slides print
 
 online: $(cours)_online.pdf

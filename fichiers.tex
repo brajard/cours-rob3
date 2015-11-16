@@ -205,13 +205,13 @@ l'écriture à la fin.
 \frametitle{Lecture/Ecriture dans un fichier binaire}
 \begin{itemize}
 \item Lecture avec \bvrb|fread()| :\\
-\bvrb|int fread (type *adresse, int taille, int nbloc, FILE *fid);|\\
-$\rightarrow$ Place les données lues dans \Verb|adresse|.\\
+\bvrb|int fread (type *adr, int taille, int nbloc, FILE *fid);|\\
+$\rightarrow$ Place les données lues dans \Verb|adr|.\\
 $\rightarrow$ retourne le nombre de valeurs lues.
 
 \item Ecriture avec \bvrb|fwrite()| :\\
-\bvrb|int fwrite (type *adresse, int taille, int nbloc, FILE *fid);|\\
-$\rightarrow$ Ecrit les données de \Verb|adresse| dans le fichier.\\
+\bvrb|int fwrite (type *adre, int taille, int nbloc, FILE *fid);|\\
+$\rightarrow$ Ecrit les données de \Verb|adr| dans le fichier.\\
 $\rightarrow$ retourne le nombre de blocs écrits.
 
 

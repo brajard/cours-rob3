@@ -135,7 +135,7 @@ Le fichier entête contient :
 \item Des directives \bvrb|#define|
 \item Les prototypes des fonctions du module
 utilisables par les autres modules
-\item des \red{déclaration} de variables globales
+\item des \red{déclarations} de variables globales
 \item Des modèles de structure.
 \end{itemize}
 
@@ -347,9 +347,9 @@ Pas de matrices.h
 \lstset{escapeinside={§§}}
 \lstset{basicstyle=\scriptsize}
 \begin{Verbatim}[commandchars=£µ§]
-gcc -c matricesio.c
+gcc -c matrices.c
 £vrbalert[2-]µgcc -c operations.c§
-£vrbalert[3-]µgcc -c matrices.c§
+£vrbalert[3-]µgcc -c matricesio.c§
 £vrbalert[4-]µgcc matrices.o matricesio.o operations.o -o matrices§
 \end{Verbatim}
 \vspace{-.3cm}
@@ -467,7 +467,7 @@ Risque d'erreur : \Verb|previous declaration of matrice|
 \end{codeC}
 \vspace{-.3cm}
 \end{codeblock}
-
+\pause[2]
 \column{0.25\textwidth}
 \begin{codeblock}{matrices.i (provisoire)}
 \vspace{-.3cm}
@@ -502,6 +502,21 @@ struct matrice {
 \end{codeC}
 \vspace{-.3cm}
 \end{codeblock}
+
+\begin{tikzpicture}[
+  auto,
+  overlay,
+  remember picture,
+  line/.style={draw=black, very thick},
+  label/.style={midway,above, sloped,anchor=center,yshift=-0.3cm,rotate=180},
+]
+\path [line] ($(i1)+(-0.2,0)$) -- node[label]{\footnotesize{matricesio.h}}($(i2)+(-0.2,0)$) ;
+\path [line] ($(i3)+(-0.2,0)$) -- node[label]{\footnotesize{operation.h}}($(i4)+(-0.2,0)$) ;
+\path [line] ($(i5)+(-0.2,0)$) -- node[label]{\footnotesize{commun.h}}($(i6)+(-0.2,0)$) ;
+
+ \end{tikzpicture}
+
+\pause[3]
 
 \column{0.25\textwidth}
 \begin{codeblock}{matrices.i\\ (finale)}
@@ -541,19 +556,5 @@ struct matrice {
 
 \end{columns}
 
-
-
-\begin{tikzpicture}[
-  auto,
-  overlay,
-  remember picture,
-  line/.style={draw=black, very thick},
-  label/.style={midway,above, sloped,anchor=center,yshift=-0.3cm,rotate=180},
-]
-\path [line] ($(i1)+(-0.2,0)$) -- node[label]{\footnotesize{matricesio.h}}($(i2)+(-0.2,0)$) ;
-\path [line] ($(i3)+(-0.2,0)$) -- node[label]{\footnotesize{operation.h}}($(i4)+(-0.2,0)$) ;
-\path [line] ($(i5)+(-0.2,0)$) -- node[label]{\footnotesize{commun.h}}($(i6)+(-0.2,0)$) ;
-
- \end{tikzpicture}
 
 \end{frame}
