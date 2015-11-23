@@ -19,8 +19,13 @@
 #cours = cours-6
 #dependancy = struct.tex struct-other.tex struct-list.tex debug.tex
 
-cours = cours-7
-dependancy = mainparam.tex modulaire.tex makefile.tex fichiers.tex
+#cours = cours-7
+#dependancy = mainparam.tex modulaire.tex makefile.tex fichiers.tex
+
+cours = cours-8
+dependancy = minimax.tex
+
+
 all: online slides print
 
 online: $(cours)_online.pdf
