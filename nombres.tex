@@ -46,36 +46,31 @@ des 0 et des 1).
 \begin{equation*}
 13 =
  \tikz[baseline,remember picture]{
-   \node[fill=red!20,ellipse,anchor=base] (b1)
-   {$1$}
+   \node[fill=red!20,ellipse,anchor=base] (b1){$1$};
  }
  \times 2^3 +
 \tikz[baseline,remember picture]{
-   \node[fill=red!20,ellipse,anchor=base] (b2)
-   {$1$}
+   \node[fill=red!20,ellipse,anchor=base] (b2) {$1$};
  }
   \times 2^2 +
 \tikz[baseline,remember picture]{
-   \node[fill=red!20,ellipse,anchor=base] (b3)
-   {$0$}
+   \node[fill=red!20,ellipse,anchor=base] (b3) {$0$};
  }
   \times 2^1 +
 \tikz[baseline,remember picture]{
-   \node[fill=red!20,ellipse,anchor=base] (b4)
-   {$1$}
+   \node[fill=red!20,ellipse,anchor=base] (b4) {$1$};
  }
   \times 2^0
 \end{equation*}
 \pause[3]
 
 \vspace{2em}
-L'écriture binaire de 13 est donc
+L'écriture binaire de 13 est donc:
 \tikz[baseline,remember picture, node distance = 0.5em] {
   \node[anchor=base] (l1) {1};
   \node[anchor=base,right of = l1] (l2) {1};
   \node[anchor=base,right of = l2] (l3) {0};
   \node[anchor=base,right of = l3] (l4) {1};
-
 }
 
 \begin{tikzpicture}[overlay,remember picture]
@@ -83,7 +78,6 @@ L'écriture binaire de 13 est donc
         \path[->,draw=black]  (b2.south) -- (l2.north) ;
         \path[->,draw=black] (b3.south) -- (l3.north) ;
         \path[->,draw=black] (b4.south) -- (l4.north) ;
-
 \end{tikzpicture}
 \end{frame}
 
@@ -141,11 +135,11 @@ Le codage de 13 est
 }\\
 \vspace{2em}
 \tikz[baseline,remember picture]{
-\node[anchor=base] (l1) {bit de signe (0 pour positif)}
+\node[anchor=base] (l1) {bit de signe (0 pour positif)};
 }
+
 \begin{tikzpicture}[overlay,remember picture]
-        \path[->,draw=black, shorten < = 2pt] (b1.south) -- (l1.155) ;
-       
+  \path[->,draw=black, shorten < = 2pt] (b1.south) -- (l1.155);
 \end{tikzpicture}
 \end{frame}
 
@@ -158,10 +152,10 @@ Ils sont codés en complément à deux par rapport à l'entier positif correspondant
 \column{0.5\textwidth}
 Pour coder un entier relatif :
 \begin{enumerate}
-\item On code d'abord l'oposé (positif) du nombre
-\item On complémente chaque bit (négation
+\item<2-> On code d'abord l'oposé (positif) du nombre
+\item<4-> On complémente chaque bit (négation
 ou complément à 1)
-\item On ajoute 1
+\item<5-> On ajoute 1
 \end{enumerate}
 
 \column{0.45\textwidth}
@@ -171,16 +165,183 @@ ou complément à 1)
 node distance = 3em,
 ]
 \node (n1) {\textbf{-13}};
-\node [below of = n1] (n2) {+13};
-\node [below of = n2] (n3) {0000000000001101};
-\node [below of = n3] (n4) {1111111111110010};
-\node [below of = n4] (n5) {\textbf{1111111111110011}};
-\path[->,draw=black, shorten < = 2pt] (n1) -- (n2) ;
-\path[->,draw=black, shorten < = 2pt] (n2) -- (n3) ;
-\path[->,draw=black, shorten < = 2pt] (n3) -- (n4) ;
-\path[->,draw=black, shorten < = 2pt] (n4) -- (n5) ;
+\visible<2->{\node [below of = n1] (n2) {+13};}
+\visible<3->{\node [below of = n2] (n3) {0000000000001101};}
+\visible<4->{\node [below of = n3] (n4) {1111111111110010};}
+\visible<5->{\node [below of = n4] (n5) {\textbf{1111111111110011}};}
+\visible<2->{\path[->,draw=black, shorten < = 2pt] (n1) -- (n2) ;}
+\visible<3->{\path[->,draw=black, shorten < = 2pt] (n2) -- (n3) ;}
+\visible<4->{\path[->,draw=black, shorten < = 2pt] (n3) -- (n4) ;}
+\visible<5->{\path[->,draw=black, shorten < = 2pt] (n4) -- (n5) ;}
 
 \end{tikzpicture}
 \end{figure}
 \end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Propriétés de ce codage}
+\begin{block}{Addition}
+Ce codage conserve l'addition naturelle.\\
+Ex : $-13 + 13 = 0$\\
+\vspace{1em}
+\begin{tabular}{lc}
+&1111111111110011 \\
++ & 0000000000001101 \\
+\cline{2-2}
+& 0000000000000000\\
+\end{tabular}
+\end{block}
+
+\begin{alertblock}{Limites}
+Si le codage utilise \textbf{n} bits, on peut donc coder tous le entiers de\\
+$\mathbf{-2^{n-1}}$ à $\mathbf{2^{n-1}-1}$.\\
+Sur 16 bits, on code tous les entiers de \textbf{-32 768} à \textbf{32 767}.
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Les limites des entiers}
+\begin{block}{}
+La librairire \bvrb|limits.h| permet de connaître les limites de chacun des types
+utilisés.
+Ces limites sont stockées dans des constantes définie par le préprocesseur.
+\end{block}
+\begin{figure}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Nom} & \textbf{Description} & \textbf{Valeur} \\
+\hline
+\bvrb|SHRT_MIN| & valeur minimum d'un \bvrb|short| signé & -32 768 \\
+\hline
+\bvrb|SHRT_MAX| & valeur maximum d'un \bvrb|short| signé & 32 767 \\
+\hline
+\bvrb|USHRT_MAX| & valeur maximum d'un \bvrb|short| non signé & 65 535 \\
+\hline
+\bvrb|INT_MIN| & valeur minimum d'un \bvrb|int| signé & \\
+\hline
+\bvrb|INT_MAX| & valeur maximum d'un \bvrb|int| signé & \\
+\hline
+\bvrb|UINT_MAX| & valeur maximum d'un \bvrb|int| non signé & \\
+\hline
+\bvrb|LONG_MIN| & valeur minimum d'un \bvrb|long| signé & \\
+\hline
+\bvrb|LONG_MAX| & valeur maximum d'un \bvrb|long| signé & \\
+\hline
+\bvrb|ULONG_MAX| & valeur maximum d'un \bvrb|long| non signé & \\
+\hline
+\end{tabular}
+
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Représentation des réelles}
+\framesubtitle{L'écriture binaire des décimales}
+La décomposition d'un nombre décimale se fait similairement aux entiers avec des puissances de 2\\
+Exemple :
+$$
+5.25 = 
+ \tikz[baseline,remember picture]{
+   \node[fill=red!20,ellipse,anchor=base] {$1$};
+ }
+\times 2^2 + 
+ \tikz[baseline,remember picture]{
+   \node[fill=red!20,ellipse,anchor=base] {$0$};
+ }
+\times 2^1 + 
+ \tikz[baseline,remember picture]{
+   \node[fill=red!20,ellipse,anchor=base] {$1$};
+ }
+\times 2^0 +
+  \tikz[baseline,remember picture]{
+   \node[fill=green!20,ellipse,anchor=base] {$0$};
+ }
+\times 2^{-1} + 
+  \tikz[baseline,remember picture]{
+   \node[fill=green!20,ellipse,anchor=base] {$1$};
+ }
+\times 2^{-2}
+$$
+
+L'écriture binaire de 5.25 est donc 101.01
+
+\begin{block}{L'écriture normalisée}
+Soit z un nombre décimal, son écriture normalisée est la suivante :\\
+\vspace{0.5em}
+$
+z = \pm   1,XXXXXXX \times 2^n
+$
+\begin{itemize}
+\item $\pm$ est le signe
+\item $XXXXXXX$ est la mantisse
+\item $n$ est l'exposant
+\end{itemize}
+\end{block}
+La forme normalisée de 5.25 est donc $1.0101 \times 2^2$
+\end{frame}
+
+ \begin{frame}
+ \frametitle{Représentation des réelles}
+ \framesubtitle{La norme IEEE 754 (sur 32 bits, simple précision)}
+
+ \begin{block}{Expression des décimaux}
+$z = -1^\mathbf{S} \times 2^{\mathbf{E} - 127} \times (1+\mathbf{M})$\\
+ \begin{itemize}
+\item $\mathbf{S}$ code le signe sur \red{1 bit}
+\item $\mathbf{E}$ code l'exposant sur \red{8 bits}
+\item $\mathbf{M}$ code la mantisse sur \red{23 bits}
+\end{itemize}
+ \end{block}
+
+Exemple : $5.25$\\
+Ecriture normalisée : $1.0101\times2^2$
+\begin{enumerate}
+\item Le bit  $\mathbf{S}$ vaut \textbf{0} car le nombre est positif.
+\item $\mathbf{E}$ vaut 129, car l'exposant $\mathbf{E} - 127 = 2$ (en binaire E s'écrit \textbf{01000001})
+\item La mantisse $\mathbf{M}$ vaut \textbf{01010000000000000000000}
+\item Le nombre 5.25 se code sur 32 bits par :\\
+\textbf{0 01000001 01010000000000000000000}
+\end{enumerate}
+ \end{frame}
+
+\begin{frame}
+\frametitle{Pourquoi est-ce important ?}
+\begin{columns}
+\column{0.65\textwidth}
+Cela peut entraîner des problèmes lorsque l'on dépasse la capacité du codage.
+(voir Ariane 5)
+\begin{exampleblock}{}
+{\footnotesize
+Pour illustrer ce problème, dans cet exemple la mantisse est codée sur \red{5} bits et l'exposant
+$\mathbf{E}-7$ est codé sur \red{4 bits}.
+}
+\begin{itemize}
+\item Le nombre \textbf{14} se code \textbf{0 1010 11000}
+\item Le nombre \textbf{3.25} se code \textbf{0 1000 10100}
+\item La somme des deux (\textbf{17.25}) dépasse les capacités, car la mantisse nécessiterait 6 bits(000101).
+Le résultat claulcé par la machine serait \textbf{17}.
+\end{itemize}
+Note : Par contre il est possible d'écrire \textbf{18}(\textbf{0101100100}) avec ce codage.
+\end{exampleblock}
+
+\column{0.3\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width = 3.8cm]{./fig/ariane.jpg}
+\end{figure}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pour simplifier...}
+\begin{itemize}
+\setlength\itemsep{2em}
+\item Le type \bvrb|float| permet de représenter 7 décimales.
+\item Le type \bvrb|double| permet de représenter 16 décimales.
+\end{itemize}
+Sans prendre en compte l'exposant,
+
 \end{frame}

@@ -22,8 +22,12 @@
 #cours = cours-7
 #dependancy = mainparam.tex modulaire.tex makefile.tex fichiers.tex
 
-cours = cours-8
-dependancy = minimax.tex
+#cours = cours-8
+#dependancy = minimax.tex
+
+cours = cours-9
+dependancy = nombres.tex
+
 
 
 all: online slides print
