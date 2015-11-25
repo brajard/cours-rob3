@@ -26,8 +26,7 @@
 #dependancy = minimax.tex
 
 cours = cours-9
-dependancy = nombres.tex
-
+dependancy = nombres.tex perceptron.tex
 
 
 all: online slides print
