@@ -79,5 +79,119 @@ void active (struct perceptron *p) ;
 \end{codeblock}
 \end{frame}
 
+\begin{frame}
+\frametitle{Qu'est-ce que l'apprentissage ?}
+\begin{alertblock}{}
+Pour une même entrée, des poids différents peuvent entraîner des sorties différentes.
+\end{alertblock}
 
+\begin{columns}
+\column{0.45\textwidth}
+$w_0=$ \red{1}, $w_1=$ \red{-2},$w_2=$ \red{2}\\
+\vspace{1em}
 
+ \begin{tikzpicture}[
+    basic/.style={draw,fill=blue!20,text width=1em,text badly centered},
+    input/.style={basic,circle, text width=1em, inner sep=0},
+    weights/.style={basic,rectangle},
+functions/.style={basic,circle,fill=blue!10},
+]
+        \node[functions] (center) {};
+        \draw[thick] (0.5em,0.5em) -- (0,0.5em) -- (0,-0.5em) -- (-0.5em,-0.5em);
+        \node[right = 1em of center, anchor = west] (right) {$y=$ \red{1}};
+            \path[draw,->] (center) -- (right);
+        \node[functions,left=1em of center] (left) {$\sum$};
+            \path[draw,->] (left) -- (center);
+            \node[left= 2em of left] (l2) {$x_1=0$};
+            \path[draw,->] (l2) -- node[above,midway]{$w_1$}(left);
+            \node[below of=l2] (ln) {$x_2=1$};
+            \path[draw,->] (ln) -- node[above,midway]{$w_2$}(left);
+            \node[above of=l2] (l1) {$1$};
+            \path[draw,->] (l1) -- node[above,midway]{$w_0$}(left);
+           % \node[input,above of=l1] (l0) {$1$};
+           % \path[draw,->] (l0) -- node[above,midway]{$w_0$}(left);
+%        \node[below of=ln,font=\scriptsize](lin) {inputs};
+%        \node[right of=lin,font=\scriptsize] {weights};
+    \end{tikzpicture}
+
+$$
+w_0 + w_1\times x_1 + w_2\times x_2 = 3 > 0
+$$
+
+\column{0.45\textwidth}
+$w_0=$ \red{1}, $w_1=$ \red{2},$w_2=$ \red{-2}\\
+\vspace{1em}
+
+ \begin{tikzpicture}[
+    basic/.style={draw,fill=blue!20,text width=1em,text badly centered},
+    input/.style={basic,circle, text width=1em, inner sep=0},
+    weights/.style={basic,rectangle},
+functions/.style={basic,circle,fill=blue!10},
+]
+        \node[functions] (center) {};
+        \draw[thick] (0.5em,0.5em) -- (0,0.5em) -- (0,-0.5em) -- (-0.5em,-0.5em);
+        \node[right = 1em of center, anchor = west] (right) {$y=$ \red{0}};
+            \path[draw,->] (center) -- (right);
+        \node[functions,left=1em of center] (left) {$\sum$};
+            \path[draw,->] (left) -- (center);
+            \node[left= 2em of left] (l2) {$x_1=0$};
+            \path[draw,->] (l2) -- node[above,midway]{$w_1$}(left);
+            \node[below of=l2] (ln) {$x_2=1$};
+            \path[draw,->] (ln) -- node[above,midway]{$w_2$}(left);
+            \node[above of=l2] (l1) {$1$};
+            \path[draw,->] (l1) -- node[above,midway]{$w_0$}(left);
+           % \node[input,above of=l1] (l0) {$1$};
+           % \path[draw,->] (l0) -- node[above,midway]{$w_0$}(left);
+%        \node[below of=ln,font=\scriptsize](lin) {inputs};
+%        \node[right of=lin,font=\scriptsize] {weights};
+    \end{tikzpicture}
+
+$$
+w_0 + w_1\times x_1 + w_2\times x_2 = -1 < 0
+$$
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Comment apprend-t'on ?}
+\framesubtitle{Appentissage supervisé}
+\begin{block}{Prérequis}
+On dispose d'une base appelée "base d'apprentissage" qui donnent des exemple d'entrées et les sorties souhaitées correspondantes.
+\end{block}
+\begin{block}{Algorithme}
+\begin{enumerate}
+\item On initialise les poids de façon aléatoires ou arbitraires (par exemple 0)
+\item On présente un exemple (choisie dans la base d'apprentissage) à l'entrée
+du perceptron. On note $Y_t$ la sortie qu'on désire obtenir (appelée parfois "target").
+\item Le perceptron calcule la sortie en fonction de la valeur de ses poids.
+\item Si la sortie calculée $Y$ est différente de la sortie désirée $Y_t$, on met à jour les poids
+par la formule suivante :\\
+$w_i=w_i+ (Y_t-Y)\times x_i$
+\item on retourne à l'étape 2.
+\end{enumerate}
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Exemple du robot qui veut sortir de la pièce}
+\begin{columns}
+\column{6cm}
+\includegraphics[width=7cm]{./fig/robot.png}
+\column{6cm}
+Le robot contient
+\begin{itemize}
+\item 2 capteurs de luminosités $x_1$ et $x_2$
+(0 : non activé, 1 : activé)
+\item 1 neurone (3 poids, $w_0$, $w_1$, $w_2$)
+\item 1 sortie :
+\begin{itemize}
+\item $y=0$ : demi-tour à gauche
+\item $y=1$ : avance tout droit
+\end{itemize}
+\end{itemize}
+\end{columns}
+
+\end{frame}
