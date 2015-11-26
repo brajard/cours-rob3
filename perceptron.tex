@@ -53,4 +53,31 @@ functions/.style={basic,circle,fill=blue!10},
         \node[below of=ln,font=\scriptsize](lin) {inputs};
         \node[right of=lin,font=\scriptsize] {weights};
     \end{tikzpicture}
+\begin{block}{}
+Si $w_0 + w_1\times x_1 + w_2\times x_2 +  \dots + w_n\times x_n < 0$, $\mathbf{y=0}$\\
+sinon $\mathbf{y=1}$
+\end{block}
+
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{En C, une structure de données}
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+%\lstset{basicstyle=\scriptsize}
+\begin{codeC}
+struct perceptron {
+  short X[N] ; //entrées
+  short Y ; //sorties
+  int W[N+1] ; //poids
+  } ;
+  
+void active (struct perceptron *p) ;
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{frame}
+
+
+
