@@ -315,14 +315,14 @@ Cela peut entraîner des problèmes lorsque l'on dépasse la capacité du codage.
 (voir Ariane 5)
 \begin{exampleblock}{}
 {\footnotesize
-Pour illustrer ce problème, dans cet exemple la mantisse est codée sur \red{5} bits et l'exposant
+Pour illustrer ce problème, dans cet exemple, la mantisse est codée sur \red{5} bits et l'exposant
 $\mathbf{E}-7$ est codé sur \red{4 bits}.
 }
 \begin{itemize}
 \item Le nombre \textbf{14} se code \textbf{0 1010 11000}
 \item Le nombre \textbf{3.25} se code \textbf{0 1000 10100}
 \item La somme des deux (\textbf{17.25}) dépasse les capacités, car la mantisse nécessiterait 6 bits(000101).
-Le résultat claulcé par la machine serait \textbf{17}.
+Le résultat calculé par la machine serait \textbf{17}.
 \end{itemize}
 Note : Par contre il est possible d'écrire \textbf{18}(\textbf{0101100100}) avec ce codage.
 \end{exampleblock}
