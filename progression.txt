@@ -1,0 +1,178 @@
+* Résumé des TP
+| MAIN    | ROB      | Sujet           | ref année 2015 |
+|---------+----------+-----------------+----------------|
+| TP1.1   | TP1      | intro           | TP1            |
+| TP1.2   | TP2.1    | Tab statiques   | TP2            |
+| TP2.1   | TP2.2    | Suite tabs      | TP2            |
+| TP2.2   | TP3      | Tri             | TP3            |
+| TP3.1   | TP4      | fonctions       | TP4            |
+| TP3.2   | TP5      | pointeurs       | TP5            |
+| TP4(4h) | TP6 (2h) | listes chainees | TP6            |
+
+* Résumé des TD
+| TD | Sujet                    | Ref année 2015 | Res. |
+|----+--------------------------+----------------+------|
+|  1 | Algos de bases           | TD1            | A    |
+|  2 | Tableaux                 | TD2            | A    |
+|  3 | Fonctions et récursivité | TD3            | J    |
+|  4 | Pointeurs                | TD4            | J    |
+|  5 | structures               | nan            | A    |
+|  6 | Soutance orale           | nan            | J    |
+
+
+  
+* Résumé des cours
+| Cours | Sujet                        | Ref année 2015  |
+|-------+------------------------------+-----------------|
+|     1 | intro                        | cours-1         |
+|     2 | bases de C                   | cours-2         |
+|     3 | tab statiques                | cours-3         |
+|     4 | io/fonctions                 | cours-3/cours-4 |
+|     5 | strings/pointeurs            | cours-5         |
+|     6 | structures                   | cours-6         |
+|     7 | compil/makefile/files        | cours-3/cours-7 |
+|     8 | debug/main/nombres/peceptron | cours-7/cours-9 |
+|     9 | projet/a*/minimax            | cours-8         |
+|    10 | controle                     |                 |
+
+
+* SEM 38
+** Cours 1 (Remise à niveau): 
+      Algorithmique de base
+      2015 : cours-1
+** TD1 (MAIN) : 
+    Algos de base
+    2015 : TD1
+
+* SEM 39
+** Cours 2 (Remise à niveau): 
+      Eléments de base du C
+      2015 : cours-2
+** TD1 (ROB) : 
+    Algos de base
+    2015 : TD1
+
+* SEM 40
+** Cours 3 : 
+      Validation des pré-requis
+      Tableau statiques
+      2015 : cours-3
+
+** TD2 (ROB) et TD2 (MAIN):
+    Tableaux
+    2015 : TD2 (à compléter ?)    
+
+** TP1 (ROB) et TP1.1 (MAIN): 
+    Intro
+    2015 : TP1
+
+** TP 1.2 (MAIN):
+   Tab statiques
+   2015 : TP2 (à alléger)
+   id. TP2.1 (ROB)
+
+* SEM 41
+** Cours 4 :
+   io
+   Fonctions
+   2015 :cours-3,cours-4
+
+** TD3 (ROB) et TD3 (MAIN):
+   Récursivité
+   2015 : TD3 (à compléter)
+
+** TP2.1 (ROB)
+   Tab statiques
+   2015 : TP2 (à alléger)
+   id. TP1.2 (MAIN)
+
+** TP2.2 (ROB) et TP2.1 (MAIN)
+   Suite tableaux (à faire, aide 2015:TP2)
+   
+** TP2.2 (MAIN)
+   Tri
+   2015 : TP3
+   id. TP3 (ROB)
+
+* SEM 42
+** Cours 5:
+   Strings, Les pointeurs
+   2015: cours 5 (à compléter)
+   
+** TD4 (ROB) et TD4 (MAIN)
+   Pointeurs (à compléter)
+   2015 : TD4
+
+** TP3 (ROB)
+   Tri
+   2015 : TP3
+   id. TP2.2 (MAIN)
+
+** TP3.1 (MAIN)
+   fonctions
+   2015 : TP4
+   id. TP4 (ROB)
+
+** TP3.2 (MAIN)
+   pointeurs (allocation dynamique)
+   2015 : TP5 (à alléger)
+   id. TP5 (ROB)
+
+* SEM 43
+** Cours 6:
+   Structures de données (par Anastasia) y compris récursives
+   2015 : cours 6
+
+** TD5 (ROB) et TD5 (MAIN)
+   A créer ()
+   Présentation projet TD
+
+** TP4 (ROB)
+   fonctions
+   2015 : TP4
+   id. TP3.1 (MAIN)
+
+* SEM 44
+  Vacances
+
+* SEM 45
+** Cours 7:
+   Elements de programmation (compilation, makefile, fichiers)
+   2015 : cours 3, cours 7
+
+   
+** TD6  (ROB) et TD6 (MAIN)
+   Soutenance orale
+
+** TP5 (ROB)
+   pointeurs
+   2015 : TP5 (à alléger)
+   id. TP3.2 (MAIN)
+
+* SEM 46
+** Cours 8
+   Debug, arguments du main, Nombres, percpetron
+   2015 : cours 7, cours 9
+
+** TP6 (ROB)
+   Listes chainées
+   (A compresser pour les ROB)
+   2015 : TP6
+
+** TP4 (MAIN)
+   Listes chainées
+   (A développer pour les MAIN)
+   2015 : TP6
+   
+* SEM 47 
+** Cours 9
+   Présentation du projet
+   Algorithme A*
+   Minimax
+   2015 : cours 8
+   
+* SEM 48
+** Cours 10
+   Un contrôle (1h45)
+   
+** TP : Début des projets
