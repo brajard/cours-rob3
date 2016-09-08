@@ -51,7 +51,7 @@
 ** TD1 (ROB) : 
     Algos de base
     2015 : TD1
-
+    
 * SEM 40
 ** Cours 3 : 
       Validation des pré-requis
@@ -70,13 +70,13 @@
    Tab statiques
    2015 : TP2 (à alléger)
    id. TP2.1 (ROB)
-
+   
 * SEM 41
 ** Cours 4 :
    io
-   Fonctions
+   Fonctions 
    2015 :cours-3,cours-4
-
+   
 ** TD3 (ROB) et TD3 (MAIN):
    Récursivité
    2015 : TD3 (à compléter)
@@ -97,7 +97,8 @@
 * SEM 42
 ** Cours 5:
    Strings, Les pointeurs
-   2015: cours 5 (à compléter)
+   turing
+   2015: cours 5 (à compléter) cours 1
    
 ** TD4 (ROB) et TD4 (MAIN)
    Pointeurs (à compléter)
@@ -131,7 +132,7 @@
    fonctions
    2015 : TP4
    id. TP3.1 (MAIN)
-
+   
 * SEM 44
   Vacances
 
