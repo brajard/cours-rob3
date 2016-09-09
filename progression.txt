@@ -1,13 +1,13 @@
 * Résumé des TP
-| MAIN    | ROB      | Sujet           | ref année 2015 |
-|---------+----------+-----------------+----------------|
-| TP1.1   | TP1      | intro           | TP1            |
-| TP1.2   | TP2.1    | Tab statiques   | TP2            |
-| TP2.1   | TP2.2    | Suite tabs      | TP2            |
-| TP2.2   | TP3      | Tri             | TP3            |
-| TP3.1   | TP4      | fonctions       | TP4            |
-| TP3.2   | TP5      | pointeurs       | TP5            |
-| TP4(4h) | TP6 (2h) | listes chainees | TP6            |
+| MAIN    | ROB      | Sujet           | ref année 2015 | Res. |
+|---------+----------+-----------------+----------------+------|
+| TP1.1   | TP1      | intro           | TP1            | AL   |
+| TP1.2   | TP2.1    | Tab statiques   | TP2            | AL   |
+| TP2.1   | TP2.2    | Suite tabs      | TP2            | JB   |
+| TP2.2   | TP3      | Tri             | TP3            | JB   |
+| TP3.1   | TP4      | fonctions       | TP4            | JL   |
+| TP3.2   | TP5      | pointeurs       | TP5            | JL   |
+| TP4(4h) | TP6 (2h) | listes chainees | TP6            | JB   |
 
 * Résumé des TD
 | TD | Sujet                    | Ref année 2015 | Res. |
@@ -20,7 +20,8 @@
 |  6 | Soutance orale           | nan            | J    |
 
 
-  
+
+
 * Résumé des cours
 | Cours | Sujet                        | Ref année 2015  |
 |-------+------------------------------+-----------------|
@@ -95,7 +96,7 @@
    id. TP3 (ROB)
 
 * SEM 42
-** Cours 5:
+** urs 5:
    Strings, Les pointeurs
    turing
    2015: cours 5 (à compléter) cours 1
@@ -154,7 +155,7 @@
 ** Cours 8
    Debug, arguments du main, Nombres, percpetron
    2015 : cours 7, cours 9
-
+   
 ** TP6 (ROB)
    Listes chainées
    (A compresser pour les ROB)
