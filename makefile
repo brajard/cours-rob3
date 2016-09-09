@@ -2,10 +2,10 @@
 #dependancy = 
 
 #cours = cours-1
-#dependancy = algorithmes.tex turing.tex
+#dependancy = algorithmes.tex
 
-#cours = cours-2
-#dependancy = langageC.tex commentaires.tex variables.tex operateurs.tex forif.tex conversions.tex
+cours = cours-2
+dependancy = langageC.tex commentaires.tex variables.tex operateurs.tex forif.tex conversions.tex
 
 #cours = cours-3
 #dependancy = compilation.tex io.tex tableaux.tex
@@ -25,8 +25,8 @@
 #cours = cours-8
 #dependancy = minimax.tex
 
-cours = cours-9
-dependancy = nombres.tex perceptron.tex
+#cours = cours-9
+#dependancy = nombres.tex perceptron.tex
 
 
 all: online slides print
