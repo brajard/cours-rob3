@@ -4,10 +4,11 @@
 #cours = cours-1
 #dependancy = algorithmes.tex
 
-cours = cours-2
-dependancy = langageC.tex commentaires.tex variables.tex operateurs.tex forif.tex conversions.tex
+#cours = cours-2
+#dependancy = langageC.tex commentaires.tex variables.tex operateurs.tex forif.tex conversions.tex
 
-#cours = cours-3
+cours = cours-3
+dependancy = tableaux.tex
 #dependancy = compilation.tex io.tex tableaux.tex
 
 #cours = cours-4
