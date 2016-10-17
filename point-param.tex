@@ -481,7 +481,7 @@ int fonction(int x)
   printf("\n3)a=%d,x=%d",a,x);
   return (x);
 }
-void main()
+int main()
 {
   int a=0, x=4;
   printf("\n1)a=%d,x=%d",a,x);
@@ -513,9 +513,9 @@ int fonction(int *px)
  printf("\n2)a=%d,*px=%d",a,*px);
  *px += a;
  printf("\n3)a=%d,*px=%d",a,*px);
- return (x);
+ return (*px);
 }
-void main()
+int main()
 {
  int a=0, x=4;
  printf("\n1)a=%d,x=%d",a,x);

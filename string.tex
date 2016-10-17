@@ -20,7 +20,7 @@
 de caractères ;
 \item Chaque case du tableau contient un caractère ;
 \item Le dernier élément est \red{toujours} \Verb|'\0'| ;
-\item Pour socker une chaîne de \Verb|n| éléments, il
+\item Pour stocker une chaîne de \Verb|n| éléments, il
 faut \Verb|n+1| emplacements (à cause du \Verb|'\0'|).
 \end{itemize}
 
@@ -206,7 +206,9 @@ printf("\n Bonjour %s !\n",nom);
 \begin{lstlisting}
 §\textbf{>>}§./exemple
 §\color{darkgray}{\texttt{Entrez votre nom : }}§ Dupont toto
-§\color{darkgray}{\texttt{Bonjour Dupont toto ! }}§
+§\color{darkgray}{\texttt{Bonjour Dupont toto }}§
+§\color{darkgray}{\texttt{ ! }}§
+
 \end{lstlisting}
 \vspace{-.3cm}
 \end{termblock}
@@ -240,7 +242,7 @@ pour un autre tableau).
 \begin{exampleblock}{Exemple :}
 
 Demander à l'utilisateur d'entrer \Verb|pluie| ou \Verb|soleil|,
-et afficher "Prenez un parapluie" si l'utilisateur à mis pluie.
+et afficher "Prenez un parapluie" si l'utilisateur a mis pluie.
 \end{exampleblock}
 \end{frame}
 
@@ -268,7 +270,7 @@ Exemples :
 Prototype de la fonction & Utilisation \\
 \hline
 \bvrb|int strcmp(char £textitµs1§[], char £textitµs2§[]);| &
-\red{Renvoie}  si les les chaînes \bvrb|£textitµs1§| et \bvrb|£textitµs2§|
+\red{Renvoie 0}  si les les chaînes \bvrb|£textitµs1§| et \bvrb|£textitµs2§|
 sont égales.\\
 \hline
 \bvrb|int strlen(char £textitµs§[]);| & 
