@@ -15,11 +15,12 @@
 #dependancy = fonctions.tex parametres.tex tabfonc.tex recurs.tex stdfonc.tex
 #dependancy = io.tex fonctions.tex parametres.tex tabfonc.tex recurs.tex stdfonc.tex
 
-cours = cours-5
-dependancy = string.tex point-add.tex point-tab.tex point-param.tex
+#cours = cours-5
+#dependancy = string.tex point-add.tex point-tab.tex point-param.tex
 
-#cours = cours-6
+cours = cours-6
 #dependancy = struct.tex struct-other.tex struct-list.tex debug.tex
+dependancy = struct.tex struct-other.tex struct-list.tex turing.tex
 
 #cours = cours-7
 #dependancy = mainparam.tex modulaire.tex makefile.tex fichiers.tex
