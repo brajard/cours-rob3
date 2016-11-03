@@ -59,7 +59,7 @@ Commande de compilation permettant de générer la cible.
 
 \begin{frame}[fragile]
 \frametitle{Exemple}
-\begin{codeblock}{Makefile}
+\begin{codeblock}{Makefile (fichier disponible sur Sakai)}
 \vspace{-.3cm}
 \lstset{escapeinside={§§}}
 \lstset{basicstyle=\scriptsize}
@@ -94,5 +94,94 @@ clean :
 \end{lstlisting}
 \vspace{-.3cm}
 \end{termblock}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Autre possibilités du makefile}
+\begin{itemize}
+\item Définition de variables
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{codeC}
+CC = gcc
+LDFLAGS = -lm
+
+EXEC = matrices
+OBJ = matrices.o operations.o matricesio.o
+
+$(EXEC) : $(OBJ)
+<tab>$(CC) -o $(EXEC) $(LDFLAGS)
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\item Variables pré-définie :
+\begin{itemize}
+\item \bvrb|$@| : la cible  
+\item \bvrb|$<| : la première dépendance
+\item \bvrb|$^| : toutes les dépendances
+\end{itemize}
+\item règles génériques
+\begin{codeblock}{}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\scriptsize}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{codeC}
+%.o: %.c
+<tab>$(CC) $(CCFLAGS) -o $@ -c $<
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple de makefile plus paramétrable}
+
+\begin{codeblock}{makefile}
+\vspace{-.3cm}
+\lstset{escapeinside={§§}}
+\lstset{basicstyle=\tiny}
+\lstset{moredelim=**[is][\color{red}]{@}{@}}
+\begin{codeC}
+# options de compilation
+CC = gcc
+CCFLAGS = -Wall
+LIBSDIR = 
+LDFLAGS = -lm
+
+# fichiers du projet
+SRC = matrices.c matricesio.c operations.c
+OBJ = $(SRC:.c=.o)
+EXEC = matrices
+
+# règle initiale
+all: $(EXEC)
+
+# dépendance des .h
+matrices.o: operations.h matricesio.h commun.h
+matricesio.o: matricesio.h commun.h
+operations.o: operations.h commun.h
+
+# règles de compilation
+%.o: %.c
+	$(CC) $(CCFLAGS) -o $@ -c $<
+	
+# règles d'édition de liens
+$(EXEC): $(OBJ)
+	$(CC) -o $@ $^ $(LIBSDIR) $(LDFLAGS)
+
+# règles supplémentaires
+clean:
+	rm -f  $(EXEC) *.o
+
+\end{codeC}
+\vspace{-.3cm}
+\end{codeblock}
 
 \end{frame}
