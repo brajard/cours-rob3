@@ -22,14 +22,15 @@
 #dependancy = struct.tex struct-other.tex struct-list.tex debug.tex
 #dependancy = struct.tex struct-other.tex struct-list.tex turing.tex
 
-cours = cours-7
+#cours = cours-7
 #dependancy = mainparam.tex modulaire.tex makefile.tex fichiers.tex
-dependancy = compilation.tex modulaire.tex makefile.tex fichiers.tex
+#dependancy = compilation.tex modulaire.tex makefile.tex fichiers.tex
 
-#cours = cours-8
+cours = cours-8
 #dependancy = minimax.tex
+dependancy = debug.tex nombres.tex perceptron.tex
 
-#cours = cours-9
+#Cours = cours-9
 #dependancy = nombres.tex perceptron.tex
 
 
