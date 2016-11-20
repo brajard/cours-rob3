@@ -1,0 +1,450 @@
+\ifdefined\ishandout
+\documentclass[handout]{beamer}
+\else
+\documentclass{beamer}
+\fi
+
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{framed}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{xcolor}
+\usepackage{color, colortbl}
+\usepackage{handoutWithNotes}
+
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.arrows, chains}
+\usetikzlibrary{arrows,calc}
+\usepackage{array}
+\usetheme{Boadilla}
+
+\ifdefined\ishandout
+\pgfpagesuselayout{3 on 1 with notes}[a4paper,border shrink=5mm]
+\usecolortheme{dove}
+\else
+\usecolortheme{dolphin}
+\fi
+
+
+\lstnewenvironment{codeC}
+{ \lstset{language=C,
+    otherkeywords={printf,scanf}}
+}
+{}
+
+\ifdefined\ishandout
+\definecolor{mygreen}{rgb}{0,0,0}
+\definecolor{mymauve}{rgb}{0,0,0}
+\definecolor{myblue}{rgb}{0,0,0}
+\else
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{myblue}{rgb}{0,0,1}
+
+\fi
+
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+
+
+\lstset{language=C,
+% breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+%  breaklines=true,                 % sets automatic line breaking
+%  captionpos=b,                
+commentstyle=\itshape\color{mymauve},
+keywordstyle=\bfseries\color{myblue},
+%numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+%  numbersep=8pt,                   % how far the line-numbers are from the code
+%  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+%  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+%  showtabs=false,                  % show tabs within strings adding particular underscores
+%  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mygreen},     % string literal style
+%  tabsize=2 
+}
+
+\newcommand{\red}{\textcolor{red}}
+%\newcommand \emph
+%Default size : 12.8 cm * 9.6 cm
+
+\newcommand{\tmark}[1]{\tikz[remember picture, baseline=-.5ex]{\coordinate(#1)}}
+
+\ifdefined\ishandout
+\newenvironment<>{codeblock}[1]{%begin
+  \setbeamercolor{block title}{fg=black,bg=lightgray!80}%
+  \begin{block}{#1}}
+  % \begin{codeC}}
+  %  {\end{codeC}
+{  
+\end{block}}
+
+\newenvironment<>{termblock}[1]{
+    \setbeamercolor{block title}{fg=black,bg=lightgray!90}%
+    \begin{block}{#1}
+}
+%     \begin{Verbatim}}
+{%\end{Verbatim}
+\end{block}
+}
+
+\definecolor{bluegreen}{RGB}{0,0,0}
+%\definecolor{bluegreen}{rgb}{0,0.6,0.8}
+\else
+
+\newenvironment<>{codeblock}[1]{%begin
+  \setbeamercolor{block title}{fg=darkgray,bg=yellow}%
+  \begin{block}{#1}}
+  % \begin{codeC}}
+  %  {\end{codeC}
+{  
+\end{block}}
+
+\newenvironment<>{termblock}[1]{
+    \setbeamercolor{block title}{fg=white,bg=lightgray}%
+    \begin{block}{#1}}
+%     \begin{Verbatim}}
+{%\end{Verbatim}
+\end{block}
+}
+
+\definecolor{bluegreen}{RGB}{0,149,182}
+%\definecolor{bluegreen}{rgb}{0,0.6,0.8}
+\fi
+
+%\newcommand{\output}[1]{
+\setbeamertemplate{navigation symbols}{}
+\newcommand{\bvrb}{\Verb[commandchars=£µ§,formatcom=\color{bluegreen}]}
+\newcommand{\footvrb}{\footnotesize\Verb}
+
+
+%%% Paramètres du cours (à régler)
+%Numéro du cours
+\newcommand{\nb}{5}
+
+\title[Turing]{La mission Turing}
+%\author[]{julien.brajard@upmc.fr}
+%\institute[Polytech' UPMC]{Polytech' UPMC}
+\date{02 Novembre 2015}
+\begin{document}
+\usebackgroundtemplate{%             declare it
+\tikz[overlay,remember picture] \node[opacity=1, at=(current page.center)] {
+   \includegraphics[height=0.8\paperheight]{./fig/image-laby.jpg}};
+}
+%%%%%%%%%%%%%%%%%%%%% SLIDES DE TITRE
+\begin{frame}
+\frametitle{Le projet Labyrinthe}
+\end{frame}
+\usebackgroundtemplate{ }    %% undeclare it
+
+\begin{frame}
+\frametitle{Le but du jeu}
+Vous êtes deux adversaires dans un labyrinthe. Un trésor (et un seul)
+est présent au milieu du labyrinthe\\
+\vspace{2em}
+\begin{alertblock}{}
+L'objectif est d'être le premier à récupérer le trésor
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Comment faire ?}
+\begin{figure}
+\includegraphics[width=.7\textwidth]{./fig/laby-init.png}
+\end{figure}
+Vous êtes le joueur bleu, et vous devez atteindre le trésor marqué par le drapeau vert.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Que connaissez-vous au début du jeu ?}
+\begin{columns}
+\column{.35\textwidth}
+\begin{itemize}
+\item L'intégralité du labyrinthe (cases accessibles ou non)
+\item La position des joueurs et du trésor
+\item Le joueur qui commence
+\end{itemize}
+\column{.65\textwidth}
+\begin{figure}
+\includegraphics[width=\textwidth]{./fig/laby-init.png}
+\end{figure}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Deux types de déplacements}
+\framesubtitle{1- Déplacement du joueur}
+\begin{columns}
+\column{.45\textwidth}
+\begin{block}{}
+A chaque tour vous pouvez vous déplacer d'une case vers une case libre vers 
+le haut, le bas, la gauche ou la droite.
+
+Vous pouvez aussi rester sur place.
+\end{block}
+\begin{alertblock}{}
+\begin{itemize}
+\item A chaque fois, vous gagnez 
+\alert{une unité d'énergie}
+\item Le labyrinthe est circulaire (et même toroïde !), un joueur sortant à gauche se retrouve tout à droite
+et un joueur sortant en haut se retrouve en bas.
+\end{itemize}
+\end{alertblock}
+\column{.55\textwidth}
+\vspace{-2em}
+\begin{figure}
+\includegraphics[width=\textwidth]{./fig/laby-m2.png}\\
+\includegraphics[width=\textwidth]{./fig/laby-m1.png}\\
+\end{figure}
+\vspace{-1em}
+Déplacement du joueur bleu vers la droite
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Deux types de déplacements}
+\framesubtitle{2- Rotation du labyrinthe}
+\begin{columns}
+\column{.45\textwidth}
+\begin{block}{}
+A chaque tour vous pouvez dépenser 5 unités d'energie pour décaler une ligne
+(ou une colonne) entière du labyrinthe d'une case vers la gauche ou vers la droite
+ (haut/bas pour la colonne).
+\end{block}
+\begin{alertblock}{}
+\begin{itemize}
+\item La rotation est circulaire : la case sortante d'un côté entre de l'autre
+\item Les joueurs ou le trésor se déplacent avec la rotation du labyrinthe.
+\end{itemize}
+\end{alertblock}
+\column{.55\textwidth}
+\vspace{-2em}
+\begin{figure}
+\includegraphics[width=\textwidth]{./fig/laby-r1.png}\\
+\includegraphics[width=\textwidth]{./fig/laby-r2.png}\\
+\end{figure}
+\vspace{-1em}
+Rotation de la colonne 3 vers le haut \end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conditions de victoires/défaites}
+\begin{exampleblock}{Vous gagnez si :}
+\begin{itemize}
+\item Vous atteignez le trésor en premier
+\item Votre adversaire perd avant.
+\end{itemize}
+\end{exampleblock}
+\begin{alertblock}{Vous perdez si : }
+\begin{itemize}
+\item Votre adversaire atteint le trésor avant vous
+\item Vous faites un coup illégal (ex : déplacement dans un mur)
+\item Vous tentez de faire une rotation, mais n'avez pas assez d'énergie
+\item Vous ne respectez pas le séquencement du programme
+\item Vous mettez trop de temps à jouer
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Qui joue ?}
+
+\begin{block}{}
+C'est le programme informatique que vous avez programmé qui jouera au jeu et
+une fois le programme lancé il n'y a pas d'intervention "humaine".
+\end{block}
+En pratique, deux programmes jouent l'un contre l'autre en se connectant chacun à 
+un serveur qui vérifiera la légalité des coups joués. La connection au serveur se fera 
+par l'appel de fonctions d'une bibliothèque qui vous sera fournie.
+\begin{alertblock}{}
+ Le processus de programmation deva se faire en plusieurs étapes successives:
+ \begin{enumerate}
+ \item Programme qui ne fait rien ("do nothing")
+ \item Programme où vous indiquez "à la main" le coup que vous voulez jouer.
+ \item Programme qui joue de façon aléatoire
+ \item Programme qui jour de façon intelligente
+ \item (si possible) Programme qui jour de façon très intelligente.
+ \end{enumerate}
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Et maintenant ?}
+\begin{block}{}
+Vous devez constituer des binômes pour proposer le meilleur programme qui sera présenté 
+devant votre groupe le mardi 17 Janvier (pour les ROB et les MAIN). Plus tard, un tournoi sera
+organisé entre tous les programmes pour déterminer \alert{LE} programme gagnant.
+\end{block}
+Evaluation :
+\begin{itemize}
+\item Evaluation continue sur la réalisation des étapes décrites précédemment. 
+\item Evaluation sur la soutenance orale du 17 janvier
+\item Participation et résultats (poids minime) de la participation au tournoi.
+\end{itemize}
+
+\end{frame}
+
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Plan du cours n°\nb}
+\tableofcontents[hideallsubsections]
+\end{frame}
+
+%%%%
+
+
+
+%%%%%% SECTION 12
+
+
+%%%%%%%%%%%%%%%%%%%%% SECTION 1
+\section{Les algorithmes}\label{section:1}
+\begin{frame}
+\begin{columns}
+        \column{4.8cm}
+            \tableofcontents[currentsection]
+        \column{7cm}
+        \centering{
+            \includegraphics[width=7cm]{fig/Algorithm-sheldon.png}
+            
+                 \textit{ I believe I've isolateblblblblblblsblbslbslbsl
+            sblbslblsblsblblsblbs
+            lbslblbslsb d the algorithm for making friends.}
+     
+            
+            \small{
+            \hfill Sheldon Cooper, 
+            
+            \hfill in \textit{The Big Band Theory}, Season 2, Episode 13
+            }
+}
+
+    \end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+\subsection{Introduction}
+    \begin{frame}
+    \frametitle{Pourquoi faire appel à des algorithmes ?}
+    Pour automatiser des tâches
+    
+    Exemples :
+    \begin{itemize}
+    \item Métier à tisser\\
+    \item Méthode de calcul à la main d'une division\\
+    \item Recette de cuisine\\
+    \item ...\\
+    \end{itemize}
+    \end{frame}
+ 
+ %%%%%%%%%%%%%%%%%
+ 
+    \begin{frame}
+    \frametitle{Qu'est-ce qu'un algorithme ?}
+    \begin{block}{Définition}
+    Un algorithme est un ensemble 
+    ordonné d'instructions simples
+permettant de résoudre un problème.
+    \end{block}
+    \end{frame}
+    
+ %%%%%%%%%%%%%%%%%%
+ \subsection{Construction d'un algorithme}
+%%%%%%%%%%%%%%%%%%%    
+\section{La machine de Turing}
+%%%%%%%%%%%%%%%%%%%%
+ 
+  
+\begin{frame}[fragile]
+\frametitle{Un peu d'histoire...}
+\begin{codeblock}{Test}
+\begin{codeC}
+for (int i = 0 ; i < n ; i ++) {
+    //a comment
+    printf("%d",i);
+    }
+\end{codeC}
+\end{codeblock}
+
+\begin{termblock}{test 2}
+\lstset{escapeinside={§§}}
+\begin{lstlisting}
+§\textbf{>>}§./a.out
+§\color{darkgray}{\texttt{  Hello World}}§
+\end{lstlisting}
+\end{termblock}
+
+ \begin{block}{Bloc standard}
+blablabla
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{essai}
+\begin{columns}
+\column{6cm}
+\begin{block}
+
+\begin{figure}
+\begin{tikzpicture} [
+    auto,
+    decision/.style = { diamond, draw=blue, thick, fill=blue!20,
+                        text width=5em, text badly centered,
+                        inner sep=1pt, rounded corners },
+    block/.style    = { rectangle, draw=blue, thick, 
+                        fill=blue!20, text width=10em, text centered,
+                        rounded corners, minimum height=2em },
+    line/.style     = { draw, thick, ->, shorten >=2pt },
+  ]
+   \matrix [column sep=-10mm, row sep=10mm] {
+                    & \node [text centered] (x) {$\mathbf{X}$};            & \\
+                    & \node (null1) {};                                    & \\
+                    & \node [block] (doa) {\textsf{DoAE}($\mathbf{X}$)};   & \\
+  	               \node(null3){}; & \node [decision] (uiddes)
+                        {\textsf{UID}($\hat{\mathbf{X}}$)};
+                                  & \node[text centered](tra){$\mathbf{i}$}; \\
+                  & \node [block] (track) {\textsf{DoAT}($\mathbf{x}$)}; & \\
+                    & \node [block] (pesos)
+                        {\textsf{BF}(DoA$_{\mathrm{T}}$,DoAs)};            & \\
+                    & \node [block] (filtrado)
+                        {\textsf{SF}($\mathbf{w}$,$\mathbf{x}$)};          & \\
+                    & \node [text centered] (xf) {$\hat{x}(t)$ };          & \\
+  };
+  % connect all nodes defined above
+ \begin{scope} [every path/.style=line]
+    \path (x)        --    (doa);
+    \path (doa)      --    node [near start] {DoAs} (uiddes);
+    \path (tra)      --    (uiddes);
+    \path (uiddes)   --++  (-3,0) node [near start] {no} |- (null1);
+    \path (uiddes)   --    node [near start] {DoA} (track);
+    \path (track)    --    node [near start] {DoA$_{\mathrm{T}}$} (pesos);
+    \path (pesos)    --    node [near start] {\textbf{w}} (filtrado);
+    \path (filtrado) --    (xf);
+  
+  \end{scope}
+\end{tikzpicture}
+\end{figure}
+\end{block}
+\column{3cm}
+\begin{block}{bulbul}
+\end{block}
+\end{columns}
+\end{frame}
+
+\end{document}
