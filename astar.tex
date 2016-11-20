@@ -25,11 +25,11 @@ sachant qu'il y a des obstacles.
 \end{block}
 \begin{columns}
 \column{0.55\textwidth}
-Ce qu'on connait :
+Ce qu'on connaît :
 \begin{itemize}
 \item Les noeuds accessibles (en blanc) et les noeuds inaccessibles (en noir)
-\item Les voisins de chaque noeud (dans notre ex : noeuds du haut, du bas, de gauche, de droite).
-\item Le coût pour aller d'un noeud à son voisin (ici : 1 pour tous les noeuds).
+\item Les voisins de chaque noeud (\textit{dans notre ex : noeuds du haut, du bas, de gauche, de droite}).
+\item Le coût pour aller d'un noeud à son voisin (\textit{dans notre exemple  : 1 pour tous les noeuds}).
 \end{itemize}
 
 \column{0.45\textwidth}
@@ -70,7 +70,7 @@ Il s'agit de l'extension d'un autre algorithme : l'algorithme de Dijkstra.
 Il est très utilisé en intelligence artificielle (déplacement de robot, jeux vidéos).
 
 \begin{alertblock}{}
-Il est nécessaire d'introduire des données supplémentaires au problème initial
+Il est nécessaire d'introduire des données supplémentaires au problème initial.
 \end{alertblock}
 
 \end{frame}
@@ -93,8 +93,8 @@ Plusieurs champs doivent être indiquées dans une case :
 \begin{codeC}
 struct case {
   int x,y; 
-  float cost ; 
-  float heuristique ;
+  int cost ; 
+  int heuristique ;
   int xp,yp ; //noeud précédent
   } ;
   
@@ -163,7 +163,7 @@ Dans l'algorithme A*, on sépare les cases en différentes catégories :
 \begin{itemize}
 \item Les cases non explorées : ces cases sont les cases pour lesquels on n'a pas encore calculé
 la valeur (cout, heuristique, etc.)
-\item Les cases à explorer : ces cases sont stockées dans une liste, l'\textcolor{green}{openList}. On a calculé leur valeurs mais on ne les a pas encore explorées.
+\item Les cases à explorer : ces cases sont stockées dans une liste, l'\textcolor{green}{openList}. On a calculé leurs valeurs mais on ne les a pas encore explorées.
 \item Les cases déjà explorées : ces cases sont stockées dans une liste, la \textcolor{red}{closedList}. On a calculé leurs valeurs et aussi les valeurs de leurs voisines.
 \end{itemize}
 

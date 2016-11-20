@@ -26,12 +26,12 @@
 #dependancy = mainparam.tex modulaire.tex makefile.tex fichiers.tex
 #dependancy = compilation.tex modulaire.tex makefile.tex fichiers.tex
 
-cours = cours-8
+#cours = cours-8
 #dependancy = minimax.tex
-dependancy = debug.tex nombres.tex perceptron.tex
+#dependancy = debug.tex nombres.tex perceptron.tex
 
-#Cours = cours-9
-#dependancy = nombres.tex perceptron.tex
+cours = cours-9
+dependancy = astar.tex minimax.tex
 
 
 all: online slides print
