@@ -1,0 +1,35 @@
+|     |       | Lundi | Mardi            | Mercredi     | Jeudi           | Vendredi     |
+|-----+-------+-------+------------------+--------------+-----------------+--------------|
+| S38 | 18/09 | CM1   |                  |              |                 | TD1 MAIN/ROB |
+| S39 | 25/09 | CM2   |                  |              |                 |              |
+| S40 | 02/10 | CM3   | TD2-MAIN TP1-ROB | TP1-MAIN(4h) |                 | TD2 ROB      |
+| S41 | 09/10 | CM4   | TD3-MAIN         | TP2-MAIN(4h) |                 | TD3 ROB      |
+| S42 | 16/10 | CM5   | TD4-MAIN TP2-ROB | TP3-MAIN(4h) |                 | TD4-MAIN     |
+| S43 | 23/10 | CM6   | TP3-ROB          | TP4-MAIN(4h) |                 | TD5-MAIN     |
+| S44 | 30/10 |       |                  |              |                 |              |
+| S45 | 06/11 | CM7   | TD5-MAIN TP4-ROB |              | TP5-MAIN(4h)    |              |
+| S46 | 13/11 | CM8   | TP5-ROB          |              |                 |              |
+| S47 | 20/11 | CM9   | TP6-ROB          |              | TP6-MAIN(2h)    |              |
+| S48 | 27/11 | CM10  | TP7-ROB          |              |                 |              |
+| S49 | 04/12 |       | TP8-ROB          | TP7-MAIN(2h) |                 |              |
+| S50 | 11/12 |       | TP9-ROB          |              |                 |              |
+| S51 | 18/12 |       | TP10-ROB         | TP8-MAIN(2h) |                 |              |
+| S02 | 08/01 |       | Soutenance       |              | Soutenance (2h) |              |
+
+
+** Rappel 2016
+CM1 : intro, algorithmes
+CM2 : langageC, commentaires, variables, operateurs, forif, conversions
+CM3 : tableaux
+CM4 : io, fonctions, parametres, tabfonc, recurs, stdfonc
+CM5 : string, point-add, point-tab, point-param
+CM6 : struct, struct-other, struct-list, turing
+CM7 : mainparam, compilation, modulaire, makefile, fichiers
+CM8 : debug, nombres, perceptrons
+CM9 : astar, minimmax
+CM10 : exam
+
+** Script
+propriété cours : date, titre, liste fichiers, outputname
+
+
