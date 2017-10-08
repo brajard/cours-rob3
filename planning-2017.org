@@ -4,17 +4,17 @@
 | S39 | 25/09 | CM2   |                  |              |                 |              |
 | S40 | 02/10 | CM3   | TD2-MAIN TP1-ROB | TP1-MAIN(4h) |                 | TD2 ROB      |
 | S41 | 09/10 | CM4   | TD3-MAIN         | TP2-MAIN(4h) |                 | TD3 ROB      |
-| S42 | 16/10 | CM5   | TD4-MAIN TP2-ROB | TP3-MAIN(4h) |                 | TD4-MAIN     |
-| S43 | 23/10 | CM6   | TP3-ROB          | TP4-MAIN(4h) |                 | TD5-MAIN     |
+| S42 | 16/10 | CM5   | TD4-MAIN TP2-ROB | TP3-MAIN(4h) |                 | TD4-ROB      |
+| S43 | 23/10 | CM6   | TP3-ROB          | TP4-MAIN(4h) |                 | TD5-ROB      |
 | S44 | 30/10 |       |                  |              |                 |              |
 | S45 | 06/11 | CM7   | TD5-MAIN TP4-ROB |              | TP5-MAIN(4h)    |              |
-| S46 | 13/11 | CM8   | TP5-ROB          |              |                 |              |
+| S46 | 13/11 | CM8   | TP5-ROB          |              |                 | TD6-MAIN     |
 | S47 | 20/11 | CM9   | TP6-ROB          |              | TP6-MAIN(2h)    |              |
 | S48 | 27/11 | CM10  | TP7-ROB          |              |                 |              |
 | S49 | 04/12 |       | TP8-ROB          | TP7-MAIN(2h) |                 |              |
 | S50 | 11/12 |       | TP9-ROB          |              |                 |              |
 | S51 | 18/12 |       | TP10-ROB         | TP8-MAIN(2h) |                 |              |
-| S02 | 08/01 |       | Soutenance       |              | Soutenance (2h) |              |
+| S02 | 08/01 |       | Soutenance       |              | Soutenance (4h) |              |
 
 
 ** Rappel 2016
@@ -23,7 +23,7 @@ CM2 : langageC, commentaires, variables, operateurs, forif, conversions
 CM3 : tableaux
 CM4 : io, fonctions, parametres, tabfonc, recurs, stdfonc
 CM5 : string, point-add, point-tab, point-param
-CM6 : struct, struct-other, struct-list, turing
+CM6 : struct, struct-other, struct-list
 CM7 : mainparam, compilation, modulaire, makefile, fichiers
 CM8 : debug, nombres, perceptrons
 CM9 : astar, minimmax
@@ -33,3 +33,122 @@ CM10 : exam
 propriété cours : date, titre, liste fichiers, outputname
 
 
+
+** Liste thèmes TP
+- UNIX -> sauter
+- for/if
+- tableaux statiques
+- tableaux/fonction
+- fonctions/string
+- pointeurs/tab dynamiques
+- structures
+
+** UNIX (1H)
+- connexion
+- internet (navigateur, moodle, mail, mathworks pour les ROB)
+- commandes de base, ls, cp, mv, rm, mkdir, cat
+- editeur de texte
+- ssh
+
+** Etudiants :
+- 22 étudiants
+
+** Ebauche de planning
+|     |       | Lundi                         | Mardi                   | Mercredi     | Jeudi                 | Vendredi       |
+|-----+-------+-------------------------------+-------------------------+--------------+-----------------------+----------------|
+| S38 | 18/09 | CM1 algo                      |                         |              |                       | TD1 MAIN/ROB   |
+| S39 | 25/09 | CM2 (ex-CM2)                  |                         |              |                       |                |
+| S40 | 02/10 | CM3 (CC + ex-CM3)             | TD2-MAIN TP1-ROB        | TP1-MAIN(4h) |                       | TD2 ROB        |
+| S41 | 09/10 | CM4 (ex-CM4 + Turing Project) | TD3-MAIN (+ TUring)     | TP2-MAIN(4h) |                       | TD3 ROB        |
+| S42 | 16/10 | CM5 (ex-CM5)                  | TD4-MAIN TP2-ROB        | TP3-MAIN(4h) |                       | TD4-ROB        |
+| S43 | 23/10 | CM6 (ex-CM6)                  | TP3-ROB  TD5-MAIN       | TP4-MAIN(4h) |                       | TD5-ROB        |
+| S44 | 30/10 |                               |                         |              |                       |                |
+| S45 | 06/11 | CM7 (ex-CM7)                  | TD6-MAIN (prez) TP4-ROB |              | TP5-MAIN(4h)          |                |
+| S46 | 13/11 | CM8                           | TP5-ROB                 |              |                       |                |
+| S47 | 20/11 | CM9                           | TP6-ROB                 |              | TP6-MAIN(2h)   projet | TD6-ROB (prez) |
+| S48 | 27/11 | CM10                          | TP7-ROB     projet      |              |                       |                |
+| S49 | 04/12 |                               | TP8-ROB                 | TP7-MAIN(2h) |                       |                |
+| S50 | 11/12 |                               | TP9-ROB                 |              |                       |                |
+| S51 | 18/12 |                               | TP10-ROB                | TP8-MAIN(2h) |                       |                |
+| S02 | 08/01 |                               | Soutenance              |              | Soutenance (4h)       |                |
+
+** Problèmes : 
+Présentations libres, plutôt à la fin, mais les TD sont au début.
+Solution : décaler les TD ?
+ROB : Faire sur une séance
+
+projet trop tôt pour les ROB ?
+
+TP par thèmes
+Eval de TP -> pas d'éval 
+corriger un exo ensemble un moment dans la séance
+
+** TODO [3/5]
+- [ ] faire les énoncés de TP par thème avec un planning
+- [X] faire le planning des TD
+- [X] ajouter un horaire de TD (manque 2H) (mardi matin, jeudi, vendredi)
+- [X] retrouver sujets groupes
+- [ ] serveur accessible depuis l'extérieur
+** Planning général
+*** S38:
+- [X] CM1 : intro,algo
+- [X] TD1 MAIN/ROB : algos de base exTD1 (-Eratosthène ?)
+- [X] (TP MATLAB) : intro UNIX 
+*** S39:
+- [X] CM2: langageC, commentaires, variables, operateurs, forif, conversions
+*** S40:
+- [X] CM3: tableaux
+- [X] TD2 MAIN/ROB : tableaux exTD2 (+ Eratosthène ?)
+- [X] TP Unix (pour MAIN uniquement, id. séance matlab pour ROB)
+- [X] TP Thème 1 (3h environ): boucles/structures de contrôle
+*** S41:
+- [X] CM4: fonctions, parametres, tabfonc, recurs, stdfonc,
+  turing + mission Turing
+- [ ] TD3: Fonctions, Turing
+- [ ] TP Thème 2 (3h): Tableaux statiques
+- [ ] TP Thème 3 (3h): Fonctions (ex TP4 - string à la fin)
+*** S42
+- [ ] CM5: io, string, point-add, point-tab, point-param
+- [ ] TD4: pointeurs
+- [ ]TP Thème 4 (3h): Tab Dyn (ex TP5)
+*** S43
+- [ ] CM6: struct, struct-other, struct-list
+- [ ] TD5: structures de base + présentation projets
+- [ ]  TP Thème 5 (3h): Tri (ex TP3)
+*** S44
+    Vacances !!!
+*** S45
+- [ ] CM7: mainparam, compilation, modulaire, makefile, fichiers
+- [ ] TD6 MAIN : Présentation de groupe
+- [ ] TP Thème 6 (3h) : Listes chaînées
+*** S46
+- [ ] CM8: debug, nombres, perceptron
+*** S47
+- [ ] CM9:  astar, minimmax, projet
+ - [ ] TD6 ROB: Présentation de groupe
+- [ ] MAIN : début projet
+*** S48
+- [ ] CM10: Exam, rattrages (point à réexpliquer)
+- [ ] ROB : début projet
+  
+** Planning TP
+|     | cours      | MAIN                               | ROB           | TD         |
+|-----+------------+------------------------------------+---------------+------------|
+| S38 | algo       |                                    | TP0 UNIX      | algos      |
+| S39 | intro C    |                                    |               |            |
+| S40 | tab stat   | TP0 UNIX - TP1 forif               | TP1 forif     | tableaux   |
+| S41 | fonctions  | TP2 tab stat - TP3 fonctions (1/3) |               | fonctions  |
+| S42 | pointeurs  | TP3 (2/3) - TP4 Tab dyn (2/3)      | TP2 tab stat  | pointeurs  |
+| S43 | structures | TP4 (1/3) - TP5 tri                | TP3 fonctions | structures |
+| S44 | ---        | ---------                          | ------------- | ---------  |
+| S45 | makefile   | TP6 listes chainées                | TP4 tab dyn   | prez MAIN  |
+| S46 | ouverture  |                                    | TP5 tri       |            |
+| S47 | ouverture  | début projet  MAIN                 | TP6 listes    | prez ROB   |
+| S48 | exam       | début projet ROB                   |               |            |
+
+
+* Etudiants :
+sans numero :
+Thumerel Pierre-Yves : pas encore inscrit
+Moënne-Locoz Etienne : identifiant UPMC, mardi
+ 

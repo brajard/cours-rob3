@@ -1,4 +1,5 @@
-#cours = intro
+ifeq ($(ARG),)
+	cours = intro
 #dependancy = 
 
 #cours = cours-1
@@ -30,9 +31,9 @@
 #dependancy = minimax.tex
 #dependancy = debug.tex nombres.tex perceptron.tex
 
-cours = cours-9
-dependancy = astar.tex minimax.tex
-
+#cours = cours-9
+#dependancy = astar.tex minimax.tex
+endif
 
 all: online slides print
 
