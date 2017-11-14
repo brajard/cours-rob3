@@ -147,19 +147,19 @@ Syntaxe : \bvrb|£textitµNomdevariable.membre§|\\
 \lstset{basicstyle=\scriptsize}
 \begin{codeC}
 struct point {
- int x;
- int y;
+ float x;
+ float y;
  char couleur[10];
 };
 int main() {
  struct point origine;
  origine.x=0;
  origine.y=0;
- origine.couleur="noir";
-printf("abscisse : %f\n",pt.x);
-printf("ordonnée : %f\n",pt.y);
-printf ("couleur : %s\n",pt.couleur);
-return(0);
+ strcpy(origine.couleur,"noir");
+ printf("abscisse : %f\n",pt.x);
+ printf("ordonnée : %f\n",pt.y);
+ printf ("couleur : %s\n",pt.couleur);
+ return(0);
 }
 \end{codeC}
 \vspace{-.3cm}
@@ -182,8 +182,8 @@ return(0);
 \begin{codeC}
 #include <stdio.h>
 struct point {
- int x;
- int y;
+ float x;
+ float y;
  char couleur[10];
 };
 int main() {

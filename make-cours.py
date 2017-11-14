@@ -32,6 +32,38 @@ cours[4] = {'date':'09 Octobre 2017',
             'flist':['fonctions', 'parametres', 'tabfonc', 'recurs', 'stdfonc','turing'],
             'output':'cours-4'}
 
+
+cours[5] = {'date':'16 Octobre 2017',
+            'titrelong':'Les pointeurs',
+            'titrecourt':'cours n°5',
+            'flist':['io', 'string', 'point-add', 'point-tab', 'point-param'],
+            'output':'cours-5'}
+
+cours[6] = {'date':'23 Octobre 2017',
+            'titrelong':'Les structures',
+            'titrecourt':'cours n°6',
+            'flist':['struct', 'struct-other', 'struct-list'],
+            'output':'cours-6'}
+
+cours[7] = {'date':'6 Novembre 2017',
+            'titrelong':'Compilation',
+            'titrecourt':'cours n°7',
+            'flist':['mainparam', 'compilation', 'modulaire', 'makefile', 'fichiers'],
+            'output':'cours-7'}
+
+cours[8] = {'date':'13 Novembre 2017',
+            'titrelong':'Débuggage/sujets avancés-1',
+            'titrecourt':'cours n°8',
+            'flist':['debug', 'nombres', 'perceptron'],
+            'output':'cours-8'}
+
+cours[9] = {'date':'20 Novembre 2017',
+            'titrelong':'Sujets avancés-2',
+            'titrecourt':'cours n°8',
+            'flist':['astar', 'minimax'],
+            'output':'cours-9'}
+
+
 #CONSTANTES
 WORKDIR = '.'
 HEADER = 'header.tex'
@@ -49,7 +81,7 @@ TOC="""
 \\end{frame}
 """
 
-ic = 4
+ic = 9
 
 c = cours[ic]
 

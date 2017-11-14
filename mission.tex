@@ -136,14 +136,15 @@ keywordstyle=\bfseries\color{myblue},
 \date{09 Octobre 2017}
 \begin{document}
 \usebackgroundtemplate{%             declare it
-\tikz[overlay,remember picture] \node[opacity=1, at=(current page.center)] {
-   \includegraphics[height=0.8\paperheight]{./fig/kingsman.jpg}};
+\tikz[overlay,remember picture] \node[opacity=.5, at=(current page.center)] {
+   \includegraphics[trim={0 6.5cm 0 2cm},clip,height=1\paperheight]{./fig/kingsman.jpg}};
 }
 %%%%%%%%%%%%%%%%%%%%% SLIDES DE TITRE
 \begin{frame}
 \frametitle{La mission Turing}
 \end{frame}
 \usebackgroundtemplate{ }    %% undeclare it
+%\includegraphics[height=0.8\paperheight]{./fig/kingsman.jpg}
 
 \begin{frame}
 \frametitle{Votre mission}
@@ -172,9 +173,10 @@ Votre mission est de la réparer.
 
 \begin{enumerate}
 \item Connectez-vous à votre QG :\\
-\url{http://skyros.locean-ipsl.upmc.fr/~jbrlod/ROB/connection.php}
-\item Récupérez votre mot de passe à l'aide de votre numéro d'agent (numéro d'étudiant).
-\item Entrez votre numéro d'agent (numéro d'étudiant) et votre mot de passe.
+\url{http://jbrlod.locean-ipsl.upmc.fr/ROB/connection.php}
+%\item Récupérez votre mot de passe à l'aide de votre numéro d'agent (numéro d'étudiant).
+\item Entrez votre numéro d'agent (numéro d'étudiant) et votre mot de
+  passe (= numéro d'étudiant).
 \item Le site vous affiche la machine que vous devez réparer (chaque agent a une machine
 différente mais de complexité équivalente).
 \item Le compte à rebours est lancé : vous avez \red{1 heure} pour réparer la machine
@@ -193,7 +195,7 @@ assurez-vous que vous avez une heure libre devant vous avec une connexion intern
 Vous pouvez également aller au camp d'entrainement (accessible sur le site)
 autant de fois que vous voulez.
 \end{alertblock}
-Vous avez jusqu'au 07 Novembre (inclus) pour remplir votre mission.
+Vous avez jusqu'au 22 Octobre (inclus) pour remplir votre mission.
 \end{frame}
 
 \begin{frame}
@@ -205,102 +207,6 @@ Vous avez jusqu'au 07 Novembre (inclus) pour remplir votre mission.
 \item Machine réparée en moins de 15 min : +1 pt
 \end{itemize}
 \end{frame}
-
-\begin{frame}
-\frametitle{Vérifiez vos numéros et emails !}
-\framesubtitle{de A à I}
-\begin{figure}
-\centering
-\footnotesize
-\begin{tabular}{|c|c|c|c|}
-\hline
- Aussage      & Antoine    & 3526423 & toine011094@hotmail.fr                      \\
-\hline
- Barcikowsky  & Louis      & 3301156 & louis.barcikowsky@etu.upmc.fr               \\
- \hline
-Bec          & Aurelien   & 3300541 & aurelien.bec@etu.upmc.fr                    \\
-\hline
- Champalou    & Fabien     & 3300146 & fabien.champalou@etu.upmc.fr                \\
-\hline
- Chandy       & Antoine    & 3523283 & antoinechandy94@gmail.com                   \\
-\hline
- Chelvaratnam & Colinsiya  & 3202604 & colinsiya.chelvaratnam@etu.upmc.fr          \\
-\hline
- Conraux      & Romain     & 3305907 & romainconraux@hotmail.fr                    \\
-\hline
- Deyris       & Antoine    & 3300180 & antoine.deyris@etu.upmc.fr                  \\
-\hline
- Dubreuil     & Martin     & 3523231 & martin.dubreuil@etudiant.univ-bpclermont.fr \\
-\hline
- Ekamby       & J          & 3300957 & jeremy.ekamby@etu.upmc.fr                   \\
-\hline
- Ghorbel      & Ayman      & 3527713 & ayman.ghorbel@gmail.com                     \\
-\hline
- Gu           & Stephane   & 3525751 & stephane.gu@hotmail.fr                      \\
-\hline
- Guyot        & Louis      & 3523267 & guyot.1995@laposte.net                      \\
-\hline
- Haulot-Logre & Antonin    & 3523271 & antonin.hl93@laposte.net                    \\
-\hline
- Hoffmann     & Nicolas    & 3300402 & nicolas.hoffmann@etu.upmc.fr                \\
-\hline
- Huber        & Johann     & 3300364 & johann.huber@etu.upmc.fr                    \\
-\hline
- Huet         & Quentin    & 3301226 & quentin.huet@etu.upmc.fr                    \\
-\hline
- Isnard       & Nicolas    & 3523176 & nicolas.isnard@etud.univ-montp2.fr          \\
-
-\hline
-\end{tabular}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-\frametitle{Vérifiez vos numéros et emails !}
-\framesubtitle{de J à T}
-\begin{figure}
-\centering
-\footnotesize
-\begin{tabular}{|c|c|c|c|}
-\hline
- Jaloux       & Valentine  & 3301259 & valentine.jaloux@etu.upmc.fr                \\
-\hline
- Kebci        & Takfarinas & 3301287 & takfarinas.kebci@etu.upmc.fr                \\
-\hline
- Koeberle     & Yann       & 3300932 & yann.koeberle@etu.upmc.fr                   \\
-\hline
- Lagarde      & Marion     & 3523308 & mamalagarde@gmail.com                       \\
-\hline
- Lechapt      & Eliott     & 3300160 & eliott.lechapt@etu.upmc.fr                  \\
-\hline
- Makkaoui     & Yasmine    & 3201817 & y.makkaoui@yahoo.fr                         \\
-\hline
- Manceron     & Claire     & 3523186 & claire.manceron@u-psud.fr                   \\
-\hline
- Martin       & Julien     & 3301178 & julien.martin4@etu.upmc.fr                  \\
-\hline
- Morel        & Paul       & 3300294 & paul.morel@etu.upmc.fr                      \\
-\hline
- Nebout       & Yann       & 3201535 & yann.nebout@etu.upmc.fr                     \\
-\hline
- Ocheretnyuk  & Dmitry     & 3301197 & dmitry.ocheretnyuk@etu.upmc.fr              \\
-\hline
- Octon        & Philippe   & 3300147 & octon\_philippe@hotmail.fr                   \\
-\hline
- Rousset      & Pauline    & 3523184 & pauline.rousset@etu.upmc.fr                 \\
-\hline
- Russo        & Mathieu    & 3525919 & mathieu.russo9@gmail.com                    \\
-\hline
- Tan          & Qianqian   & 3503195 & 422898406@qq.com                            \\
-\hline
- Thelotte     & Nicolas    & 3202041 & nicolas.thelotte@etu.upmc.fr                \\
-\hline
- Thepot       & Julien     & 3525264 & julien.thepot@u-psud.fr                     \\
-\hline
-\end{tabular}
-\end{figure}
-\end{frame}
-
 
 \end{document}
 %%%%%%%%%%%%%%%%%%%%%

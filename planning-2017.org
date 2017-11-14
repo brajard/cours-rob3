@@ -101,33 +101,33 @@ corriger un exo ensemble un moment dans la séance
 - [X] TD2 MAIN/ROB : tableaux exTD2 (+ Eratosthène ?)
 - [X] TP Unix (pour MAIN uniquement, id. séance matlab pour ROB)
 - [X] TP Thème 1 (3h environ): boucles/structures de contrôle
-*** S41:
+*** S41:[4/4]
 - [X] CM4: fonctions, parametres, tabfonc, recurs, stdfonc,
   turing + mission Turing
-- [ ] TD3: Fonctions, Turing
-- [ ] TP Thème 2 (3h): Tableaux statiques
-- [ ] TP Thème 3 (3h): Fonctions (ex TP4 - string à la fin)
-*** S42
-- [ ] CM5: io, string, point-add, point-tab, point-param
-- [ ] TD4: pointeurs
-- [ ]TP Thème 4 (3h): Tab Dyn (ex TP5)
-*** S43
-- [ ] CM6: struct, struct-other, struct-list
-- [ ] TD5: structures de base + présentation projets
-- [ ]  TP Thème 5 (3h): Tri (ex TP3)
+- [X] TD3: Fonctions, Turing
+- [X] TP Thème 2 (3h): Tableaux statiques
+- [X] TP Thème 3 (3h): Fonctions (ex TP4 - string à la fin)
+*** S42 [3/3]
+- [X] CM5: io, string, point-add, point-tab, point-param
+- [X] TD4: pointeurs
+- [X] TP Thème 4 (3h): Tab Dyn (ex TP5)
+*** S43[3/3]
+- [X] CM6: struct, struct-other, struct-list
+- [X] TD5: structures de base + présentation projets
+- [X]  TP Thème 5 (3h): Tri (ex TP3)
 *** S44
     Vacances !!!
-*** S45
-- [ ] CM7: mainparam, compilation, modulaire, makefile, fichiers
-- [ ] TD6 MAIN : Présentation de groupe
-- [ ] TP Thème 6 (3h) : Listes chaînées
-*** S46
-- [ ] CM8: debug, nombres, perceptron
-*** S47
+*** S45[3/3]
+- [X] CM7: mainparam, compilation, modulaire, makefile, fichiers
+- [X] TD6 MAIN : Présentation de groupe
+- [X] TP Thème 6 (3h) : Listes chaînées
+*** S46[1/1]
+- [X] CM8: debug, nombres, perceptron
+*** S47[/]
 - [ ] CM9:  astar, minimmax, projet
  - [ ] TD6 ROB: Présentation de groupe
 - [ ] MAIN : début projet
-*** S48
+*** S48[/]
 - [ ] CM10: Exam, rattrages (point à réexpliquer)
 - [ ] ROB : début projet
   
@@ -152,3 +152,7 @@ sans numero :
 Thumerel Pierre-Yves : pas encore inscrit
 Moënne-Locoz Etienne : identifiant UPMC, mardi
  
+
+* feebacks
+- cours 4 et 5 trop longs
+- cours 6 :bonne durée
