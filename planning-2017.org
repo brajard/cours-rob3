@@ -123,9 +123,9 @@ corriger un exo ensemble un moment dans la séance
 - [X] TP Thème 6 (3h) : Listes chaînées
 *** S46[1/1]
 - [X] CM8: debug, nombres, perceptron
-*** S47[/]
+*** S47[1/3]
 - [ ] CM9:  astar, minimmax, projet
- - [ ] TD6 ROB: Présentation de groupe
+- [X] TD6 ROB: Présentation de groupe
 - [ ] MAIN : début projet
 *** S48[/]
 - [ ] CM10: Exam, rattrages (point à réexpliquer)
